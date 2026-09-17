@@ -122,6 +122,27 @@
       tags: "console act command gun street crowd",
       w: "<p>Slash opens the console. <kbd>/act</kbd> is you doing a thing in the world: the street notices, the floor notices, the water notices. A loud thing on Salem Street empties the shop. Kindness is cheaper and still shows.</p><p><b>What to do about it:</b> try a quiet act before a loud one. The Guide is not a list of acts. The street is the list.</p>",
     },
+    {
+      id: "k_guild",
+      sec: "The shop floor",
+      t: "The hall",
+      tags: "guild dues standing mandate boycott till hall",
+      w: "<p>There is a hall for people who sell living water. Dues, standing, a mandate pair. Fill it and they speak well. Miss the week and they put the word out. A boycott is an empty aisle.</p><p><b>What to do about it:</b> keep the pair they asked for. Pay the week. Life will say if they have turned.</p>",
+    },
+    {
+      id: "k_fever",
+      sec: "The shop floor",
+      t: "Fever",
+      tags: "fever ich sick street heat treat clog beast",
+      w: "<p>A sickness that walks the road. Heat, sometimes a name. People look from the door. The glass can catch it. A clogged filter feeds it. A beast off the harbor feeds it.</p><p><b>What to do about it:</b> treat the water. Clean the filter. The gold line will say the name if it has one.</p>",
+    },
+    {
+      id: "k_craft",
+      sec: "The shop floor",
+      t: "The hands",
+      tags: "craft quality bag masterwork plaque combo till",
+      w: "<p>A bag has quality. A tank has a plaque in a tongue spoken inland. String sales and the hands remember. A masterwork is someone who pays and tells the hall.</p><p><b>What to do about it:</b> do not break the run. The gold line says when a bag was good.</p>",
+    },
   ];
 
   function esc(s) {

@@ -348,6 +348,15 @@
     try {
       if (window.rumor && typeof rumor.heat === "function") p -= Math.min(0.05, rumor.heat() * 0.06);
     } catch (e10) {}
+    try {
+      if (window.guild && typeof guild.edge === "function") p += guild.edge();
+    } catch (e11) {}
+    try {
+      if (window.fever && typeof fever.edge === "function") p -= fever.edge();
+    } catch (e12) {}
+    try {
+      if (window.craft && typeof craft.edge === "function") p += craft.edge();
+    } catch (e13) {}
     if (clogged()) p -= 0.16;
     if (aisleWet() && !(st && st.coming)) return 0;
     if (st && st.coming) p = Math.max(p, 0.85);
@@ -453,6 +462,18 @@
       if (window.rumor && rumor.whisper && seed % 8 === 0) {
         var rl = rumor.whisper();
         if (rl) return rl;
+      }
+      if (window.guild && guild.line && seed % 5 === 0) {
+        var gl = guild.line();
+        if (gl) return gl;
+      }
+      if (window.fever && fever.line && seed % 7 === 0) {
+        var vl = fever.line();
+        if (vl) return vl;
+      }
+      if (window.craft && craft.line && seed % 10 === 0) {
+        var cl = craft.line();
+        if (cl) return cl;
       }
       if (window.tongue && tongue.say) return tongue.say(seed, line);
     } catch (e) {}

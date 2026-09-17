@@ -321,6 +321,9 @@
       rememberFish("new water that did not sting");
       say("The vial went in. Give it a day.");
       write("note", "Bottled bacteria went into a tank that had just been changed.");
+      try {
+        if (window.fever && fever.treat) fever.treat();
+      } catch (eFv) {}
     } else if (id === "brine") {
       treat(0.22, 0.06, "the frozen shrimp");
       say("Cubes thawed. They came up for them.");

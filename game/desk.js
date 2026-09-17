@@ -549,6 +549,12 @@
         if (window.faith && faith.onSale) faith.onSale(coming.want);
       } catch (eF2) {}
       try {
+        if (window.guild && guild.noteSale) guild.noteSale(coming.want);
+      } catch (eG) {}
+      try {
+        if (window.craft && craft.noteBag) craft.noteBag(true);
+      } catch (eK) {}
+      try {
         if (typeof k === "function") k(coming.name + " came for the " + coming.want + ".", "gold");
       } catch (e2) {}
       try {
@@ -588,6 +594,12 @@
                   : " walked because we had no pair of " + coming.want)
           );
       } catch (e4) {}
+      try {
+        if (window.guild && guild.noteMiss) guild.noteMiss(coming.want);
+      } catch (eGm) {}
+      try {
+        if (window.craft && craft.noteBag) craft.noteBag(false);
+      } catch (eKm) {}
       try {
         if (typeof k === "function")
           k(

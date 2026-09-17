@@ -155,6 +155,9 @@ Boston is one port. Four more engines keep the rest of the continent:
 - **The beasts.** Unique bodies, a hunger, a year they wake. When one circles the harbor, the till feels it. The name goes in the book.
 - **The old names.** Seven gods, a day in the twenty-eight, a fish that is holy that week. Sell it and the street is easier.
 - **Rumour.** A fact that walks. Heat, a source, a line on the floor before it is a number.
+- **The hall.** Dues, standing, a mandate. Miss the week and they boycott. Fill the pair they asked for and the aisle fills.
+- **Fever.** A sickness that walks the road. Heat, sometimes a name. People look from the door. The glass can catch it.
+- **The hands.** Bags have quality. A plaque in a tongue. String the sales and someone will say the word masterwork.
 
 <p align="center">
   <img src="docs/because.png" alt="War inland cuts a road, the hold is late, word drops, the bag misses. A failed run makes a kind scarce; they still ask." width="900">
