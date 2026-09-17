@@ -22,6 +22,37 @@
   for (var ti = 0; ti < TANK_KEYS.length; ti++) {
     tankPlates[TANK_KEYS[ti]] = loadImg("art/tanks/" + TANK_KEYS[ti] + ".jpg?v=2");
   }
+  var tankLooks = {
+    ocean: loadImg("art/looks/ocean.jpg?v=1"),
+    black: loadImg("art/looks/black.jpg?v=1"),
+    sunset: loadImg("art/looks/sunset.jpg?v=1"),
+    planted: loadImg("art/looks/planted.jpg?v=1"),
+    lagoon: loadImg("art/looks/lagoon.jpg?v=1")
+  };
+  var gravelImg = loadImg("art/gravel.jpg?v=1");
+  window.paintTankLook = function (ctx, w, h, id, light) {
+    if (!ctx || w < 8 || h < 8) return false;
+    var img = tankLooks[id] || tankLooks.planted;
+    if (!img || !img.complete || !img.naturalWidth) return false;
+    var iw = img.naturalWidth, ih = img.naturalHeight;
+    var scale = Math.max(w / iw, h / ih);
+    var dw = iw * scale, dh = ih * scale;
+    ctx.drawImage(img, (w - dw) / 2, (h - dh) / 2, dw, dh);
+    light = light == null ? 0.7 : light;
+    if (light < 0.85) {
+      ctx.fillStyle = "rgba(6,12,22," + ((0.85 - light) * 0.72).toFixed(3) + ")";
+      ctx.fillRect(0, 0, w, h);
+    }
+    return true;
+  };
+  window.paintTankGravel = function (ctx, w, h) {
+    if (!ctx || !gravelImg.complete || !gravelImg.naturalWidth || w < 8 || h < 8) return false;
+    ctx.save();
+    ctx.globalAlpha = 0.82;
+    ctx.drawImage(gravelImg, 0, 0, w, h);
+    ctx.restore();
+    return true;
+  };
   // Quads match compose_shop_tanks.py (tl,tr,br,bl), normalized to the shop photo.
   // Door keepout x>=0.82. Window keepout x<=0.155. Sign covers B-t0.
   var SHOP_WALL = [
