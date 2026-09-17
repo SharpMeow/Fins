@@ -18,7 +18,7 @@ You open in Year 1000. The tanks are already running. People come in off the str
          a shop. a street. a record.
 ```
 
-This is not a tycoon spreadsheet wearing fish. It is not Dwarf Fortress with a cash register glued on. It is a room: glass, gravel, a counter, a neighbor who remembers the last bag, and a thousand years of people who already lived here before you hung the sign.
+Most idle games are a number that goes up while you are in another tab. Fin's is a room you can fail in. The water has a temperature. The baker on the next block remembers the last bag. A named fish will not sell if it is holding too still. A thousand years of people already lived on this street before you hung the sign, and they did not stop when the clock hit present day.
 
 Private source. [Business Source License 1.1](LICENSE).
 
@@ -26,37 +26,70 @@ Private source. [Business Source License 1.1](LICENSE).
 
 ## Why this exists
 
-Most shop games sell you a loop. Fin's sells you a morning.
+The usual shop-and-wait games sell you a loop. Fin's sells you a morning.
 
-The usual options fall down in different places:
+They fall down in different places:
 
-- **An idle aquarium.** Pretty water. Numbers go up. Nobody on the street has a name, and the floor cannot flood.
-- **A tycoon.** Staff bars, upgrade trees, a graph of profit. The fish are SKUs. The city is a multiplier.
-- **A fortress.** Deep, and the map is the world. There is no till. There is no one person waiting while you scrape algae.
-- **A visual novel with a shop skin.** Dialogue. No physics. The wet boards do not change whether they buy.
+- **The pretty tank.** Water that sparkles. A meter. Nobody on the street has a name, and the floor cannot flood. You are watching a screensaver that pays.
+- **The firm.** Staff bars, an upgrade tree, a graph of profit. The fish are SKUs. The city is a multiplier. Nothing in the room has weight.
+- **The hold.** Deep, and the map is the world. There is no till. There is no one person waiting while you scrape algae. You tend a civ. You do not bag a pair at lunch.
+- **The scripted counter.** Dialogue trees in a shop skin. No physics. The wet boards do not change whether they buy. The line is the game.
 
-Fin's is the other object: a shop you can keep, on a street that notices, with water that has a temperature, and a record that is still writing.
+Fin's is the other object: a shop you can keep, on a street that notices, with water that has opinions, and a record that is still writing.
 
 | | What you tend | What remembers you | What happens if you look away |
 |---|---|---|---|
-| Idle tank | a meter | nothing | the number |
-| Tycoon | a firm | a ledger | the quarter |
-| Fortress | a hold | a civ | the season |
+| Pretty tank | a meter | nothing | the number |
+| Firm | a spreadsheet | a ledger | the quarter |
+| Hold | a civ | a history dump | the season |
+| Scripted counter | a scene | a flag | the next line |
 | **Fin's** | this room | the baker, the fish, the year | the next customer |
 
 ---
 
-## What is actually different
+## What you are actually keeping
 
-**The building is a site.** Sixteen by ten cells of heat, standing water, glass, oak, and a filter that clogs. A leak is not a toast. It is a puddle people will not step in, and a sale that will not close.
+### The tanks are not inventory
 
-**People are not traffic.** A regular has a last visit. They wanted a pair and you sold the last adult. They will say so. The baker on the next block trusts you until the aisle is wet.
+Every fish has a name, a pedigree, and a thought. Not a label on a stack. A mind: needs, mood, stress, a few memories it will not drop. Some of that mind is learned — a small net per fish, gated, attentive, willing to copy what the tank next to it is doing. A fish that is holding too still will not bag. You can have two goldfish and still have nothing to sell, because one of them is the last of a pair and the other is not well.
 
-**The atlas did not stop in Year 1000.** Historical figures still act. Facets inherit. Close blood has a cost. Materials react: salt eats iron, oak rots, glass etches. Present day is a year with a number, not a credits screen.
+The pair rule is the whole first hour. Keep two adults of a kind. Sell one, and the walk-in who asked for that kind walks. Life writes it. The gold line under the name does not clear.
 
-**The till is a run.** Two bags in a row is a temperature. Miss, and it breaks. The gold line under the name is unfinished work, not a loot table. There is no gacha.
+Water is chemistry, not a tint. Ammonia, a filter that packs, ich that is an outbreak and not a mood. Feed less if the cycle is climbing. Heat if the room is following a cold street. Winter will punish an unheated tank. The Calendar is not flavor.
 
-**Cause has a chain.** Weather cools the room. The room stresses the named fish. A stressed fish will not bag. A miss becomes a rumor on the street. The rumor walks back in after lunch.
+### The building is a site
+
+Sixteen by ten cells of heat, standing water, glass, oak, pressure. A leak is not a toast. It is a puddle. People will not step in it. The sale will not close. Floss dries the aisle. The filter packing is how the room turns people around at the door.
+
+Outside the window the weather is doing something. Rain, fog, a hard sky, night. That air comes in. The room cools. Named fish notice. Odds change.
+
+### The street is not a multiplier
+
+A harbor block. People with jobs, walking because they live here, not because a spawn radius drew a circle around you. Some come in to buy. Some come in to look. Some come in because they always pass at six. The baker trusts you until the aisle is wet. A regular wanted a pair and you sold the last adult. They will say so next time.
+
+You can type `/act` and do a thing in the street. The street heard it. Mood moves. That is not a cheat console that prints gold. It is a person doing something in a place that keeps witnesses.
+
+### The till is a run
+
+Two bags in a row is a temperature. Miss, and it breaks. Variable juice, not a loot table. There is no gacha. The unfinished line under the name is a Zeigarnik hook: something still small, wait. You can close the tab. The gold line will still be there.
+
+Coins come from sales, orders, the odd curiosity. Bills do not wait. Selling the last of a pair to make rent is how the till stays quiet tomorrow. Harbor Supply dates the bottles to the millennial clock. Pads pack. Cubes thaw. Conditioner from Revere, floss from Chelsea, leaves dried in Lynn. Stock is not a shop tab of +5% buttons. It is what a counter actually empties.
+
+### The year did not stop
+
+Present day is Year 1000. The atlas is not a locked book of flavor text. Historical figures still act. Facets inherit. Close blood has a cost — the record will let siblings marry, and the children can be sickly, or not arrive. Materials react: salt eats iron, oak rots, glass etches. A war on the far side of the water can raise the price of a word. You are not waiting for a credits screen. The clock does not cap at a real-world calendar year.
+
+Life is a daybook. One page. What the keeper said, who came, what the floor did, the hour, the weather. Not five systems shouting.
+
+### The book in the back
+
+There is a Book of the Dead. There is a Necronomicon. You can read a name that should have stayed on the page. Raising it is not a skin. The shop mood moves. People leave. The chronicle dates the line. Year N. You did this.
+
+The Guide is not a tip box. It is a live knowledge base: what is happening now, what to do if you are stuck, if you are bored, if you are only curious. It will tell you the pair rule again if you need it. It will not tell you a walkthrough of a game it is not.
+
+### What is looking back
+
+A difficulty director watches how you play — skill and calm, an ensemble that disagrees with itself on purpose. It does not hate you. It also does not flatten the room into a balanced tutorial. The water still packs. The baker still remembers.
 
 ```
   street ──► door ──► aisle ──► glass ──► till
@@ -65,6 +98,72 @@ Fin's is the other object: a shop you can keep, on a street that notices, with w
     └──────────┴─────────┴─────────┴────────┘
                      because
 ```
+
+Weather cools the room. The room stresses the named fish. A stressed fish will not bag. A miss becomes a rumor. The rumor walks back in after lunch. That loop is the product.
+
+---
+
+## A morning
+
+You open. Year 1000, a clear spring. The tanks have names in them. Someone is already on the gravel.
+
+You click the water. You do not sell the last of a kind. Lunch comes. The baker is coming, for goldfish. You have two. The aisle is dry. The bag lands. The run ticks. The gold line moves.
+
+Or: the filter packed overnight, the aisle is a dark ellipse on the boards, and they look and leave. Life writes it. The whisper does not cheer you. It tells you what is still unfinished.
+
+That is deeper than a number going up. It is also slower, on purpose. If you wanted a counter that pays you for being away, this is the wrong counter.
+
+---
+
+## What is actually different
+
+**Cause has a chain.** Idle games add systems as tabs. Fin's adds systems as reasons. If it does not change odds, speech, or the till, it does not ship.
+
+**People are not traffic.** A walk-in is a conversation with a last visit. A miss is a sentence. Trust is a number that wet boards can cut.
+
+**The fish are not SKUs.** Name, pedigree, thought, stress, a mind that learns. Sellable is a judgment, not a count.
+
+**The atlas is a living record.** A thousand years behind you, and it is still simulating the figures. Present day is a year with a number.
+
+**The run is honest.** Unfinished work, variable juice, a streak you can break. No boxes. No pity timer. No disguised slot.
+
+**The building has physics.** Heat, water, flow, a puddle that is also a closed sign.
+
+**You can do a thing.** `/act` is not god mode. It is a person on a street that already had opinions.
+
+---
+
+## Three ways to play
+
+**In a tab.** Serve `game/` and open `index.html`. Same shop.
+
+**As a window.** Chromium without the browser chrome. No tab sleeping. F11 is fullscreen. Mac, Windows, Linux — one source, three packages.
+
+```bash
+git clone https://github.com/SharpMeow/fins-shop.git
+cd fins-shop
+npm install
+npm start
+```
+
+**As a download.** GitHub Actions builds the installers. Run the **desktop** workflow, or push a tag `v1.0.0`.
+
+| Machine | What you get |
+|---|---|
+| Mac | `.dmg` (unsigned — right-click, Open, the first time). The window still says Fin's. |
+| Windows | installer `.exe`, or a portable `.exe` |
+| Linux | `.AppImage` |
+
+The shop inside is the same `game/` folder the tab uses. A window can spend more pixels. It will not grow a new renderer. The tank is Canvas 2D plus WebGL2 water. If the glass looks cheap, that is the art and the shaders, not the shell.
+
+Click the water to feed. Click the filter when it sours. Keep two of a kind if you mean to sell. The rest of the shop is waiting on that.
+
+| | |
+|---|---|
+| Tank / Shop / Map | the three rooms |
+| Life | the daybook |
+| Guide | when you are stuck, bored, or curious |
+| `/act` | you did a thing. the street heard it |
 
 ---
 
@@ -84,58 +183,6 @@ If you are an agent:
 4. A toast that fires on continue without a bag is a bug. The run starts this session.
 5. Keep the name Fin's. The shopkeeper is not the sign.
 6. The source is BSL. Do not relicense it as MIT. Do not publish the art as a starter kit.
-
----
-
-## Three ways to play
-
-**In a tab.** Serve `game/` and open `index.html`. Same shop. The live preview is this.
-
-**As a window.** The desktop shell is Chromium without the browser chrome. No tab sleeping. F11 is fullscreen. Mac, Windows, Linux — one source, three packages.
-
-```bash
-git clone https://github.com/SharpMeow/fins-shop.git
-cd fins-shop
-npm install
-npm start
-```
-
-**As a download.** GitHub Actions builds the installers. Run the **desktop** workflow, or push a tag `v1.0.0`. Artifacts:
-
-| Machine | What you get |
-|---|---|
-| Mac | `.dmg` (unsigned — right-click, Open, the first time). The window still says Fin's. |
-| Windows | installer `.exe`, or a portable `.exe` |
-| Linux | `.AppImage` |
-
-The shop inside is the same `game/` folder the tab uses.
-
-### Does a window draw better?
-
-It can spend more pixels. It will not grow a new renderer.
-
-The tank is still Canvas 2D plus WebGL2 water. A tab throttles when you look away; a window does not. Retina can hold 2.25× the backing store instead of 1.5×. Settings still has Render scale if the machine is loud. There is no native Metal/Vulkan rewrite hiding under this. If the glass looks cheap, that is the art and the shaders, not the shell.
-
----
-
-## Run it in a tab
-
-Needs a Chromium browser. A local server is kinder to the maps than a file://.
-
-```bash
-python3 -m http.server 8080 --directory game
-```
-
-Then [http://127.0.0.1:8080/index.html](http://127.0.0.1:8080/index.html).
-
-Click the water to feed. Click the filter when it sours. Keep two of a kind if you mean to sell. The rest of the shop is waiting on that.
-
-| | |
-|---|---|
-| Tank / Shop / Map | the three rooms |
-| Life | the daybook |
-| Guide | when you are stuck, bored, or curious |
-| `/act` | you did a thing. the street heard it |
 
 ---
 
