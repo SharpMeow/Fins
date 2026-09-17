@@ -20,7 +20,7 @@ You open in Year 1000. The tanks are already running. People come in off the str
 
 Most idle games are a number that goes up while you are in another tab. Fin's is a room you can fail in. The water has a temperature. The baker on the next block remembers the last bag. A named fish will not sell if it is holding too still. A thousand years of people already lived on this street before you hung the sign, and they did not stop when the clock hit present day.
 
-Private source. [Business Source License 1.1](LICENSE).
+Public source. [Business Source License 1.1](LICENSE).
 
 ---
 
@@ -140,8 +140,8 @@ That is deeper than a number going up. It is also slower, on purpose. If you wan
 **As a window.** Chromium without the browser chrome. No tab sleeping. F11 is fullscreen. Mac, Windows, Linux — one source, three packages.
 
 ```bash
-git clone https://github.com/SharpMeow/fins-shop.git
-cd fins-shop
+git clone https://github.com/SharpMeow/Fins.git
+cd Fins
 npm install
 npm start
 ```
@@ -173,7 +173,7 @@ Fin's is a game you serve from a folder, not a package you install into somethin
 
 **Use it when** the work is this shop: the water, the street, the daybook, the run. When a change has to show up in play — odds, speech, a wet floor — not in a tab that nobody opens.
 
-**Leave it when** you want a generic tycoon kit, a Store listing, or a public clone under another name. This copy is private on purpose.
+**Leave it when** you want a generic tycoon kit or a Store listing. The source is public. The license is not a free-for-all.
 
 If you are an agent:
 
