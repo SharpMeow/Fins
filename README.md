@@ -106,7 +106,7 @@ npm start
 |---|---|
 | Mac | `.dmg` (unsigned — right-click, Open, the first time). The window still says Fin's. |
 | Windows | installer `.exe`, or a portable `.exe` |
-| Linux | `.AppImage` or `.deb` |
+| Linux | `.AppImage` |
 
 The shop inside is the same `game/` folder the tab uses.
 
