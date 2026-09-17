@@ -3,7 +3,7 @@
 A harbor aquarium shop that keeps going after you look away.
 
 <p align="center">
-  <img src="docs/window.jpg" alt="Rain on the glass. Four tanks still running. The till is a run." width="900">
+  <img src="docs/window.png" alt="Rain on the glass. Four tanks still running. The till is a run." width="900">
 </p>
 
 You open in Year 1000. The tanks are already running. People come in off the street for a fish, for change, for a look, or because they always walk this block at six. The till is a run. The floor is wet or it isn't. The record does not close.
@@ -163,7 +163,7 @@ Boston is one port. Four more engines keep the rest of the continent:
 </p>
 
 <p align="center">
-  <img src="docs/plate.jpg" alt="An atlas plate of the same idea: rivers downhill, ruins marked, the harbor as @." width="900">
+  <img src="docs/plate.png" alt="An atlas plate of the same idea: rivers downhill, ruins marked, the harbor as @." width="900">
 </p>
 
 A war inland is not flavor. Word drops. Odds drop. The till feels it.
