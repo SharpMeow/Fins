@@ -3,7 +3,7 @@
 A harbor aquarium shop that keeps going after you look away.
 
 <p align="center">
-  <img src="docs/window.png" alt="Rain on the glass. Four tanks still running. The till is a run." width="900">
+  <img src="docs/window.jpg" alt="Rain on the glass. Four tanks still running. The till is a run." width="900">
 </p>
 
 You open in Year 1000. The tanks are already running. People come in off the street for a fish, for change, for a look, or because they always walk this block at six. The till is a run. The floor is wet or it isn't. The record does not close.
@@ -142,7 +142,7 @@ That is deeper than a number going up. It is also slower, on purpose. If you wan
 Boston is one port. Four more engines keep the rest of the continent:
 
 <p align="center">
-  <img src="docs/continent.png" alt="The Glass and Ash. Seed 256. @ is the shop." width="900">
+  <img src="docs/continent.jpg" alt="The Glass and Ash. Seed 256. @ is the shop." width="900">
 </p>
 
 <p align="center"><sub>Seed 256. The Glass and Ash, Age of the Long Freeze. Gold ring is the harbor. The rest of the map does not pause when you hang the sign.</sub></p>
@@ -163,7 +163,7 @@ Boston is one port. Four more engines keep the rest of the continent:
 </p>
 
 <p align="center">
-  <img src="docs/plate.png" alt="An atlas plate of the same idea: rivers downhill, ruins marked, the harbor as @." width="900">
+  <img src="docs/plate.jpg" alt="An atlas plate of the same idea: rivers downhill, ruins marked, the harbor as @." width="900">
 </p>
 
 A war inland is not flavor. Word drops. Odds drop. The till feels it.
