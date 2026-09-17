@@ -44,7 +44,7 @@
   ];
   // Overlay play tanks: wall glass only, no overlap with the aisle island or the door.
   // Skip island (people walk the aisle) and B-t0 (behind the hanging sign) and B-b0 (hidden by the island).
-  var SHOP_PLAY = [1, 0, 4, 5, 7];
+  var SHOP_PLAY = [0, 1, 2, 3, 4, 5, 6, 7];
 
   function wallOf(i) {
     return SHOP_WALL[SHOP_PLAY[((i % SHOP_PLAY.length) + SHOP_PLAY.length) % SHOP_PLAY.length]];
@@ -77,6 +77,58 @@
 
   window.__shopWall = SHOP_WALL;
   window.__shopPlay = SHOP_PLAY;
+
+  function nameOfFish(f, species) {
+    if (!f) return "";
+    if (f.name) return String(f.name);
+    var T = species && species[f.sp];
+    if (T && (T.name || T.n)) return String(T.name || T.n);
+    if (f.sp && typeof f.sp === "object") return String(f.sp.name || f.sp.n || "");
+    return String(f.sp || "");
+  }
+  function wallKeyForFish(f, species) {
+    if (f && (f.sick || f.cond)) return "quarantine";
+    var n = nameOfFish(f, species).toLowerCase();
+    if (/shrimp|snail|crab|nerite|amano|cherry shrimp/.test(n)) return "shrimp";
+    if (/betta|siamese/.test(n)) return "betta";
+    if (/clown|damsel|tang|wrasse|marine|anthias|chromis|blenny/.test(n)) return "reef";
+    if (/goldfish|comet|oranda|koi|\bcarp\b/.test(n)) return "goldfish";
+    if (/cichlid|oscar|ram|krib|frontosa|mbuna/.test(n)) return "cichlid";
+    if (/discus|angel|gourami/.test(n)) return "discus";
+    return "planted";
+  }
+  window.shopSlotCount = function (nTanks) {
+    if (window.shopBg && shopBg.complete && shopBg.naturalWidth) return SHOP_PLAY.length;
+    return Math.max(1, nTanks || 1);
+  };
+  window.shopFishForSlot = function (slot, allFish, species) {
+    var wall = wallOf(slot);
+    var key = wall && wall.key;
+    allFish = allFish || [];
+    var out = [];
+    for (var i = 0; i < allFish.length; i++) {
+      var f = allFish[i];
+      if (f && wallKeyForFish(f, species) === key) out.push(f);
+    }
+    return out;
+  };
+  window.shopGoTank = function (slot, view, tanks, fish, species) {
+    var wall = wallOf(slot);
+    var key = wall && wall.key;
+    view = view || 0;
+    function has(list) {
+      if (!list) return false;
+      for (var i = 0; i < list.length; i++) if (wallKeyForFish(list[i], species) === key) return true;
+      return false;
+    }
+    if (has(fish)) return view;
+    tanks = tanks || [];
+    for (var t = 0; t < tanks.length; t++) {
+      if (t === view) continue;
+      if (has(tanks[t])) return t;
+    }
+    return view;
+  };
 
   window.shopPlayTank = function (i, W, top, canvasH) {
     var wall = wallOf(i);
@@ -119,25 +171,22 @@
   window.drawShopTankInterior = function (ctx, x, y, w, h, idx) {
     if (!ctx || w < 8 || h < 8) return;
     var wall = wallOf(idx);
-    var live = !!(window.shopBg && shopBg.complete && shopBg.naturalWidth);
     ctx.save();
     ctx.beginPath();
     if (ctx.roundRect) ctx.roundRect(x + 2, y + h * 0.08, w - 4, h * 0.78, 4);
     else ctx.rect(x + 2, y + h * 0.08, w - 4, h * 0.78);
     ctx.clip();
-    if (!live) {
-      var img = tankPlates[wall.key];
-      if (img && img.complete && img.naturalWidth) {
-        var iw = img.naturalWidth,
-          ih = img.naturalHeight;
-        ctx.drawImage(img, iw * 0.1, ih * 0.1, iw * 0.8, ih * 0.78, x, y + h * 0.06, w, h * 0.82);
-      } else {
-        ctx.fillStyle = wall.fill;
-        ctx.fillRect(x, y, w, h);
-      }
-      ctx.fillStyle = wall.tint;
+    var img = tankPlates[wall.key];
+    if (img && img.complete && img.naturalWidth) {
+      var iw = img.naturalWidth,
+        ih = img.naturalHeight;
+      ctx.drawImage(img, iw * 0.1, ih * 0.1, iw * 0.8, ih * 0.78, x, y + h * 0.06, w, h * 0.82);
+    } else {
+      ctx.fillStyle = wall.fill;
       ctx.fillRect(x, y, w, h);
     }
+    ctx.fillStyle = wall.tint;
+    ctx.fillRect(x, y, w, h);
     ctx.strokeStyle = wall.rim;
     ctx.lineWidth = 1.6;
     ctx.beginPath();
