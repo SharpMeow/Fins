@@ -9,10 +9,10 @@
     return im;
   }
 
-  var shopBg = loadImg("art/shop-interior.jpg?v=4");
-  var backBg = loadImg("art/back-room.jpg?v=1");
-  var cityMap = loadImg("art/city-map.jpg?v=1");
-  var fishAtlas = loadImg("art/fish-atlas.png?v=2");
+  var shopBg = loadImg("art/shop-interior.jpg?v=5");
+  var backBg = loadImg("art/back-room.jpg?v=2");
+  var cityMap = loadImg("art/city-map.jpg?v=2");
+  var fishAtlas = loadImg("art/fish-atlas.png?v=3");
   window.shopBg = shopBg;
   window.backBg = backBg;
   window.cityMap = cityMap;
@@ -20,7 +20,7 @@
   var TANK_KEYS = ["planted", "goldfish", "reef", "betta", "cichlid", "shrimp", "discus", "quarantine"];
   var tankPlates = {};
   for (var ti = 0; ti < TANK_KEYS.length; ti++) {
-    tankPlates[TANK_KEYS[ti]] = loadImg("art/tanks/" + TANK_KEYS[ti] + ".jpg?v=1");
+    tankPlates[TANK_KEYS[ti]] = loadImg("art/tanks/" + TANK_KEYS[ti] + ".jpg?v=2");
   }
   // Quads match compose_shop_tanks.py (tl,tr,br,bl), normalized to the shop photo.
   // Door keepout x>=0.82. Window keepout x<=0.155. Sign covers B-t0.

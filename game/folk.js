@@ -36,7 +36,7 @@
       img.onerror = function () {
         console.warn("folk: missing sheet", key);
       };
-      img.src = "folk/" + key + ".png?v=20";
+      img.src = "folk/" + key + ".png?v=21";
     });
   }
 
