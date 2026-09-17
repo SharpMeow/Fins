@@ -104,7 +104,7 @@ npm start
 
 | Machine | What you get |
 |---|---|
-| Mac | `.dmg` (unsigned — right-click, Open, the first time) |
+| Mac | `.dmg` (unsigned — right-click, Open, the first time). The window still says Fin's. |
 | Windows | installer `.exe`, or a portable `.exe` |
 | Linux | `.AppImage` or `.deb` |
 

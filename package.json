@@ -1,6 +1,6 @@
 {
   "name": "fins-shop",
-  "productName": "Fin's",
+  "productName": "Fins",
   "version": "1.0.0",
   "private": true,
   "description": "A harbor aquarium shop that keeps going after you look away.",
@@ -16,9 +16,9 @@
   },
   "build": {
     "appId": "com.chaos.fins",
-    "productName": "Fin's",
+    "productName": "Fins",
     "copyright": "Copyright © 2026 Chaos",
-    "directories": { "output": "dist" },
+    "directories": { "output": "dist", "buildResources": "build" },
     "files": [
       "desktop/**/*",
       "game/**/*",
@@ -28,14 +28,21 @@
     "mac": {
       "category": "public.app-category.games",
       "target": ["dmg", "zip"],
-      "identity": null
+      "identity": null,
+      "executableName": "Fins"
     },
     "win": {
-      "target": ["nsis", "portable"]
+      "target": ["nsis", "portable"],
+      "executableName": "Fins"
     },
     "linux": {
       "target": ["AppImage", "deb"],
-      "category": "Game"
+      "category": "Game",
+      "executableName": "Fins",
+      "desktop": {
+        "Name": "Fin's",
+        "Comment": "A harbor aquarium shop."
+      }
     },
     "nsis": {
       "oneClick": true,

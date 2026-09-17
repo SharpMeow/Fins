@@ -644,7 +644,7 @@
 
   function syncOverlay() {
     if (!overlay) return;
-    var dpr = Math.min(2, window.devicePixelRatio || 1);
+    var dpr = Math.min((window.__finsGlass && window.__finsGlass.dpr) || 2, window.devicePixelRatio || 1);
     var w = innerWidth;
     var h = innerHeight;
     if (overlay.width !== (w * dpr) | 0 || overlay.height !== (h * dpr) | 0) {
