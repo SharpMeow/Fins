@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Fin's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- The font sheet is loaded out of the critical path. A stylesheet link blocks every script that
+     follows it, and the whole game is one inline script, so a slow or unreachable fonts.googleapis
+     round trip used to hold the game at a blank screen until it resolved: 12.8 s on a machine with
+     no route to it. media="print" makes the sheet non-render-blocking; the onload flips it back to
+     all once it has arrived. --display and --body both carry real fallback stacks and the sheet is
+     display=swap, so the first frame is drawn in Georgia and Segoe UI and the faces swap in behind
+     it. If the request never resolves, the game is fully playable in the fallbacks. -->
+<link rel="stylesheet" media="print" onload="this.media='all';this.onload=null" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700;800&display=swap">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700;800&display=swap"></noscript>
+<style>
+:root{
+  --gold:#f4c453; --coral:#ff6f59; --kelp:#3fbf8a; --pearl:#dcd3ff; --algae:#7ac74f;
+  --text:#e6f1f8; --muted:#a8bdcd; --head:#ffd884; --name:#ffffff; --glass:rgba(6,14,24,.78); --glass2:rgba(10,24,40,.86);
+  --line:rgba(160,200,230,.16);
+  --display:"Fraunces",Georgia,serif; --body:"Nunito","Segoe UI",system-ui,sans-serif;
+  /* The side panel's width, named here because two things need it: the panel, and the notice stack
+     that has to stay out from under the panel. It was a literal in one place and unknown in the
+     other, which is how the notices ended up behind it. */
+  --drawerW:min(460px,44vw);
+}
+html,body{height:100%}
+body{margin:0;background:#07111c;color:var(--text);font-family:var(--body);overflow:hidden;user-select:none;-webkit-user-select:none}
+#tank{position:fixed;inset:0;width:100%;height:100%;display:block;cursor:crosshair;touch-action:none}
+#touchbar{position:fixed;right:12px;bottom:12px;z-index:60;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;max-width:70vw;touch-action:manipulation}
+#touchbar button{font:700 13px var(--body);padding:10px 14px;border-radius:12px;border:1px solid rgba(180,200,215,.25);background:rgba(8,16,26,.86);color:var(--text);min-width:56px;min-height:42px}
+#touchbar button:active{background:rgba(244,196,83,.25)}
+body.touch #hint{display:none}
+body.touch .tb,body.touch .pill,body.touch button.buy{min-height:36px}
+body.touch #toasts{bottom:70px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,[contenteditable]:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* ── Work mode ────────────────────────────────────────────────────────────────────────────────
+   The same interface, wearing a document's clothes. Everything is a token override on body.work,
+   so nothing below needs a second copy and nothing can drift out of sync with the real theme.
+   Light ground, system UI type, square corners, hairline rules, and the one saturated color is
+   the blue a spreadsheet uses for a selected cell. */
+body.work{
+  --gold:#1d4ed8; --coral:#b91c1c; --kelp:#15803d; --pearl:#6d28d9; --algae:#15803d;
+  --text:#1f2328; --muted:#6b7280; --head:#3c4450; --name:#111418;
+  --glass:#ffffff; --glass2:#ffffff; --line:#d7dbe0;
+  --display:'Segoe UI',Helvetica,Arial,sans-serif;
+  --body:'Segoe UI',Helvetica,Arial,sans-serif;
+  background:#f3f3f1;
+}
+body.work #tank{cursor:default}
+body.work #top{background:#ffffff;border-bottom:1px solid #d7dbe0;box-shadow:0 1px 0 rgba(0,0,0,.02);
+  min-height:44px;padding:4px 16px;gap:18px}
+body.work #shopname{font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;font-weight:600;
+  color:#1f2328;min-width:120px;border-radius:3px}
+body.work .res{font-size:12.5px;font-weight:600;color:#3c4450}
+body.work .res .v{color:#1f2328}
+body.work .res .rate{color:#8a9099;font-size:11px}
+body.work .res .ico{width:9px;height:9px;border-radius:2px}
+body.work .res .ico.ring{border-width:2px;border-color:#6b7280}
+body.work .res .lvlico{color:#6b7280}
+body.work #r-level.earning .lvlico{animation:none}
+body.work .tb{background:#fff;border:1px solid #d7dbe0;border-radius:3px;padding:4px 9px;
+  font-size:12px;font-weight:600;color:#3c4450;box-shadow:none}
+body.work .tb:hover{background:#eef2f7;border-color:#b9c2cc}
+body.work .tb.on{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+body.work .tb svg.ic{opacity:.62}
+body.work .tb.on svg.ic{opacity:1}
+body.work .tb[data-fresh]{border-color:#1d4ed8;color:#1d4ed8}
+body.work .tb[data-fresh]::after,body.work .tb.gdot::after{background:#1d4ed8;box-shadow:0 0 0 2px #fff}
+body.work .tb.fresh{animation:none}
+body.work .gmenu{background:#fff;border:1px solid #c9ced4;border-radius:3px;
+  box-shadow:0 6px 18px rgba(15,23,42,.14);backdrop-filter:none}
+body.work #drawer{background:#fff;border:1px solid #d7dbe0;border-radius:3px;
+  box-shadow:0 8px 30px rgba(15,23,42,.10);backdrop-filter:none}
+body.work #drawer header{background:#f7f8f9;border-bottom:1px solid #d7dbe0}
+body.work #drawer h2{font-family:'Segoe UI',Helvetica,Arial,sans-serif;font-size:15px;
+  font-weight:700;color:#1f2328;letter-spacing:0}
+body.work .sec{color:#3c4450;border-bottom-color:#e2e5e9;font-size:10.5px;letter-spacing:.09em}
+body.work .row{border-radius:2px}
+body.work .row:hover{background:#f2f6fc;border-color:#dbe3ee}
+body.work .row .n{color:#1f2328;font-size:13.5px}
+body.work .row .d{color:#6b7280;font-size:12px}
+body.work .note{background:#f7f8f9;border-left:3px solid #c9ced4;border-radius:0;color:#5b636d}
+body.work .buy{background:#fff;border:1px solid #c9ced4;border-radius:3px;color:#1d4ed8;font-weight:600}
+body.work .buy:hover:not(:disabled){background:#eef2f7}
+body.work .buy.ghost{color:#6b7280}
+body.work .buy.danger{color:#b91c1c;border-color:#e6b4b4;background:#fff}
+body.work .buy.go{background:#1d4ed8;border-color:#1d4ed8;color:#fff;font-weight:700;box-shadow:none}
+body.work .buy.go:hover:not(:disabled){background:#1a43b8;border-color:#1a43b8}
+body.work .pill{background:#eef0f2;color:#4b5563;border-radius:3px;font-weight:700}
+body.work .pill.pred{background:#fdeaea;color:#b91c1c}
+body.work .pill.shiny{background:#ede9fe;color:#6d28d9}
+body.work .stat{border-bottom-color:#e9ebee}
+body.work .toast{background:#fff;border:1px solid #d7dbe0;border-radius:3px;color:#3c4450;
+  box-shadow:0 4px 14px rgba(15,23,42,.10);font-weight:600;animation:none}
+body.work .toast.good,body.work .toast.gold{color:#15803d}
+body.work .toast.prog{color:#1d4ed8}
+body.work .toast.bad{color:#b91c1c}
+body.work .ev{background:#fff;border:1px solid #d7dbe0;border-left:3px solid #1d4ed8;border-radius:3px;
+  backdrop-filter:none;box-shadow:0 4px 14px rgba(15,23,42,.08);animation:none}
+body.work #hint,body.work #combo,body.work #nmbadge{display:none}
+/* Toasts become status-bar notices in the corner rather than banners across the middle. */
+body.work #toasts{left:auto;right:16px;bottom:12px;transform:none;align-items:flex-end;max-width:44vw}
+body.work .toast{font-size:12px;padding:6px 10px}
+body.work #events{left:auto;right:16px;transform:none;width:min(380px,40vw)}
+body.work .res .ico.mark{color:#6b7280!important}
+/* Work mode, dark. Same document, opened in an editor with the lights off. Only the tokens and the
+   handful of hard-coded surfaces change; every rule above is reused as written. */
+body.work.workdark{
+  --gold:#7aa2ff; --coral:#f87171; --kelp:#4ade80; --pearl:#c4b5fd; --algae:#4ade80;
+  --text:#e6e9ee; --muted:#8b93a0; --head:#a7b0bd; --name:#f2f5f9;
+  --glass:#1b1e23; --glass2:#1b1e23; --line:#2f353d;
+  background:#14161a;
+}
+body.work.workdark #top{background:#1b1e23;border-bottom-color:#2f353d;box-shadow:none}
+body.work.workdark #shopname{color:#e6e9ee}
+body.work.workdark #shopname:hover{background:rgba(255,255,255,.05)}
+body.work.workdark .res{color:#a7b0bd}
+body.work.workdark .res .v{color:#e6e9ee}
+body.work.workdark .res .rate{color:#6f7885}
+body.work.workdark .res .ico.ring{border-color:#8b93a0}
+body.work.workdark .res .ico.mark{color:#8b93a0!important}
+body.work.workdark .tb{background:#232830;border-color:#333a44;color:#b8c0cc}
+body.work.workdark .tb:hover{background:#2c333d;border-color:#454e5a}
+body.work.workdark .tb.on{background:#3b5bdb;border-color:#3b5bdb;color:#fff}
+body.work.workdark .tb[data-fresh]{border-color:#7aa2ff;color:#7aa2ff}
+body.work.workdark .tb[data-fresh]::after,body.work.workdark .tb.gdot::after{background:#7aa2ff;box-shadow:0 0 0 2px #1b1e23}
+body.work.workdark .gmenu{background:#1f242b;border-color:#333a44;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+body.work.workdark #drawer{background:#1b1e23;border-color:#2f353d;box-shadow:0 10px 34px rgba(0,0,0,.45)}
+body.work.workdark #drawer header{background:#232830;border-bottom-color:#2f353d}
+body.work.workdark #drawer h2{color:#e6e9ee}
+body.work.workdark #dsearch{background:#232830;border-color:#333a44;color:#e6e9ee}
+body.work.workdark .sec{color:#a7b0bd;border-bottom-color:#2a3038}
+body.work.workdark .row:hover{background:#232a34;border-color:#333c47}
+body.work.workdark .row .n{color:#e6e9ee}
+body.work.workdark .row .d{color:#8b93a0}
+body.work.workdark .note{background:#1f242b;border-left-color:#3a414a;color:#98a1ad}
+body.work.workdark .buy{background:#232830;border-color:#3a414a;color:#7aa2ff}
+body.work.workdark .buy:hover:not(:disabled){background:#2c333d}
+body.work.workdark .buy.ghost{color:#8b93a0}
+body.work.workdark .buy.danger{color:#f87171;border-color:#5a3437;background:#241a1c}
+body.work.workdark .buy.go{background:#3b5bdb;border-color:#3b5bdb;color:#fff}
+body.work.workdark .buy.go:hover:not(:disabled){background:#4c6ae8;border-color:#4c6ae8}
+body.work.workdark .pill{background:#2a3038;color:#a7b0bd}
+body.work.workdark .pill.pred{background:#3a2325;color:#f87171}
+body.work.workdark .pill.shiny{background:#2e2743;color:#c4b5fd}
+body.work.workdark .stat{border-bottom-color:#2a3038}
+body.work.workdark .toast{background:#232830;border-color:#3a414a;color:#b8c0cc;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+body.work.workdark .toast.good,body.work.workdark .toast.gold{color:#4ade80}
+body.work.workdark .toast.prog{color:#7aa2ff}
+body.work.workdark .toast.bad{color:#f87171}
+body.work.workdark .ev{background:#232830;border-color:#3a414a;border-left-color:#3b5bdb;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+body.work .ev.dism:hover{background:#eef2f7}body.work.workdark .ev.dism:hover{background:#2b313a}
+body.work.workdark #modal .card,body.work.workdark #welcome .card{background:#1f242b;border-color:#3a414a}
+body.work.workdark #modal h1,body.work.workdark #welcome h1{color:#e6e9ee}
+body.work.workdark #r-clog{background:#2e2617;border-color:#5c4a22;color:#e3b95f}
+body.work #modal,body.work #welcome{background:rgba(31,35,40,.35);backdrop-filter:none}
+body.work #modal .card,body.work #welcome .card{background:#fff;border:1px solid #c9ced4;border-radius:4px;
+  box-shadow:0 20px 50px rgba(15,23,42,.22)}
+body.work #modal h1,body.work #welcome h1{font-family:'Segoe UI',Helvetica,Arial,sans-serif;
+  font-weight:700;font-size:18px;color:#1f2328}
+body.work #r-clog{background:#fef6e7;border-color:#e3c07a;color:#8a5a00;animation:none;border-radius:3px}
+body.work::after{content:none!important}
+/* One stacking order for the whole interface, written down once. Everything used to sit at 5, so
+   which overlay covered which came down to document order: the event panel is after the top bar in
+   the markup, so it painted over the tab dropdowns, and a dropdown's own z-index of 70 could not
+   help because it is scoped inside the top bar's own stacking context. */
+.ui{position:fixed;z-index:5;transition:opacity .35s}
+#combo{z-index:4}
+#events{z-index:6}
+#fishpanel{z-index:7}
+#toasts{z-index:8}
+#drawer{z-index:9}
+#top{z-index:12}          /* above the rest: the dropdowns hang off it */
+body.ambient .ui{opacity:0;pointer-events:none}
+/* #hint sets its own opacity by id, which outranks the rule above, so ambient mode never actually
+   hid it. Anything else that carries an id-level opacity needs to be listed here too. */
+body.ambient #hint,body.ambient #touchbar{opacity:0;pointer-events:none}
+#top{top:0;left:0;right:0;display:flex;flex-wrap:wrap;align-items:center;gap:22px;row-gap:4px;min-height:52px;padding:8px 18px 6px;overflow:visible;background:linear-gradient(180deg,rgba(2,8,16,.82),rgba(2,8,16,.35));font-variant-numeric:tabular-nums;box-sizing:border-box}
+/* The name sizes to the name. min-width:132px was holding a fixed box open whatever was in it, so
+   a five-character shop name sat in the middle of a wide empty field with dead space either side
+   of it on the top row. The floor is now just enough that an empty name is still clickable, and
+   the ceiling stops a long one from pushing the resource read-outs off the bar. */
+#shopname{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:.2px;padding:2px 8px;border-radius:8px;min-width:2.2em;max-width:min(34vw,420px);text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border:1px solid transparent;transition:background .15s,border-color .15s}
+#shopname:focus{background:rgba(255,255,255,.08);border-color:var(--line);text-align:left;overflow:visible;text-overflow:clip}
+#shopname:hover{background:rgba(255,255,255,.06);border-color:var(--line)}
+.res{display:flex;align-items:baseline;gap:7px;font-weight:700;font-size:15px}
+.res .ico{width:12px;height:12px;border-radius:50%;display:inline-block;transform:translateY(1px)}
+/* Shape carries meaning as well as color: a coin is round, reputation is a ring (it is what
+   other people think, not something you hold), money owed is a hard square, and the fish count
+   takes the same drawn fish as the Shop tab. */
+.res .ico.ring{background:none!important;border:2.5px solid #7fb2ff;box-sizing:border-box}
+.res .ico.sq{border-radius:3px;transform:translateY(1px) rotate(45deg)}
+.res .ico.mark{width:auto;height:auto;border-radius:0;background:none!important;transform:none;line-height:1}
+.res .ico.mark svg.ic{font-size:15px;vertical-align:-0.18em}
+.res .rate{color:var(--muted);font-weight:600;font-size:12px}
+/* A readout that just went up gets a single warm pulse. It is the smallest possible cue and it is
+   what turns a number changing into a number being earned. */
+.res .v{display:inline-block;transition:color .28s ease}
+.res .v.tick{animation:tickPulse .42s ease-out}
+@keyframes tickPulse{0%{color:var(--gold);transform:translateY(-1px) scale(1.05)}100%{color:inherit;transform:none}}
+@media (prefers-reduced-motion:reduce){.res .v.tick{animation:none}}
+#r-fish{white-space:nowrap;flex:none}
+#r-fish .v,#r-fish .rate{white-space:nowrap}
+.res, #caldate{white-space:nowrap;flex:none}
+#hudres{display:flex;flex-wrap:nowrap;align-items:center;gap:12px;min-width:0;flex:1 1 auto;overflow-x:auto;scrollbar-width:none}
+#hudres::-webkit-scrollbar{height:0}
+#r-fish .rate{max-width:12em;overflow:hidden;text-overflow:ellipsis}
+.res.hidden{display:none}
+.hidden{display:none!important}
+#r-debt .v{color:var(--coral)}
+.res .lvlico{width:auto;height:auto;border-radius:0;background:none;color:var(--gold);font-size:12px;transform:none}
+#r-level{position:relative}
+#r-level .xptrack{display:inline-block;width:54px;height:5px;border-radius:3px;background:rgba(255,255,255,.14);overflow:hidden;align-self:center;margin-left:2px;font-style:normal}
+#r-level .xptrack b{display:block;height:100%;width:0;background:linear-gradient(90deg,#f4c453,#ffe6a0);transition:width .4s}
+#r-level.haspt .rate{color:var(--gold);font-weight:800}
+/* The star used to pulse for as long as a talent point was unspent, which on a long session is
+   an animation running in the corner of a second monitor for hours. It glows while experience is
+   actually coming in and is otherwise perfectly still. */
+#r-level .lvlico{color:var(--gold);transition:filter .5s ease,color .5s ease}
+#r-level.earning .lvlico{animation:xpglow 1.1s ease-in-out infinite}
+@keyframes xpglow{0%,100%{filter:none}50%{filter:drop-shadow(0 0 5px rgba(244,196,83,.85))}}
+@media (prefers-reduced-motion:reduce){#r-level.earning .lvlico{animation:none}}
+#top .spacer{flex:0 0 12px}
+.htip{position:relative;cursor:help}
+.htip::after{content:attr(data-tip);position:absolute;left:0;top:calc(100% + 9px);z-index:30;width:max-content;max-width:320px;padding:9px 12px;border-radius:10px;background:#0b1622;border:1px solid var(--line);color:var(--text);font:600 12px/1.45 var(--body);letter-spacing:0;text-transform:none;white-space:pre-line;text-align:left;box-shadow:0 12px 30px rgba(0,0,0,.55);opacity:0;pointer-events:none;transform:translateY(-3px);transition:opacity .14s,transform .14s;transition-delay:0s}
+.htip::before{content:'';position:absolute;left:15px;top:calc(100% + 3px);z-index:31;border:5px solid transparent;border-bottom-color:var(--line);opacity:0;pointer-events:none;transition:opacity .14s;transition-delay:0s}
+.htip:hover::after,.htip:hover::before{opacity:1;transform:none;transition-delay:.4s}
+.htip.open::after,.htip.open::before,.htip:focus-visible::after,.htip:focus-visible::before{opacity:1;transform:none;transition:none}
+.htip.right::after{left:auto;right:0}.htip.right::before{left:auto;right:15px}
+.htip:focus{outline:none}.htip:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+/* The tab strip scrolls sideways instead of wrapping once the window is too narrow to hold it on
+   one line. Wrapping looks tidy and costs the tank: at 900px the bar went to three rows and 118px
+   tall, at 480px to four rows and 176px, which on a small window is a quarter of the picture gone
+   to navigation. One row that scrolls keeps the bar at its natural height whatever the width, and
+   the dropdown groups mean the strip is short enough that scrolling it is a nudge, not a journey. */
+#top .btns{display:flex;gap:5px;flex-wrap:wrap;align-items:center;min-width:0}
+#top .btns::-webkit-scrollbar{height:0}
+.tb{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-weight:700;font-size:13px}
+.tb:hover{background:rgba(255,255,255,.12)}
+.tb.on{background:var(--gold);color:#1a1200;border-color:var(--gold)}
+.tb.ico{padding:6px 9px;font-size:14px;line-height:1}
+.tgroup{display:inline-flex;gap:4px;padding-left:8px;margin-left:2px;border-left:1px solid var(--line)}
+/* When the tab strip scrolls (narrow windows), the icon group sticks to the right edge instead of
+   scrolling off it, which is how the settings, log and ambient buttons went missing on a small
+   abstract window: they were still there, a screen's width to the right, behind a scrollbar that
+   is hidden. Sticky inside an overflow box pins them; the background stops tabs showing through. */
+.tgroup{flex:none;order:3}
+/* Shrinkable, so on a wide window the strip wraps its own tabs inside itself rather than pushing
+   the icon group onto a line of its own at the far left, which is where it ended up at 2560px. */
+#top .btns{order:2;flex:1 1 0;justify-content:flex-end}
+/* .rows2 is set by topLayout() when the strip would not fit beside the money: the strip then takes
+   the whole second row and the icons hold the right end of the first. */
+#top.rows2 .btns{flex:1 1 100%;justify-content:flex-start;order:2}
+#top.rows2 .tgroup{order:1;margin-left:auto}
+#top.rows2 .spacer{display:none}
+/* On the wide layout the strip and the icons share one row: [name][money][spacer][tabs][icons].
+   Under 1500px the strip takes a row of its own and scrolls, and the icons stay on the first row
+   next to the money, where there is always room for them. That is what stops them ever being
+   scrolled off the right edge or pinned over a tab. */
+.tabgrp{position:relative;display:inline-block}
+/* a group with nothing unlocked under it is set hidden by syncGroups, and display:inline-block above
+   was overriding the attribute, so Stock stood in the bar with an empty menu under it */
+.tabgrp[hidden]{display:none}
+.tabgrp:not(:has(.gmenu .tb:not([hidden]))){display:none}
+#dclose{margin-left:4px;align-self:center;min-width:34px;padding:4px 8px;font-size:18px;line-height:1}
+body.ttset #dclose{display:none}
+.tb.gbtn{position:relative}
+.tabgrp.open>.tb.gbtn{background:rgba(255,255,255,.14);border-color:rgba(160,200,230,.34)}
+.tb.gbtn .car{font-style:normal;font-size:10px;opacity:.65;margin-left:1px}
+.gmenu{display:none;position:absolute;top:calc(100% + 6px);left:0;z-index:70;
+  background:var(--glass2);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid var(--line);border-radius:12px;padding:6px;min-width:178px;
+  flex-direction:column;gap:4px;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+.tabgrp.open>.gmenu{display:flex}
+.gmenu.rt{left:auto;right:0}
+.gmenu.wide{position:fixed;left:8px;right:8px;top:calc(var(--topH,52px) + 6px);width:auto;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:4px}
+.gmenu.wide .tb{text-align:center}
+.gmenu .tb{width:100%;text-align:left;background:transparent;border-color:transparent}
+.gmenu .tb:hover{background:rgba(255,255,255,.09)}
+.gmenu .tb.on{background:var(--gold);color:#1a1200}
+.tb.gdot::after{content:"";position:absolute;top:-3px;right:-3px;width:9px;height:9px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 0 2px rgba(2,8,16,.85)}
+.tb[hidden]{display:none}
+.tb[data-fresh]{position:relative;border-color:var(--gold);color:var(--gold)}
+.tb[data-fresh]::after{content:'';position:absolute;top:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 2px rgba(2,8,16,.9)}
+.tb.fresh{animation:tabpop 1.1s ease-in-out 0s 14}
+@keyframes tabpop{0%,100%{box-shadow:0 0 0 0 rgba(244,196,83,0)}45%{box-shadow:0 0 0 5px rgba(244,196,83,.28)}}
+@media (prefers-reduced-motion:reduce){.tb.fresh{animation:none}}
+.tb .badge{display:inline-block;min-width:16px;padding:0 5px;margin-left:6px;border-radius:9px;background:var(--coral);color:#fff;font-size:11px;line-height:16px}
+#drawer .dgrip{position:absolute;left:0;top:0;bottom:0;width:9px;cursor:col-resize;z-index:3;border-radius:14px 0 0 14px;transition:background .15s}
+#drawer .dgrip:hover,body.dragging #drawer .dgrip{background:linear-gradient(90deg,rgba(244,196,83,.55),rgba(244,196,83,0))}
+body.dragging{user-select:none;cursor:col-resize}
+body.dragging #drawer{transition:none}
+/* The title's two screens: Settings (the drawer dressed as a full screen) and Saves (#ttOver).
+   Both sit over black above the title plate, with a Back button, and nothing of the game shows. */
+/* The console: "/" opens it along the bottom. Log, Console, Debug. Above the drawer and the toasts,
+   below modals and the title. */
+#console{position:fixed;left:14px;right:14px;bottom:14px;height:min(42vh,420px);z-index:12;display:none;flex-direction:column;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:13px}
+#console.show{display:flex}
+#console .chead{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line)}
+#console .cbody{flex:1;overflow:auto;padding:8px 12px}
+#console .cline{padding:3px 0;line-height:1.45;border-bottom:1px solid rgba(255,255,255,.04)}
+#console .cline.you{color:var(--gold,#f4c453)}
+#console .cline.muted,#console .muted{color:var(--muted)}
+#console .cline.bad{color:var(--coral,#ff6f59)}
+#console .cline.street{color:#9eb4c6;font-style:italic}
+#console .cline .ct{color:var(--muted);font-size:11px;margin-right:6px}
+#console .cin{display:flex;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid var(--line)}
+#console .cprompt{color:var(--gold,#f4c453);font-weight:800}
+#console .cin input{flex:1;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:8px;color:inherit;padding:7px 10px;font:inherit;outline:none}
+#console .cin input:focus{border-color:rgba(244,196,83,.6)}
+body.con-open #toasts{bottom:calc(min(42vh,420px) + 26px)}
+#ttBackBtn{display:none;margin-right:12px;align-self:center}
+body.ttset #ttBackBtn{display:inline-flex}
+body.ttset #drawer{position:fixed;inset:0;width:auto;max-width:none;border-radius:0;border:0;background:#07090c;z-index:26;transition:none}
+body.ttset #drawer header,body.ttset #dbody{width:min(760px,100%);margin:0 auto;box-sizing:border-box}
+body.ttset #drawer header{padding-top:18px}
+body.ttset #drawer .dgrip,body.ttset #dsearch{display:none}
+body.ttset #tabs,body.ttset #hud,body.ttset #toasts,body.ttset #events,body.ttset #hint{display:none!important}
+#ttOver{position:fixed;inset:0;z-index:26;background:#07090c;display:none;flex-direction:column;align-items:center;overflow:auto;color:var(--text,#e6e9ee)}
+#ttOver.show{display:flex}
+#ttOver .inner{width:min(760px,100%);padding:18px 16px 40px;box-sizing:border-box}
+#ttOver .row.on{border-color:rgba(244,196,83,.45)}
+#drawer{top:calc(var(--topH,52px) + 8px);right:14px;bottom:14px;width:var(--drawerW);background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:14px;display:none;flex-direction:column;overflow:hidden}
+#drawer.open{display:flex}
+#drawer header{padding:12px 16px 10px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+#drawer h2{margin:0;font-family:var(--display);font-weight:700;font-size:21px;white-space:nowrap;color:var(--head);letter-spacing:.2px}
+#drawer header small{color:var(--muted);font-size:12px;text-align:right}
+#dsearch{width:100%;box-sizing:border-box;margin:8px 0 0;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--text);font:inherit;font-size:13px;display:none}
+#dbody{flex:1;overflow-y:auto;overflow-x:hidden;padding:10px 12px 18px;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.sec{margin:18px 0 8px;font-size:12px;letter-spacing:.13em;text-transform:uppercase;color:var(--head);font-weight:800;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 12px;padding-bottom:6px;border-bottom:1px solid rgba(255,216,132,.20);min-width:0}
+.sec:first-child{margin-top:6px}
+.sec span{letter-spacing:0;text-transform:none;font-weight:600;color:var(--muted);font-size:11.5px;text-align:right;flex:0 0 auto;margin-left:auto}
+.row{display:grid;grid-template-columns:44px minmax(0,1fr) minmax(0,auto);gap:6px 10px;align-items:center;padding:7px 8px;border-radius:10px;border:1px solid transparent}
+.row>div:last-child:not(.qty):not(.d){min-width:96px;display:flex;flex-direction:column;align-items:stretch;gap:3px}
+.row>div:last-child:not(.qty) .buy{width:100%}
+.row .qty{grid-column:2/-1;justify-content:flex-start}
+.row .qty .buy{width:auto}
+.row+.row{margin-top:3px}
+/* A row whose action column holds several wide buttons: the buttons go on their own line under
+   the text, wrapping, instead of squeezing the description into a ribbon beside them. */
+.row.stack{grid-template-columns:44px minmax(0,1fr)}
+.row.stack>div:nth-child(3){grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px;padding-left:54px}
+.row.stack>div:nth-child(3) .buy{flex:0 1 auto}
+.row:hover{background:rgba(255,255,255,.04);border-color:var(--line)}
+.row canvas{width:44px;height:30px;display:block}
+.row .n{font-weight:800;font-size:14.5px;line-height:1.3;color:var(--name);letter-spacing:.005em;overflow-wrap:anywhere}
+.row .d{color:var(--muted);font-size:12.5px;line-height:1.4;min-width:0;overflow-wrap:anywhere}
+.row .d b{color:var(--text);font-weight:700}
+.row.sub{margin-left:26px;padding:4px 8px}
+.row.sub .n{font-size:13px;font-weight:700}
+/* The four meters on a fish row. These were a flex-wrap line, and four labelled 44px bars have
+   never once fitted the drawer's text column: they wrapped 3 + 1 and left "water" hanging on a line
+   of its own under every fish in the tank. A fixed two-by-two reads as a block instead of as a
+   line that ran out of room, and it is the same height whatever the drawer is doing. Three columns
+   once the panel is genuinely wide. */
+.row .d.meters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 12px;align-items:center}
+@media (min-width:1700px){.row .d.meters{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.row .d.meters>span{display:flex;align-items:center;gap:5px;min-width:0;white-space:nowrap}
+.buy{background:rgba(244,196,83,.14);border:1px solid rgba(244,196,83,.45);color:var(--gold);border-radius:8px;padding:6px 10px;font-weight:800;font-size:13px;white-space:nowrap;font-variant-numeric:tabular-nums;min-width:74px;text-align:center}
+.buy:hover:not(:disabled){background:rgba(244,196,83,.28)}
+.buy:disabled{opacity:.42;cursor:default}
+.buy.done{border-color:var(--kelp);color:var(--kelp);background:rgba(63,191,138,.12)}
+.buy.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
+.buy.danger{border-color:var(--coral);color:var(--coral);background:rgba(255,111,89,.1)}
+/* The one button in a dialog that commits to something. Every action showModal draws is a .buy and
+   the cancel is a .buy.ghost, so the confirm and the cancel were the same translucent outline in two
+   shades. On the new-game screen that left Begin sitting a few pixels from five other outline
+   buttons and a mis-hit started a run nobody meant to start. A solid fill with larger type and more
+   padding makes it the only filled thing on the card, so the eye finds it and the thumb does not
+   find it by accident. Two classes, so it beats the smaller .qty .buy sizing and stays big inside
+   the action bar. Work mode paints every .buy white and its dark variant paints them slate, so both
+   have to restate the fill or the confirm goes back to looking like everything else. */
+.buy.go{background:var(--gold);border-color:var(--gold);color:#0b1622;font-size:14px;padding:9px 22px;min-width:120px;box-shadow:0 2px 12px rgba(244,196,83,.26)}
+.buy.go:hover:not(:disabled){background:#ffd777;border-color:#ffd777}
+.qty{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+/* A row of buttons that is a CHOICE rather than an action on the row to its left. .qty right-aligns
+   because it normally sits at the end of a fish row; standing on its own under a section header, as
+   the new-game screen's starts and challenges do, right-aligned reads as misaligned against the
+   left-aligned headings above it. Centred, the group reads as a set of options. */
+.qty.ctr{justify-content:center}
+.qty .buy{min-width:0;padding:5px 8px;font-size:12px}
+/* A dropdown inside a row. The native control ignores most of the panel's palette, so the two
+   things that matter (ground and text) are set explicitly and the rest is left alone. */
+.sel{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:5px 8px;font:inherit;font-size:12px;max-width:150px}
+.sel:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.sel option{background:#0d1926;color:#e8eef5}
+/* A range input's default track is an opaque light box, so on a dark glass panel the volume sliders
+   were three white bars. accent-color paints the filled part and the thumb but not the element's own
+   background, which has to be cleared for the track to read as part of the panel. */
+.d input.vol{width:150px;accent-color:var(--gold);vertical-align:middle;background:transparent}
+.d input.vol::-webkit-slider-runnable-track{background:rgba(255,255,255,.16);height:5px;border-radius:3px}
+.d input.vol::-moz-range-track{background:rgba(255,255,255,.16);height:5px;border-radius:3px}
+body.work .d input.vol::-webkit-slider-runnable-track{background:#d7dbe0}
+body.work .d input.vol::-moz-range-track{background:#d7dbe0}
+body.work.workdark .d input.vol::-webkit-slider-runnable-track{background:#3a414a}
+body.work.workdark .d input.vol::-moz-range-track{background:#3a414a}
+.qty input.nick{flex:1;min-width:120px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:8px;color:var(--text);font:700 13px var(--body);padding:5px 8px}
+/* A number field inside a panel. This did not exist: the standing order shipped writing
+   class="qty-in", which nothing styles, so two browser-default white boxes with black Arial text
+   sat in the middle of a dark glass panel. Built from the same tokens as everything else, so it
+   follows the theme into work mode and into work mode's dark variant without a second rule. */
+input.numin{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:7px;
+  color:var(--text);font:800 13px var(--body);padding:4px 7px;text-align:right;
+  font-variant-numeric:tabular-nums;-moz-appearance:textfield}
+input.numin::-webkit-outer-spin-button,input.numin::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+input.numin:hover{background:rgba(255,255,255,.11)}
+input.numin:focus{outline:2px solid var(--gold);outline-offset:1px;background:rgba(255,255,255,.13)}
+body.work input.numin{background:#fff;border-color:#c9ced4;border-radius:3px;color:#1f2328}
+body.work input.numin:hover{background:#f7f8f9}
+body.work.workdark input.numin{background:#232830;border-color:#3a414a;color:#e6e9ee}
+body.work.workdark input.numin:hover{background:#2c333d}
+/* The two elements added after work mode was written, which had no rules for it. */
+body.work #touchbar button{border-radius:3px}
+.cost{font-size:11px;font-weight:700;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:0;text-align:center}
+.cost i{font-style:normal;color:var(--muted)}
+.cost .ok{color:var(--text)}.cost .no{color:var(--coral)}
+.locked{opacity:.55}
+.dex{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.dex .c{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:8px 6px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px}
+.dex .c canvas{width:70px;height:44px;display:block;margin:0 auto 4px}
+.dex .c .nm{font-size:11px;font-weight:700;line-height:1.2;min-height:26px;display:flex;align-items:center;justify-content:center;overflow-wrap:anywhere}
+.dex .c .tags{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;min-height:16px}
+.dex .c .tags .pill{margin:0}
+.dex .c .tr{font-size:10px;color:var(--muted)}
+.dex .c.unk{opacity:.5}
+.dex .c.unk .nm{color:var(--muted)}
+.grp{border:1px solid var(--line);border-radius:10px;padding:6px 8px;margin-top:6px}
+.grp summary{cursor:pointer;font-weight:800;font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:4px 8px;list-style:none;min-width:0}
+.grp summary>.row{flex:1 1 190px;min-width:0;padding:2px 0}
+.grp summary::-webkit-details-marker{display:none}
+.grp summary span{color:var(--muted);font-weight:600;font-size:12px}
+.grp summary>span{flex:0 0 auto;margin-left:auto}
+.grp .dex{margin-top:8px}
+body.nightmare::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:6;box-shadow:inset 0 0 220px rgba(190,26,18,.34);border-top:2px solid rgba(255,60,44,.5)}
+#nmbadge{display:none;position:fixed;left:12px;bottom:34px;z-index:7;pointer-events:none;font:900 11px/1 var(--body);letter-spacing:.18em;color:#ff7a63;background:rgba(30,6,4,.72);border:1px solid rgba(255,80,60,.45);border-radius:999px;padding:6px 11px;text-transform:uppercase}
+body.nightmare #nmbadge{display:block;animation:nmpulse 3.2s ease-in-out infinite}
+@keyframes nmpulse{0%,100%{opacity:.62}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){body.nightmare #nmbadge{animation:none}}
+.grp summary .expand{display:inline-flex;align-items:center;gap:4px;margin-top:4px;padding:2px 9px;border:1px solid var(--line);border-radius:999px;background:rgba(244,196,83,.10);color:var(--gold);font-weight:800;font-size:11px;letter-spacing:.02em}
+.grp summary:hover .expand{background:rgba(244,196,83,.2);border-color:var(--gold)}
+.grp>summary .expand::before{content:'+ show all '}
+.grp[open]>summary .expand::before{content:'– hide '}
+.stat{display:flex;justify-content:space-between;gap:14px;padding:7px 8px;border-bottom:1px solid var(--line);font-size:13px}
+.stat>span:first-child{color:var(--muted)}
+.stat b{font-variant-numeric:tabular-nums;color:var(--text);font-weight:800}
+/* ── Sentence case, done once, in the one place it can be done without rewriting a thousand
+   strings. Every standalone label in the interface starts a new thought, so every one of them
+   starts with a capital: trait pills, row descriptions, notes, ledger rows. ::first-letter touches
+   only the leading glyph, so "5 sold", "pH 7.2" and anything already capitalised are untouched,
+   and prose inside a sentence is never affected. Add class "asis" to opt a node out. */
+.pill::first-letter,.row .d::first-letter,.note::first-letter,
+.stat span::first-letter,.stat b::first-letter,.k::first-letter{text-transform:uppercase}
+/* The second pass. Everything above was covered; these were not, and they are all places where a
+   standalone label was rendering lowercase and reading as unfinished:
+     .sec span        the right-hand note on a section header, "needs tank level 2"
+     #dsub            the subtitle beside a panel title, "location #1"
+     .row .d > span   the inline meters on a fish row, "food / calm / energy / water". The rule on
+                      .d itself only reaches the first of the four, because ::first-letter applies
+                      to the block's first letter and not to each child's.
+     .dex .c .nm/.tr  the Fishdex cards
+     .lg .m           a line in the shop log
+     .toast           a notice
+     .buy             a button. Almost every one already starts with a capital, so this only
+                      catches the handful built from a lowercase data field, like the chronicle's
+                      filter row: killed, died, born, fell ill.
+     .ev .t           an event card
+   None of these can change a letter inside a sentence: ::first-letter is the first letter of the
+   block, so prose that continues a thought in a nested <b> or <i> is untouched. */
+.sec span::first-letter,#dsub::first-letter,.row .d>span::first-letter,
+.dex .c .nm::first-letter,.dex .c .tr::first-letter,.lg .m::first-letter,
+.toast::first-letter,.buy::first-letter,.ev .t::first-letter,
+#fishpanel .d::first-letter,.grp summary span::first-letter{text-transform:uppercase}
+.asis::first-letter{text-transform:none}
+.note{font-size:12.5px;color:var(--muted);line-height:1.5;padding:9px 11px;margin:2px 0 4px;border-left:2px solid rgba(255,216,132,.28);background:rgba(255,216,132,.045);border-radius:0 8px 8px 0}
+.note b{color:var(--text)}
+/* 74px and nowrap: a calendar label is "Sun · Summer 21", which is about ninety, so the date ran
+   straight over the first characters of every message in every log in the game. The column sizes
+   to the widest label now, capped, and the date wraps rather than overflowing. */
+.lg{display:grid;grid-template-columns:minmax(0,88px) minmax(0,1fr);gap:4px 10px;padding:7px 8px;border-bottom:1px solid var(--line);font-size:12.5px;line-height:1.4;align-items:baseline}
+.lg:hover{background:rgba(255,255,255,.035)}
+.lg .w{color:var(--muted);font-size:11px;font-variant-numeric:tabular-nums;white-space:normal;overflow-wrap:anywhere;min-width:0}
+.lg .m{color:var(--text);overflow-wrap:anywhere}
+.lg.good .m,.lg.gold .m{color:var(--kelp)}   /* good news: a sale, a cure, an order filled */
+.lg.prog .m{color:var(--gold)}               /* progress: an unlock, a level, a discovery */
+.lg.bad .m{color:var(--coral)}
+.lg.new{background:rgba(244,196,83,.07);box-shadow:inset 2px 0 0 var(--gold)}
+.tb.ico .badge{position:absolute;top:-5px;right:-5px;margin:0;min-width:15px;line-height:15px;font-size:10px}
+.tb.ico{position:relative}
+#r-clog{background:rgba(217,160,107,.18);border:1px solid rgba(217,160,107,.55);color:#f0b877;
+  border-radius:9px;padding:4px 10px;font:800 12px var(--body);cursor:pointer;letter-spacing:.01em;
+  animation:clogpulse 1.8s ease-in-out infinite}
+#r-clog:hover{background:rgba(217,160,107,.30)}
+@keyframes clogpulse{0%,100%{opacity:1}50%{opacity:.6}}
+/* Icons. One stroke weight, currentColor, and sized in em so they ride the text baseline of
+   whatever control they sit in rather than floating above it the way an emoji does. */
+svg.ic{display:inline-block;vertical-align:-0.16em;flex:none;overflow:visible}
+.tb svg.ic{font-size:15px;margin-right:5px;opacity:.88}
+.tb:hover svg.ic,.tb.on svg.ic{opacity:1}
+.tb.ico svg.ic{margin-right:0;font-size:16px}
+.tb.gbtn svg.ic{margin-right:5px}
+#r-clog svg.ic{font-size:13px;margin-right:4px;vertical-align:-0.14em}
+.res .lvlico svg.ic{font-size:13px;margin:0;vertical-align:-0.14em}
+.row svg.ic,.ev svg.ic{font-size:17px;opacity:.9}
+.buy.keepon{color:var(--gold);border-color:rgba(244,196,83,.5);background:rgba(244,196,83,.14)}
+/* A button being held down. The fill is the only tell that holding does anything at all, it takes
+   the full hold to cross the button, and it is deliberately not labelled. */
+.buy.holding{position:relative;overflow:hidden;border-color:var(--coral)}
+.buy.holding::before{content:'';position:absolute;inset:0;transform-origin:left;
+  background:rgba(255,111,89,.28);animation:holdfill 1.5s linear forwards;pointer-events:none}
+@keyframes holdfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.buy.holding::before{animation-duration:1.5s}}
+.pill{display:inline-block;padding:1px 6px;border-radius:9px;font-size:9.5px;font-weight:800;letter-spacing:.03em;background:rgba(255,255,255,.1);margin:0 0 0 5px;vertical-align:middle;line-height:14px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+/* A pill carrying a whole phrase rather than a one-word label wraps instead of forcing the row. */
+.pill.say{white-space:normal;font-weight:700;font-size:10.5px;letter-spacing:0;opacity:.85}
+.d .pill:first-child{margin-left:0}
+.pill.t5,.pill.t6{background:rgba(120,180,255,.18);color:#bcd8ff}
+.pill.t7{background:rgba(220,211,255,.2);color:var(--pearl)}
+.pill.shiny{background:linear-gradient(90deg,#ffd166,#ff8fab,#8ecae6);color:#111}
+.pill.pred{background:rgba(255,111,89,.2);color:var(--coral)}
+.pill.bot{background:rgba(200,176,120,.2);color:#e0c890}
+.pill.tip{cursor:help}
+.row,.dex .c{position:relative}
+.pill.tip::after{content:attr(data-tip);position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:9;width:auto;max-width:100%;padding:7px 10px;border-radius:8px;background:#0b1622;border:1px solid var(--line);color:var(--text);font-size:12px;font-weight:600;letter-spacing:0;line-height:1.35;text-transform:none;white-space:normal;box-shadow:0 8px 24px rgba(0,0,0,.45);opacity:0;pointer-events:none;transform:translateY(-3px);transition:opacity .15s,transform .15s;transition-delay:0s}
+.pill.tip:hover::after{opacity:1;transform:none;transition-delay:.7s}
+.pill.tip.open::after,.pill.tip:focus-visible::after{opacity:1;transform:none;transition:none}
+.row .n{position:relative;z-index:1}.row:hover .n,.row:focus-within .n{z-index:3}
+/* The event cards hang from the top of the water, and the filter housing is drawn at the top right
+   of the same strip. On a narrow window a centred panel reached across it, so the one thing you
+   have to click when it clogs sat underneath a notification. The panel is centred inside whatever
+   space is left to the left of the housing (--evX / --evW, both set from the layout pass), and the
+   container itself takes no pointer events so a click between two cards still reaches the glass. */
+#events{top:calc(var(--topH,52px) + 10px);left:var(--evX,50%);transform:translateX(-50%);
+  display:flex;flex-direction:column;gap:8px;align-items:center;
+  width:var(--evW,min(560px,60vw));pointer-events:none}
+#events>*{pointer-events:auto}
+/* align-items:center, and this reverses an earlier decision that is worth writing down rather than
+   silently overwriting. It used to be flex-start, on the argument that centring a short sentence
+   against a tall button stack floats it with a gap above and below. What that argument missed is
+   that flex-start does not remove the gap, it moves all of it underneath: measured on the offer
+   card at 1500px, the text column is 61px inside a row 146px tall, so the sentence sat 42.5px above
+   the middle of its own card with 85px of nothing under it. The person speaking is the subject of
+   the card and was reading as a caption stuck to the ceiling, which is what the owner reported.
+   Centred, the sentence is 0px off the middle of the row at every width that puts the two columns
+   side by side.
+   The same rule is right in the other direction. When the haggle slider opens, the text column is
+   the taller of the two and the buttons centre against it, which is what a two-column row should
+   do whichever column happens to be taller. Below 820px the card wraps and the buttons become a
+   full-width row underneath, and align-items then applies within each wrapped line, so a lone text
+   column on its own line is unaffected: nothing here changes the narrow layout. */
+.ev{background:var(--glass2);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:12px;padding:10px 14px;display:flex;align-items:center;gap:12px;width:100%;box-sizing:border-box;animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+.ev.sick{border-left-color:var(--coral)}.ev.wild{border-left-color:var(--pearl)}.ev.order{border-left-color:var(--kelp)}.ev.filter{border-left-color:#d9a06b}
+.ev.timed{border-left-color:#c080ff}.ev.timed .bar i{background:#c080ff}
+/* A notice card you have finished with. The whole card is the target, because a 12px cross is not
+   something to ask anybody to aim at over a moving tank, and the cross is there as the affordance
+   rather than as the only way in: the card lifts and the cross lights on hover so it reads as a
+   thing you can put away. Only cards with no controls on them carry .dism, so this can never take
+   the Sell button off the screen. */
+.ev.dism{cursor:pointer;transition:border-color .15s,background .15s}
+.ev.dism:hover{border-color:rgba(190,215,235,.42);background:var(--glass)}
+.ev .x{flex:0 0 auto;align-self:flex-start;font:700 17px/1 var(--body);color:var(--muted);opacity:.45;padding:1px 2px;transition:opacity .15s,color .15s}
+.ev.dism:hover .x{opacity:1;color:var(--gold)}
+/* min-width:0 is the fix for the offer card breaking its own bounds. A flex child defaults to
+   min-width:auto, which means it refuses to shrink below its content, and the buyer's tell is a
+   white-space:nowrap pill carrying a whole phrase. The text column was being forced wider than
+   the card and shoving the button stack off the right-hand edge. */
+.ev .t{flex:1 1 auto;min-width:0;font-size:13px;line-height:1.35;overflow-wrap:anywhere}
+.ev .t b{font-weight:800}
+.ev .bar{height:4px;background:rgba(255,255,255,.12);border-radius:2px;margin-top:6px;overflow:hidden}
+#dbody .bar{height:6px;background:rgba(255,255,255,.13);border-radius:3px;margin-top:6px;overflow:hidden}
+#dbody .bar i{display:block;height:100%;border-radius:3px;background:var(--gold);transition:width .35s ease}
+.ev .bar i{display:block;height:100%;background:var(--gold);transition:width .3s linear}
+.ev.sick .bar i{background:var(--coral)}
+/* The buttons keep their width and wrap to a row underneath on a narrow card rather than being
+   squeezed into five slivers. */
+.ev .acts{display:flex;flex-direction:column;gap:4px;flex:0 0 auto}
+@media (max-width:820px){.ev{flex-wrap:wrap}.ev .acts{flex-direction:row;flex-wrap:wrap;width:100%}.ev .acts .buy{flex:1 1 auto}}
+.ev .acts .buy{padding:5px 8px;font-size:12px;min-width:92px}
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+#fishpanel{left:50%;bottom:18px;transform:translateX(-50%);width:min(900px,92vw);background:var(--glass2);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:none;flex-direction:column;gap:10px;backdrop-filter:blur(12px)}
+#fishpanel.show{display:flex}
+#fishpanel .fp-row{display:flex;gap:6px;flex-wrap:wrap}
+#fishpanel .d{color:var(--muted);font-size:12px;line-height:1.4}
+#fishpanel .fp-result{display:grid;grid-template-columns:70px 1fr auto;gap:12px;align-items:center}
+#fishpanel .fp-result canvas{width:70px;height:44px}
+body.fishing #toasts{bottom:150px}
+/* 44px, not 18px: #hint sits at bottom:17px and runs along the bottom of the glass, and a centred
+   toast at 18px landed on top of it. The hint is hidden under 1100px wide and in work mode, and
+   both of those put the stack back down. */
+/* Docked to the bottom right rather than centred. Centred put every notice directly over the
+   middle of the tank, which is exactly where the fish are and where most coins land. In the corner
+   it covers the one part of the glass with nothing in it, and a click on a toast is forwarded down
+   to the water underneath anyway (see toastShow). */
+#toasts{bottom:44px;right:18px;left:auto;transform:none;display:flex;flex-direction:column;gap:8px;
+  align-items:flex-end;pointer-events:none;width:min(360px,38vw);max-height:min(34vh,220px);overflow:hidden}
+/* The cards are right-docked; the text inside them is not. Right-aligned running text with a
+   ragged left edge reads as a mistake on a two-line notice, and a notice is at most two lines
+   (toastBrief trims it). Left-aligned, a fixed card width so the stack has one edge, and a line
+   height with room, so a wrap lands as a paragraph and not as a break. */
+#toasts .toast.dim{opacity:.48}#toasts:hover .toast.dim{opacity:.88}#toasts .toast.dim:hover{opacity:1}
+#toasts .toast{transition:opacity .35s ease,transform .28s ease;white-space:normal;text-align:left;width:100%;box-sizing:border-box;
+  line-height:1.4;overflow:visible;text-overflow:clip;overflow-wrap:normal;word-break:normal;hyphens:none;
+  animation:toastIn .28s cubic-bezier(.22,1,.36,1);transform-origin:right bottom;box-shadow:0 10px 28px rgba(0,0,0,.38);
+  border-left:3px solid transparent}
+#toasts .toast.good,#toasts .toast.gold{border-left-color:var(--kelp)}
+#toasts .toast.bad{border-left-color:var(--coral)}
+#toasts .toast.prog{border-left-color:var(--gold)}
+#toasts .toast.going{opacity:0!important;transform:translateX(14px)}
+#toasts .toast.toast-bump{animation:toastBump .28s cubic-bezier(.22,1,.36,1)}
+@keyframes toastIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:none}}
+@keyframes toastBump{0%{transform:none}40%{transform:translateX(-3px)}100%{transform:none}}
+@media (prefers-reduced-motion:reduce){#toasts .toast,#toasts .toast.toast-bump{animation:none}}
+/* The overflow line. Quieter than a notice on purpose: it is not news, it is a count of news you
+   did not get, and it should read as the floor of the stack rather than as another card. */
+#toasts .toast.over{background:rgba(10,24,40,.62);color:var(--muted);font-weight:600;font-size:12px;
+  padding:5px 12px;animation:none;opacity:1;border-left-color:transparent;box-shadow:none}
+#toasts .toast.over:hover{color:var(--text)}
+body.work #toasts .toast.over{background:#f7f8f9;color:#6b7280}
+/* Above 820px the panel is a column down the right-hand side and the notice stack is docked to the
+   bottom right, which put every notice UNDERNEATH it: measured at 1440x900 with the Shop panel
+   open, the card sat at x 1022-1422 inside a panel spanning 964-1426 with a higher z-index, and
+   elementFromPoint at the middle of the notice returned a row of the panel. Every toast raised
+   while a panel was open was invisible, which is most of them, and it is the literal reading of
+   "impossible to read". Below 820px the panel is a bottom sheet instead and the rule further down
+   lifts the stack over it, so this one is bounded at the top of that range. */
+@media (min-width:821px){
+  body.drawer-open #toasts{right:calc(var(--drawerW) + 26px)}
+  /* The same conflict from the top of the screen: the notice strip is sized around the filter
+     housing and centered on the clear water, which at 1024 wide puts the order card's five buttons
+     under the open panel (card at x 89-593, panel from 558). The Sell, Haggle and Turn-away buttons
+     are the most used controls in the game and they were unreachable on every tab at that width.
+     While a panel is open the strip is also bounded by the panel's edge, and its center moves in
+     with it. */
+  body.drawer-open #events{width:min(var(--evW,min(560px,60vw)),calc(100vw - var(--drawerW) - 44px));left:min(var(--evX,50%),calc((100vw - var(--drawerW) - 30px) / 2))}
+}
+/* The chart puts a status panel along the bottom of the canvas, which is exactly where the toasts
+   live. While it is up they move above it rather than sitting on top of it. */
+body.atsea #toasts{bottom:150px}
+body.induel #toasts{bottom:186px}
+.tier{border-bottom:1px solid var(--line)}
+.tier>summary{list-style:none;cursor:pointer}
+.tier>summary::-webkit-details-marker{display:none}
+.tier>summary .sec{display:flex;justify-content:space-between;align-items:baseline}
+.tier>summary .sec::after{content:'\25be';margin-left:8px;opacity:.5;transition:transform .15s}
+.tier[open]>summary .sec::after{transform:rotate(180deg)}
+.tier>summary:hover .sec{color:var(--gold)}
+.saga-thought{font-style:italic;color:var(--muted);margin-top:4px;line-height:1.45;max-width:46ch}
+.counter-stock{margin-top:8px}
+.counter-stock .counter-cat{margin-top:4px}
+.counter-stock .row{padding:5px 6px}
+.counter-stock .counter-lot{font-size:11px}
+.counter-mark{text-align:center;font-family:var(--display);font-size:18px;color:var(--gold);padding-top:6px}
+.counter-lot{color:var(--muted);font-size:12px}
+.saga-street .sec,.saga-minds .sec{margin-top:14px}
+.saga-minds{border-bottom:1px solid var(--line);margin-bottom:10px;padding-bottom:8px}
+.toast{background:var(--glass2);border:1px solid var(--line);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:700;animation:toastIn .28s cubic-bezier(.22,1,.36,1);white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;cursor:pointer;pointer-events:auto}
+.toast.good,.toast.gold{color:var(--kelp)}.toast.bad{color:var(--coral)}.toast.prog{color:var(--gold)}
+#hint{bottom:17px;left:18px;font-size:12px;color:var(--muted);opacity:.95;text-shadow:0 0 1px #000,1px 0 1px #000,-1px 0 1px #000,0 1px 1px #000,0 -1px 1px #000,1px 1px 1px #000,-1px -1px 1px #000,1px -1px 1px #000,-1px 1px 1px #000}
+#hint kbd{background:rgba(255,255,255,.1);border-radius:4px;padding:1px 5px;font-family:inherit;font-weight:800;text-shadow:none}
+#combo{position:fixed;z-index:4;pointer-events:none;font-family:var(--display);font-weight:700;color:var(--gold);text-shadow:0 2px 12px rgba(0,0,0,.6);transition:opacity .2s;opacity:0}
+#combo.show{opacity:1}
+#welcome{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:rgba(2,8,16,.55);backdrop-filter:blur(6px)}
+#welcome.show{display:flex}
+#modal{position:fixed;inset:0;z-index:30;display:none;align-items:center;justify-content:center;background:rgba(2,8,16,.62);backdrop-filter:blur(6px)}
+#modal.show{display:flex}
+#modal .card{background:var(--glass2);border:1px solid var(--line);border-radius:16px;padding:24px 26px;max-width:520px;box-shadow:0 24px 70px rgba(0,0,0,.55)}
+#modal:has(#runSeedIn) .card{max-width:min(680px,94vw);max-height:min(88vh,840px);overflow:auto;padding:22px 24px 16px;scrollbar-width:thin}
+#modal:has(#runSeedIn) h1{color:var(--head);font-size:26px;letter-spacing:-.02em}
+#modal:has(#runSeedIn) .sec{margin:14px 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+#modal:has(#runSeedIn) .qty.ctr{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start;padding:2px 0 !important}
+#modal:has(#runSeedIn) .qty.ctr .buy{flex:1 1 148px;min-height:40px;text-align:center;white-space:normal;line-height:1.25;padding:8px 10px}
+#modal:has(#runSeedIn) #runSeedIn{flex:1 1 160px;min-width:140px}
+#modal:has(#runSeedIn) .d{padding:4px 2px 8px !important}
+#modal h1{font-family:var(--display);font-weight:600;margin:0 0 10px;font-size:24px;color:var(--coral)}
+#modal .d{color:var(--muted);font-size:13px;line-height:1.5}
+#modal ul{margin:8px 0 0;padding-left:18px;color:var(--text);font-size:13px;line-height:1.6}
+#modal ul li b{color:var(--gold)}
+/* The modal's action bar. It shipped as an inline margin-top:14px and nothing else, and on the
+   new-game screen that put its two buttons 14px under a centered row of challenge buttons that are
+   also class="buy ghost" inside a centered .qty: six outline buttons reading as one block, with
+   nothing to say that the last two close the dialog rather than pick a challenge. A hairline and
+   real air above it cut the bar off from the body, and .qty's 4px gap is widened here so the
+   confirm and the cancel are not shoulder to shoulder either. As an inline style none of this could
+   be themed or overridden; as a rule the border follows --line into work mode on its own. */
+#mActs{justify-content:center;gap:14px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+#welcome .card{background:var(--glass2);border:1px solid var(--line);border-radius:16px;padding:26px 30px;max-width:460px;text-align:center}
+#welcome h1{font-family:var(--display);font-weight:600;margin:0 0 10px;font-size:26px}
+#welcome p{margin:0 0 14px;color:var(--muted);line-height:1.5;font-size:14px}
+#welcome p b{color:var(--gold);font-size:22px;font-family:var(--display)}
+
+/* ── the title screen ─────────────────────────────────────────────────────────────────────────
+   Everything here sits over a live canvas, so the only job of the plate is to make white text
+   legible over a moving picture without hiding the picture. That is a vignette and a wash, not a
+   panel: a solid card would defeat the entire point of generating a tank behind it. */
+#title{position:fixed;inset:0;z-index:24;display:none;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;padding:24px;box-sizing:border-box;
+  font-family:var(--body);opacity:0;transition:opacity .5s ease}
+#title.show{display:flex;opacity:1}
+#title.behind{opacity:.12;pointer-events:none}
+/* Attract mode. The vignette thins, the menu goes, and the name settles small into the corner. All
+   of it transitions, and it transitions back the instant the pointer moves. */
+#title .tt-vig,#title .tt-inner,#title .tt-foot{transition:opacity 1.6s ease,transform 1.6s cubic-bezier(.2,.8,.2,1)}
+#title.idle .tt-vig{opacity:.28}
+#title.idle .tt-acts,#title.idle .tt-save,#title.idle .tt-splash,#title.idle .tt-foot,#title.idle .tt-where,#title.idle .tt-rule{opacity:0;pointer-events:none}
+#title.idle .tt-inner{transform:translate(calc(-50vw + 90px),calc(-50vh + 60px)) scale(.42);transform-origin:center}
+#title.idle .tt-acts,#title.idle .tt-save,#title.idle .tt-splash,#title.idle .tt-where,#title.idle .tt-rule{transition:opacity .8s ease}
+#title.behind .tt-back{display:none}
+/* A radial vignette rather than a flat scrim: the middle stays readable and the fish at the edges
+   stay visible, which is the whole reason the showcase exists. */
+.tt-vig{position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 78% 72% at 50% 46%,rgba(2,7,14,.42) 0%,rgba(2,7,14,.72) 46%,rgba(1,4,9,.92) 100%)}
+.tt-inner{position:relative;display:flex;flex-direction:column;align-items:center;gap:0;
+  animation:ttrise .8s cubic-bezier(.16,1,.3,1) both}
+@keyframes ttrise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.tt-mark{display:flex;flex-direction:column;align-items:center}
+.tt-name{font-family:var(--display);font-weight:700;margin:0;
+  font-size:clamp(52px,11vw,132px);line-height:.92;letter-spacing:-.015em;
+  color:#fdf6e6;text-shadow:0 2px 0 rgba(0,0,0,.35),0 18px 60px rgba(0,0,0,.85),0 0 90px rgba(244,196,83,.14)}
+.tt-rule{width:min(320px,52vw);height:1px;margin:16px 0 11px;
+  background:linear-gradient(90deg,transparent,rgba(244,196,83,.75),transparent)}
+.tt-where{font-size:clamp(10px,1.5vw,13px);letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(233,222,198,.62);font-weight:700;padding-left:.42em}
+/* The splash line was gold, bold, and glowing, which made it the loudest thing on the screen at
+   reading size and put it ahead of both the name and the button in the reading order. It is an
+   aside, so it is now set as one: the same warm cream as the location label, a step down in weight,
+   and a shadow for legibility rather than for glow. Gold is left to the rule and the primary
+   button, so the one saturated thing on the screen is the thing to click. */
+.tt-splash{margin:22px 0 30px;max-width:min(560px,86vw);
+  font-size:clamp(13px,1.9vw,15.5px);line-height:1.5;color:rgba(231,220,199,.70);font-weight:600;
+  letter-spacing:.005em;text-shadow:0 1px 10px rgba(0,0,0,.85)}
+.tt-acts{display:flex;flex-direction:column;gap:9px;width:min(300px,78vw)}
+.tt-btn{width:100%;padding:13px 18px;border-radius:10px;font-size:15px;font-weight:700;
+  letter-spacing:.02em;background:rgba(255,255,255,.055);color:#e9eef4;
+  border:1px solid rgba(200,225,245,.20);
+  transition:background .16s,border-color .16s,transform .16s,color .16s;
+  backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+.tt-btn:hover{background:rgba(255,255,255,.13);border-color:rgba(200,225,245,.42);transform:translateY(-1px)}
+.tt-btn:active{transform:none}
+.tt-btn.primary{background:rgba(244,196,83,.16);border-color:rgba(244,196,83,.62);color:#ffdf9b;
+  box-shadow:0 6px 26px rgba(244,196,83,.10)}
+.tt-btn.primary:hover{background:rgba(244,196,83,.28);border-color:var(--gold);color:#fff1cd}
+.tt-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.tt-save{margin-top:18px;font-size:12px;color:rgba(200,220,235,.52);font-weight:600;
+  max-width:min(460px,86vw);line-height:1.5}
+.tt-foot{position:absolute;left:0;right:0;bottom:14px;font-size:10.5px;font-weight:600;
+  letter-spacing:.08em;color:rgba(180,205,225,.32)}
+/* Only visible while the settings drawer is open over the title. */
+.tt-back{position:fixed;left:18px;bottom:18px;z-index:26;display:none;
+  padding:8px 14px;border-radius:9px;font-size:13px;font-weight:700;
+  background:rgba(6,14,24,.86);border:1px solid var(--line);color:var(--text)}
+body.titling.drawer-open .tt-back{display:block}
+/* While the title is up the interface underneath is not: the tank is a picture, not a shop. */
+body.titling #top,body.titling #events,body.titling #toasts,body.titling #hint,
+body.titling #combo,body.titling #fishpanel{opacity:0;pointer-events:none}
+body.titling.drawer-open #top{opacity:1;pointer-events:auto}
+body.titling #tank{cursor:default}
+/* The tab bar is one element shared by the title screen and the game. From the title there is no
+   shop to open a tab on, so everything but Settings is hidden rather than merely inert: an inert
+   button that still looks like a button is an invitation to click it, and clicking Shop from the
+   title used to leave a brand new game broken. openTab refuses these as well, so the rule holds
+   even if a shortcut or a stale handler gets past the stylesheet. */
+body.titling .tb[data-tab]:not([data-tab="settings"]):not([data-tab="log"]){display:none}
+body.titling #tabs .grp{display:none}
+@media (max-height:560px){
+  .tt-splash{margin:12px 0 16px}
+  .tt-rule{margin:10px 0 7px}
+  .tt-acts{width:min(260px,70vw)}
+  .tt-btn{padding:9px 14px;font-size:13.5px}
+}
+@media (prefers-reduced-motion:reduce){.ev,.toast{animation:none}}
+/* very large CSS viewports (a 5K2K panel run at native 1x): grow the HTML chrome too */
+@media (min-width:3400px){#top,#drawer,#events,#toasts,#hint,#welcome .card,#combo{zoom:1.7}}
+@media (min-width:2200px) and (max-width:3399px){#top,#drawer,#events,#toasts,#hint,#welcome .card{zoom:1.2}}
+@media (max-width:1500px){#top .spacer{display:none}
+  /* Padding on the scroll box, not margin: the unread dot on a tab sits 3px above the button, and
+     a box that scrolls clips everything outside its padding box, so without the padding the top of
+     every dot was cut off on any window narrow enough to scroll the strip. */
+  /* Sticky ONLY here, where the strip scrolls. On the wide layout the strip wraps instead, and a
+     sticky element inside a wrapping flex row pins itself over whatever tabs wrapped onto its line,
+     which is the overlap that appeared the moment a new tab was revealed or the music button
+     changed width. */
+  #top .tgroup{order:1;margin-left:auto}
+  #top .btns{flex:1 1 100%;justify-content:flex-start;margin-top:0;padding:5px 0 3px;
+    flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;padding-bottom:2px}
+  #top .btns>*{flex:0 0 auto;scroll-snap-align:start}
+  /* A dropdown inside a scrolling strip would be clipped by the strip's own overflow, so once the
+     strip scrolls the menu is taken out of the flow and placed against the viewport instead. The
+     coordinates come from placeGroup(), which already measures the button. */
+  .tabgrp.open>.gmenu{position:fixed}}
+@media (max-width:1400px){.res .rate{display:none}#top{gap:14px}#shopname{font-size:19px}}
+@media (max-width:1100px){#shopname{font-size:18px}.tb{padding:5px 9px;font-size:12px}#hint{display:none}
+  #toasts{bottom:18px;right:10px;max-width:min(320px,66vw)}
+  #toasts .toast{font-size:12px;padding:6px 10px}}
+/* A short window is the case that actually hurt: on a small abstract window the notices reached
+   from the bottom of the glass to halfway up it. Below 720px tall they get smaller, tighter and
+   narrower, and the stack itself is capped in toastShow by the same measurement. */
+@media (max-height:720px){
+  #toasts{bottom:10px;gap:4px;max-width:min(300px,54vw)}
+  #toasts .toast{font-size:11.5px;padding:5px 9px}
+  #events{width:min(var(--evW,420px),52vw)}
+}
+@media (max-height:560px){
+  #toasts{max-width:min(260px,46vw)}
+  #toasts .toast{font-size:11px;padding:4px 8px}
+}
+@media (max-width:820px){
+  #top{
+    display:grid;
+    grid-template-columns:auto minmax(0,1fr) auto;
+    grid-template-rows:auto auto auto;
+    align-items:center;
+    gap:6px 8px;
+    padding:6px 8px 5px;
+    min-height:0;
+    row-gap:4px;
+  }
+  #shopname{grid-column:1;grid-row:1;font-size:16px;max-width:28vw;padding:1px 6px;order:unset}
+  #scenes{grid-column:2;grid-row:1;margin:0;justify-self:start;order:unset}
+  .tgroup{grid-column:3;grid-row:1;margin:0;order:unset!important}
+  #hudres{grid-column:1 / -1;grid-row:2;gap:8px;overflow-x:auto;padding:0 0 1px}
+  #top .spacer{display:none}
+  #caldate{display:none !important}
+  .res{font-size:13px;gap:5px;flex:0 0 auto}
+  .res .ico{width:10px;height:10px}
+  #top .btns,#top.rows2 .btns{
+    grid-column:1 / -1;grid-row:3;
+    order:unset;flex:none;width:100%;min-width:0;justify-content:flex-start;
+    flex-wrap:nowrap !important;overflow-x:auto;overflow-y:hidden;
+    padding:1px 0 2px;-webkit-overflow-scrolling:touch;
+  }
+  #top .btns > .tb, #top .btns .gbtn{
+    font-size:0 !important;letter-spacing:0;padding:8px 10px;min-width:40px;min-height:36px;
+    line-height:1;gap:0;
+  }
+  #top .btns .tb svg.ic, #top .btns .gbtn svg.ic{width:16px;height:16px;margin:0}
+  #top .btns .car,#top .btns .tb > span:not(.badge){display:none}
+  #top .tgroup button{font-size:0 !important;padding:7px 9px;min-width:36px;min-height:34px}
+  #top .tgroup button svg.ic{width:15px;height:15px}
+  #top.rows2 .tgroup{order:unset;margin-left:0}
+  #shopname,.res,.tgroup{order:unset}
+  #drawer{left:8px;right:8px;width:auto;top:auto;bottom:8px;height:min(52vh,480px);border-radius:12px}
+  #dclose{min-width:44px;min-height:44px;font-size:22px}
+  #events{width:min(var(--evW,calc(100vw - 16px)),calc(100vw - 16px));top:auto;bottom:calc(min(52vh,480px) + 14px)}
+  body:not(.drawer-open) #events{bottom:auto;top:calc(var(--topH,52px) + 6px)}
+  body.drawer-open #toasts{bottom:calc(min(52vh,480px) + 58px)}
+  .dex{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}
+  #console{left:8px;right:8px;bottom:8px;height:min(48vh,360px)}
+}
+@media (max-width:560px){
+  #top{padding:4px 6px 3px;gap:6px}
+  #shopname{font-size:15px;max-width:24vw}
+  .res{font-size:12px}
+  #scenes .sc{padding:3px 6px;font-size:10px}
+  #top .btns{width:auto;justify-content:flex-start}
+  .tb{text-align:center;padding:5px 8px;font-size:12px}
+  .gmenu .tb{flex:1 1 auto}
+  .row{grid-template-columns:36px 1fr auto;gap:6px}.row canvas{width:36px;height:24px}
+  .buy{min-width:64px;padding:6px 6px;font-size:12px}
+  #drawer header{padding:10px 12px 8px}
+  #drawer h2{font-size:18px}
+}
+/* HD pass — punch the tank, leave the chrome alone. */
+#necroHot{position:fixed;left:14px;bottom:18px;z-index:8;display:none;font:700 13px var(--body);padding:10px 14px;border-radius:12px;border:1px solid rgba(180,140,80,.45);background:rgba(18,10,6,.88);color:#e8d4b0;min-height:42px;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+#necroHot.show{display:block}
+#necroHot:hover{border-color:var(--gold);color:var(--gold)}
+#necro{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;background:rgba(4,6,10,.72);padding:18px}
+#necro.show{display:flex}
+.necro-card{display:grid;grid-template-columns:minmax(140px,32%) 1fr;max-width:min(920px,96vw);max-height:min(86vh,760px);width:100%;background:#140e0a;border:1px solid rgba(180,140,80,.35);border-radius:16px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.65);position:relative;color:#e6d7c2}
+.necro-x{position:absolute;top:10px;right:10px;z-index:2;background:rgba(0,0,0,.45);border:1px solid rgba(180,140,80,.35);color:#e6d7c2;border-radius:8px;padding:6px 10px;min-height:36px}
+.necro-cover{min-height:220px;background:#0b0705}
+.necro-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.necro-body{overflow:auto;padding:22px 22px 18px;font-family:var(--display);background:linear-gradient(180deg,#1a120c,#120c08)}
+.necro-body h2{margin:0 0 8px;font-size:28px;letter-spacing:.04em;color:#e4c37a}
+.necro-lead{margin:0 0 10px;line-height:1.5;color:#cbb89a;font-size:15px}
+.necro-meta,.necro-how,.necro-back,.necro-empty{color:#9a8770;font-size:13px;font-family:var(--body)}
+.necro-entry{border-top:1px solid rgba(180,140,80,.18);padding:12px 0}
+.necro-name{font-size:18px;color:#f0e0c4;margin-bottom:4px}
+.necro-entry.risen{opacity:.55}
+.necro-raise{margin-top:8px}
+@media (max-width:640px){
+  .necro-card{grid-template-columns:1fr;max-height:92vh}
+  .necro-cover{max-height:28vh}
+}
+#tank{
+  filter: contrast(1.08) saturate(1.18) brightness(1.04);
+}
+@media (prefers-reduced-motion:reduce){
+  #tank{filter: contrast(1.04) saturate(1.08);}
+}
+#glassfx{
+  position:fixed;inset:0;pointer-events:none;z-index:3;
+  background:
+    linear-gradient(180deg, rgba(220,240,255,.08) 0%, transparent 16%, transparent 76%, rgba(2,10,22,.2) 100%),
+    radial-gradient(ellipse 70% 42% at 50% -4%, rgba(160,210,255,.1), transparent 60%);
+  box-shadow: inset 0 0 140px rgba(0,18,36,.16);
+}
+#techfx{
+  position:fixed;inset:0;pointer-events:none;z-index:4;
+  mix-blend-mode:normal;
+}
+@media (prefers-reduced-motion:reduce){
+  #techfx{display:none}
+}
+body.work #techfx{display:none}
+body.titling #techfx{opacity:.45}
+#feelfx{
+  position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;
+}
+.buy,.tb,.tt-btn,button.buy{
+  transition:transform 150ms ease-out, background .16s, border-color .16s, color .16s;
+}
+.buy:active:not(:disabled),.tb:active,.tt-btn:active{transform:scale(.96)}
+@media (prefers-reduced-motion:reduce){
+  .buy:active:not(:disabled),.tb:active,.tt-btn:active{transform:none}
+  #feelfx{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="tank"></canvas>
+<div id="glassfx" aria-hidden="true"></div>
+<canvas id="techfx" aria-hidden="true"></canvas>
+<div id="combo"></div>
+
+<div id="top" class="ui">
+  <span id="shopname" class="htip" contenteditable="true" spellcheck="false" data-tip="Your shop. Click the name to rename it.">Fin&#39;s</span>
+  <div id="hudres">
+  <div class="res htip" id="r-coins" tabindex="0"><span class="ico" style="background:var(--gold)"></span><span class="v">0</span><span class="rate"></span></div>
+  <div class="res htip" id="r-pellets" tabindex="0"><span class="ico" style="background:#d9a06b"></span><span class="v">0</span><span class="rate"></span></div>
+  <div class="res hidden htip" id="r-algae" tabindex="0"><span class="ico" style="background:var(--algae)"></span><span class="v">0</span><span class="rate"></span></div>
+  <div class="res hidden htip" id="r-debt" tabindex="0"><span class="ico sq" style="background:var(--coral)"></span><span class="v">0</span><span class="rate">owed</span></div>
+  <div class="res hidden htip" id="r-level" tabindex="0"><span class="ico lvlico" data-ico="star"></span><span class="v">Lv 1</span><span class="rate">Hobbyist</span><i class="xptrack"><b class="xpfill"></b></i></div>
+  <div class="res hidden htip" id="r-rep" tabindex="0"><span class="ico ring"></span><span class="v">0</span><span class="rate">rep</span></div>
+  <div class="res hidden htip" id="r-pearls" tabindex="0"><span class="ico" style="background:var(--pearl)"></span><span class="v">0</span><span class="rate">pearls</span></div>
+  <span id="caldate" class="htip" tabindex="0" style="color:var(--muted);font-size:12px;font-weight:700"></span>
+  <button id="r-clog" class="hidden" type="button" title="The filter is clogged: flow is down, algae is up and the water is going off. Click to clean it." data-ico="warn">Filter clogged · clean it</button>
+  <div class="res htip" id="r-fish" tabindex="0"><span class="ico mark" data-ico="shop" style="color:#6dd3ff"></span><span class="v">0/8</span><span class="rate">fish</span></div>
+  </div>
+  <span id="scenes"></span>
+  <div class="spacer"></div>
+  <span class="tgroup">
+      <button class="tb ico" id="musicBtn" title="Music (M)" data-ico="music"></button>
+      <button class="tb ico" id="nextBtn" title="Next track (N)" style="display:none" data-ico="next"></button>
+      <button class="tb ico" id="sfxBtn" title="Game sounds (S)" data-ico="sound"></button>
+      <button class="tb ico" data-tab="settings" title="Settings (8)" data-ico="settings"></button>
+      <button class="tb ico" data-tab="log" id="logBtn" title="Everything the shop has told you (L)" data-ico="bell"><span class="badge" id="lbadge" style="display:none"></span></button>
+      <button class="tb ico" id="ambientBtn" title="Hide the interface (H)" data-ico="eye"></button>
+    </span>
+  <div class="btns">
+    <button class="tb" data-tab="shop" data-need="always" data-ico="shop">Shop</button>
+    <button class="tb" data-tab="tank" data-need="always" data-ico="tank">Tank</button>
+    <button class="tb" data-tab="upgrades" data-need="always" data-ico="gear">Gear</button>
+    <button class="tb" data-tab="journal" data-need="always" data-ico="research">Research<span class="badge" id="jbadge" style="display:none"></span></button>
+    <button class="tb" data-tab="orders" data-need="orders" data-ico="orders">Orders<span class="badge" id="obadge" style="display:none"></span></button>
+    <button class="tb" data-tab="dex" data-need="always" data-ico="fishdex">Fishdex</button>
+    <span class="tabgrp" data-grp="stock"><button class="tb gbtn" type="button" data-ico="stock">Stock <i class="car">▾</i></button><span class="gmenu">
+      <button class="tb" data-tab="decor" data-need="decor" data-ico="decor">Decor</button>
+      <button class="tb" data-tab="bot" data-need="bot" title="Propagate, cross and name plant cultivars" data-ico="botany">Botany</button>
+      <button class="tb" data-tab="hyb" data-need="hyb" title="Cross two species and get a third" data-ico="crosses">Crosses</button>
+      <button class="tb" data-tab="camo" data-need="camo" title="Flake camos" data-ico="camos">Camos</button>
+      <button class="tb" data-tab="curios" data-need="curios" data-ico="curios">Curios</button>
+      <button class="tb" data-tab="vet" data-need="vet" title="Diagnosis, medications and surgery" data-ico="vet">Vet</button>
+      <button class="tb" data-tab="eggs" data-need="eggs" data-ico="secrets">Secrets</button>
+    </span></span>
+    <span class="tabgrp" data-grp="trade"><button class="tb gbtn" type="button" data-ico="trade">Trade <i class="car">▾</i></button><span class="gmenu">
+      <button class="tb" data-tab="market" data-need="market" data-ico="markets">Markets</button>
+      <button class="tb" data-tab="exch" data-need="exch" data-ico="exchange">Exchange</button>
+      <button class="tb" data-tab="econ" data-need="econ" title="What is underneath the prices: the trading houses, and what they have learned about you" data-ico="stats">The floor</button>
+      <button class="tb" data-tab="auction" data-need="auction" title="Kettleworth &amp; Son, and the Wet Room" data-ico="saleroom">Saleroom</button>
+      <button class="tb" data-tab="town" data-need="town" title="Who buys from you, and what the town thinks" data-ico="town">Town</button>
+      <button class="tb" data-tab="ads" data-need="ads" data-ico="ads">Ads</button>
+      <button class="tb" data-tab="bank" data-need="bank" title="Credit, loans and anything you owe" data-ico="money">Money</button>
+      <button class="tb" data-tab="law" data-need="law" data-ico="law">Law<span class="badge" id="lawbadge" style="display:none"></span></button>
+    </span></span>
+    <span class="tabgrp" data-grp="sport"><button class="tb gbtn" type="button" data-ico="sport">Sport <i class="car">▾</i></button><span class="gmenu">
+      <button class="tb" id="arenaBtn" data-need="arena" data-ico="arena">Arena</button>
+      <button class="tb" data-tab="gym" data-need="arena" data-ico="training">Training</button>
+      <button class="tb" data-tab="arms" data-need="arms" title="The Deepwater Service" data-ico="armoury">Armory</button>
+      <button class="tb" id="fishBtn" data-need="fishing" title="Go fishing (R)" data-ico="fishing">Fishing</button>
+      <button class="tb" data-tab="chart" data-need="chart" title="The open water (O)" data-ico="chart">Chart</button>
+      <button class="tb" data-tab="rig" data-need="always" title="The skiff, the sloop and the van, and the shape they are in" data-ico="chart">Vessels</button>
+    </span></span>
+    <span class="tabgrp" data-grp="office"><button class="tb gbtn" type="button" data-ico="office">Office <i class="car">▾</i></button><span class="gmenu">
+      <button class="tb" data-tab="guide" data-need="always" title="Every system in the game, and what opens the ones that are shut" data-ico="research">Guide<span class="badge" id="gdbadge" style="display:none"></span></button>
+      <button class="tb" data-tab="life" data-need="always" data-ico="person">Your life<span class="badge" id="owbadge" style="display:none"></span></button>
+      <button class="tb" data-tab="nights" data-need="nights" data-ico="bell">Nights</button>
+      <button class="tb" data-tab="turf" data-need="turf" data-ico="town">The quarter</button>
+      <button class="tb" data-tab="rival" data-need="rival" data-ico="shop">The other shop</button>
+      <button class="tb" data-tab="staff" data-need="staff" title="Who works here, what you pay them, and whether they are still going to be here next week" data-ico="town">Payroll</button>
+      <button class="tb" data-tab="stats" data-need="always" data-ico="stats">Stats</button>
+      <button class="tb" data-tab="chron" data-need="chron" title="Everything that has happened here" data-ico="chronicle">Chronicle</button>
+      <button class="tb" data-tab="dyn" data-need="dyn" title="The bloodlines: who founded them, what they became, and how they ended" data-ico="person">Dynasties</button>
+      <button class="tb" data-tab="city" data-need="city" title="The rest of Boston: property, the garage, the bar, and the courts" data-ico="town">The city</button>
+      <button class="tb" data-tab="bench" data-need="bench" title="Make your own gear out of raw material" data-ico="gear">Bench</button>
+      <button class="tb" data-tab="refine" data-need="refine" title="Turn dredged ore, sand and algae into things the bench and the feed bin can use" data-ico="research">Refinery</button>
+      <button class="tb" data-tab="case" data-need="case" title="Standings and relics: the only progression that survives a restart" data-ico="star">The case</button>
+      <button class="tb" data-tab="court" data-need="court" title="Nightmare only: the people around the shop and what can be done about them" data-ico="person">The court</button>
+      <button class="tb" data-tab="atlas" data-need="atlas" title="Four centuries of ocean history: places, powers, people and the record" data-ico="chart">Atlas</button>
+      <button class="tb" data-tab="firms" data-need="firms" title="The wholesaler, the bank, the landlord, the insurer, a chain competitor and a law firm, each with a board and an agenda" data-ico="office">Firms</button>
+      <button class="tb" data-tab="lex" data-need="lex" title="The language they speak out there, and how much of it you can read" data-ico="research">Tongue</button>
+      <button class="tb" data-tab="cal" data-need="always" data-ico="calendar">Calendar</button>
+      <button class="tb" data-tab="level" data-need="level" title="Your level and talents" data-ico="level">Level</button>
+    </span></span>
+  </div>
+</div>
+
+<div id="console"></div>
+<div id="ttOver"><div class="inner"><div class="qty" style="padding:0 0 12px;justify-content:flex-start"><button class="buy ghost" id="ttOverBack">&larr; Back</button><h2 style="margin:0 0 0 12px">Saves</h2></div><div id="ttOverBody"></div></div></div>
+<aside id="drawer" class="ui">
+  <header><button class="buy ghost" id="ttBackBtn">&larr; Back</button><div style="flex:1"><h2 id="dtitle">Shop</h2><input id="dsearch" type="search" placeholder="Search species or variety…"></div><small id="dsub"></small><button class="buy ghost" id="dclose" title="Close (Esc)" aria-label="Close panel">&times;</button></header>
+  <div id="dbody"></div>
+</aside>
+
+<div id="events" class="ui"></div>
+<div id="fishpanel" class="ui"></div>
+<div id="toasts" class="ui"></div>
+<div id="hint" class="ui"></div>
+
+<div id="modal"><div class="card"><h1 id="mTitle"></h1><div id="mBody"></div><div id="mActs" class="qty"></div></div></div>
+
+<div id="nmbadge">Nightmare</div>
+<style>
+/* the command palette (qol.js) */
+#palette{position:fixed;inset:0;z-index:28;display:none;align-items:flex-start;justify-content:center;padding-top:12vh;background:rgba(2,8,16,.55);backdrop-filter:blur(2px)}
+#palette.show{display:flex}
+.pal-card{width:min(560px,92vw);background:var(--panel,#0d1622);border:1px solid var(--line);border-radius:12px;box-shadow:0 24px 80px rgba(0,0,0,.6);overflow:hidden}
+#palIn{width:100%;box-sizing:border-box;padding:13px 16px;font:600 15px var(--body);background:transparent;border:0;border-bottom:1px solid var(--line);color:var(--text);outline:none}
+#palList{max-height:min(52vh,420px);overflow-y:auto}
+.pal-it{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;cursor:pointer;border-left:3px solid transparent}
+.pal-it.on{background:rgba(244,196,83,.10);border-left-color:var(--gold)}
+.pal-it .n{font-weight:700;font-size:13.5px}.pal-it .d{font-size:11.5px;color:var(--muted);margin-top:1px}
+.pal-it kbd{font:700 11px var(--body);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:5px;padding:2px 6px;color:var(--muted)}
+.pal-foot{padding:6px 14px;font-size:11px;color:var(--muted);border-top:1px solid var(--line)}
+#hudres{display:flex;align-items:center;gap:12px;flex-wrap:nowrap;min-width:0}
+#scenes:empty{display:none}
+#scenes{display:inline-flex;gap:3px;margin-left:10px;padding:2px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.04);flex-wrap:nowrap;white-space:nowrap;flex:0 0 auto}
+#scenes .sc{border:0;background:transparent;color:var(--muted);font:800 11px var(--body);padding:3px 9px;border-radius:999px;cursor:pointer;letter-spacing:.02em}
+#scenes .sc:hover{color:var(--text);background:rgba(255,255,255,.08)}
+#scenes .sc.on{background:var(--gold);color:#1a1200}
+body.work #scenes{border-color:#d7dbe0;background:#fff}body.work #scenes .sc{color:#6b7280}body.work #scenes .sc.on{background:#1d4ed8;color:#fff}
+@media (max-width:1100px){#scenes .sc{padding:3px 6px;font-size:10px}}
+/* colorblind palette: Okabe–Ito for the colors that carry meaning */
+body.cb{--kelp:#0072b2;--coral:#d55e00;--gold:#e69f00;--algae:#56b4e9}
+body.cb .toast.good,body.cb .toast.gold{border-left-color:#0072b2}body.cb .toast.bad{border-left-color:#d55e00}
+#speedpill{display:none;margin-left:8px;background:rgba(244,196,83,.16);color:var(--gold);border:1px solid rgba(244,196,83,.5);border-radius:999px;padding:2px 9px;font:800 11px var(--body);cursor:pointer}
+body.work #palette .pal-card{background:#fff;color:#1f2328}body.work #palIn{color:#1f2328}
+#dtitle{text-transform:capitalize}
+#hookWhisper{color:var(--gold);font:700 12px/1.2 Nunito,sans-serif;letter-spacing:.02em;max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:0;transition:opacity .25s ease;flex:0 1 22ch;min-width:0}
+#hookWhisper.on{opacity:.92}
+#hookWhisper.pop{animation:hookPop .45s ease}
+@keyframes hookPop{from{opacity:0;transform:translateY(3px)}to{opacity:.92;transform:none}}
+@media (prefers-reduced-motion:reduce){#hookWhisper.pop{animation:none}}
+#flowVeil{position:fixed;inset:0;z-index:3;pointer-events:none;opacity:0;transition:opacity .45s ease}
+#flowGrade{position:fixed;inset:0;z-index:2;pointer-events:none;mix-blend-mode:multiply;opacity:.35}
+.site-grid{display:grid;grid-template-columns:repeat(16,1fr);gap:1px;width:100%;max-width:280px;margin:6px 0 10px;image-rendering:pixelated}
+.site-grid i{display:block;aspect-ratio:1;border-radius:1px}
+.desk-life .note{color:var(--muted);margin:0 0 8px;line-height:1.45}
+.desk-life .book-line>div:first-child{color:var(--muted);font-size:11px;letter-spacing:.04em;text-transform:lowercase}
+.know-desk{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.know-card{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03)}
+.know-card .n{color:var(--gold)}
+</style>
+
+<div id="welcome"><div class="card"><h1>Welcome back</h1><p id="wtext"></p><button class="buy go" id="wok">Open the shop</button></div></div>
+
+<!-- The title screen. A dark plate over a tank that is genuinely running: the showcase behind this
+     is the real renderer with a real scene in it, generated fresh every time the game is opened. -->
+<div id="title">
+  <div class="tt-vig"></div>
+  <div class="tt-inner">
+    <div class="tt-mark">
+      <h1 class="tt-name">Fin&#39;s</h1>
+      <div class="tt-rule"></div>
+      <div class="tt-where">North End &middot; Boston</div>
+    </div>
+    <div class="tt-splash" id="ttSplash"></div>
+    <div class="tt-acts">
+      <button class="tt-btn primary" id="ttContinue">Continue</button>
+      <button class="tt-btn" id="ttNew">New game</button>
+      <button class="tt-btn" id="ttSaves">Saves</button>
+      <button class="tt-btn" id="ttSet">Settings</button>
+    </div>
+    <div class="tt-save" id="ttSave"></div>
+  </div>
+  <div class="tt-foot"><span id="ttBuild"></span></div>
+  <button class="tt-back" id="ttBack">Back to the title</button>
+</div>
+
+<script src="world.js?v=34"></script>
+<script src="folk.js?v=20"></script>
+<script src="fins.js?v=45"></script>
+<script src="nn.js?v=2"></script>
+<script src="feel.js?v=9"></script>
+<script src="tech.js?v=5"></script>
+<script src="life.js?v=18"></script>
+<script src="saga.js?v=14"></script>
+<script src="mind.js?v=3"></script>
+<script src="occult.js?v=7"></script>
+<script src="stock.js?v=7"></script>
+<script src="know.js?v=3"></script>
+<script src="weave.js?v=3"></script>
+<script src="live.js?v=2"></script>
+<script src="desk.js?v=7"></script>
+<script src="hook.js?v=6"></script>
+<script src="flow.js?v=2"></script>
+<script src="site.js?v=4"></script>
+</body>
+</html>
