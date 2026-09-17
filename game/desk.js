@@ -482,6 +482,17 @@
     } else {
       line = "You don't keep " + coming.want + "?";
     }
+    try {
+      if (window.faith && faith.line && coming.want && faith.taboo && faith.taboo() === coming.want) {
+        var fl = faith.line();
+        if (fl) line = fl;
+      } else if (window.beast && beast.near && beast.near() > 0.14) {
+        var bl = beast.line && beast.line();
+        if (bl) line = bl;
+      } else if (window.tongue && tongue.say) {
+        line = tongue.say(coming.name, line);
+      }
+    } catch (eF) {}
     hear(coming.name, line, "neighbor");
     try {
       var browse = window.shopLife && shopLife.browse ? shopLife.browse() : null;
@@ -534,6 +545,9 @@
       try {
         if (window.weave && weave.because) weave.because(coming.name + " bought because we kept a pair of " + coming.want + ".");
       } catch (e) {}
+      try {
+        if (window.faith && faith.onSale) faith.onSale(coming.want);
+      } catch (eF2) {}
       try {
         if (typeof k === "function") k(coming.name + " came for the " + coming.want + ".", "gold");
       } catch (e2) {}

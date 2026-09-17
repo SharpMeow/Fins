@@ -349,6 +349,8 @@
         y = lp.y + (y - lp.y) * 0.42;
       }
       lastPos[id] = { x: x, y: y };
+      var keys = Object.keys(lastPos);
+      if (keys.length > 80) delete lastPos[keys[0]];
     }
     var union = sheet.box;
     var box0 = (sheet.boxes && sheet.boxes[fb.i0]) || union;

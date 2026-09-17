@@ -339,6 +339,15 @@
     try {
       if (window.road && typeof road.cut === "function" && road.cut()) p -= 0.08;
     } catch (e7) {}
+    try {
+      if (window.beast && typeof beast.near === "function") p -= beast.near();
+    } catch (e8) {}
+    try {
+      if (window.faith && typeof faith.bless === "function") p += faith.bless();
+    } catch (e9) {}
+    try {
+      if (window.rumor && typeof rumor.heat === "function") p -= Math.min(0.05, rumor.heat() * 0.06);
+    } catch (e10) {}
     if (clogged()) p -= 0.16;
     if (aisleWet() && !(st && st.coming)) return 0;
     if (st && st.coming) p = Math.max(p, 0.85);
@@ -428,6 +437,34 @@
     if (mood < 0.36) return pick(POOR, seed);
     return pick(NICE, seed);
   }
+
+  function flavorLine(line, seed) {
+    line = String(line || "");
+    try {
+      if (panicking()) return line;
+      if (window.beast && beast.near && beast.near() > 0.12 && seed % 4 === 0) {
+        var bl = beast.line && beast.line();
+        if (bl) return bl;
+      }
+      if (window.faith && faith.line && seed % 6 === 0) {
+        var fl = faith.line();
+        if (fl) return fl;
+      }
+      if (window.rumor && rumor.whisper && seed % 8 === 0) {
+        var rl = rumor.whisper();
+        if (rl) return rl;
+      }
+      if (window.tongue && tongue.say) return tongue.say(seed, line);
+    } catch (e) {}
+    return line;
+  }
+
+  var _lineForRaw = lineFor;
+  lineFor = function (i, phase, st) {
+    var T = town();
+    var seed = ((T && T.who && T.who[i]) || i) >>> 0;
+    return flavorLine(_lineForRaw(i, phase, st), seed);
+  };
 
   function tankSpot(tanks, which, W, floorY, personS, slot) {
     if (!tanks || !tanks.length) {

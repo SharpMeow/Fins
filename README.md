@@ -151,6 +151,10 @@ Boston is one port. Four more engines keep the rest of the continent:
 - **The ground.** Soil, stone, three caverns, magma. Veins that dry when a mine is sacked. If the boards run warm, that is not the weather.
 - **The living water.** Populations inland, not in your glass. A failed run makes a kind scarce on the counter. People still ask. They just do not buy.
 - **The roads.** Every site keeps a nearest road. A war cuts the ones that touch the harbor. Holds come late. Someone walks in who started in a town you have only read.
+- **The tongue.** Each people has a phonology. Names in the Atlas were said that way. A traveler on Salem still speaks English, and then a word that is not.
+- **The beasts.** Unique bodies, a hunger, a year they wake. When one circles the harbor, the till feels it. The name goes in the book.
+- **The old names.** Seven gods, a day in the twenty-eight, a fish that is holy that week. Sell it and the street is easier.
+- **Rumour.** A fact that walks. Heat, a source, a line on the floor before it is a number.
 
 <p align="center">
   <img src="docs/because.png" alt="War inland cuts a road, the hold is late, word drops, the bag misses. A failed run makes a kind scarce; they still ask." width="900">
