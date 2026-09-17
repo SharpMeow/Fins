@@ -2,6 +2,10 @@
 
 A harbor aquarium shop that keeps going after you look away.
 
+<p align="center">
+  <img src="docs/window.jpg" alt="Rain on the glass. Four tanks still running. The till is a run." width="900">
+</p>
+
 You open in Year 1000. The tanks are already running. People come in off the street for a fish, for change, for a look, or because they always walk this block at six. The till is a run. The floor is wet or it isn't. The record does not close.
 
 ```
@@ -137,10 +141,30 @@ That is deeper than a number going up. It is also slower, on purpose. If you wan
 
 Boston is one port. Four more engines keep the rest of the continent:
 
+<p align="center">
+  <img src="docs/continent.png" alt="The Glass and Ash. Seed 256. @ is the shop." width="900">
+</p>
+
+<p align="center"><sub>Seed 256. The Glass and Ash, Age of the Long Freeze. Gold ring is the harbor. The rest of the map does not pause when you hang the sign.</sub></p>
+
 - **The realm.** Elevation, rain, heat, drainage, volcanism, savagery. Biomes, rivers, civilizations with a tongue and an ethic, sites, gods, wars, a thousand years of figures. @ on the map is the shop.
 - **The ground.** Soil, stone, three caverns, magma. Veins that dry when a mine is sacked. If the boards run warm, that is not the weather.
 - **The living water.** Populations inland, not in your glass. A failed run makes a kind scarce on the counter. People still ask. They just do not buy.
 - **The roads.** Every site keeps a nearest road. A war cuts the ones that touch the harbor. Holds come late. Someone walks in who started in a town you have only read.
+
+<p align="center">
+  <img src="docs/because.png" alt="War inland cuts a road, the hold is late, word drops, the bag misses. A failed run makes a kind scarce; they still ask." width="900">
+</p>
+
+<p align="center">
+  <img src="docs/civs.png" alt="Civilizations still standing after a thousand years, seed 256." width="52%">
+  &nbsp;
+  <img src="docs/biomes.png" alt="What the continent is made of, seed 256." width="38%">
+</p>
+
+<p align="center">
+  <img src="docs/plate.jpg" alt="An atlas plate of the same idea: rivers downhill, ruins marked, the harbor as @." width="900">
+</p>
 
 A war inland is not flavor. Word drops. Odds drop. The till feels it.
 
@@ -208,3 +232,12 @@ Play it. Study it. Keep a copy.
 Do not sell the source, and do not ship Fin's as a competing shop. On 17 September 2030 this version becomes Apache 2.0.
 
 Built by Chaos.
+
+<!--
+the pages are not a file you sell.
+open the back room. read a name that should have stayed written.
+seed 256 reprints The Glass and Ash.
+the shop is late. Year 0 was not empty.
+docs/the-pages.md
+-->
+
