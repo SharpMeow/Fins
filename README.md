@@ -133,6 +133,19 @@ That is deeper than a number going up. It is also slower, on purpose. If you wan
 
 ---
 
+## The engines under the atlas
+
+Boston is one port. Four more engines keep the rest of the continent:
+
+- **The realm.** Elevation, rain, heat, drainage, volcanism, savagery. Biomes, rivers, civilizations with a tongue and an ethic, sites, gods, wars, a thousand years of figures. @ on the map is the shop.
+- **The ground.** Soil, stone, three caverns, magma. Veins that dry when a mine is sacked. If the boards run warm, that is not the weather.
+- **The living water.** Populations inland, not in your glass. A failed run makes a kind scarce on the counter. People still ask. They just do not buy.
+- **The roads.** Every site keeps a nearest road. A war cuts the ones that touch the harbor. Holds come late. Someone walks in who started in a town you have only read.
+
+A war inland is not flavor. Word drops. Odds drop. The till feels it.
+
+---
+
 ## Three ways to play
 
 **In a tab.** Serve `game/` and open `index.html`. Same shop.

@@ -330,6 +330,15 @@
     try {
       if (window.hookRun) p += Math.min(0.12, (hookRun().combo || 0) * 0.03);
     } catch (e4) {}
+    try {
+      if (window.realm && typeof realm.pressure === "function") p -= realm.pressure();
+    } catch (e5) {}
+    try {
+      if (window.wild && st && st.want && typeof wild.scarce === "function" && wild.scarce(st.want)) p -= 0.12;
+    } catch (e6) {}
+    try {
+      if (window.road && typeof road.cut === "function" && road.cut()) p -= 0.08;
+    } catch (e7) {}
     if (clogged()) p -= 0.16;
     if (aisleWet() && !(st && st.coming)) return 0;
     if (st && st.coming) p = Math.max(p, 0.85);
@@ -1279,6 +1288,12 @@
     stock: stockDupes,
     hoped: function () {
       return HOPED;
+    },
+    coming: function () {
+      try {
+        if (window.desk && typeof desk.coming === "function") return desk.coming();
+      } catch (e) {}
+      return null;
     },
   };
 
