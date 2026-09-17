@@ -191,7 +191,7 @@ npm start
 | Windows | installer `.exe`, or a portable `.exe` |
 | Linux | `.AppImage` |
 
-The shop inside is the same `game/` folder the tab uses. A window can spend more pixels. It will not grow a new renderer. The tank is Canvas 2D plus WebGL2 water. If the glass looks cheap, that is the art and the shaders, not the shell.
+The shop inside is the same `game/` folder the tab uses. A window spends more pixels and will not put the tab to sleep. WebGL2 water, ridged caustics, Schlick glass, bloom on the hood lamps. The room is the renderer.
 
 Click the water to feed. Click the filter when it sours. Keep two of a kind if you mean to sell. The rest of the shop is waiting on that.
 

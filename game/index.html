@@ -887,17 +887,20 @@ body.titling #tabs .grp{display:none}
   .necro-cover{max-height:28vh}
 }
 #tank{
-  filter: contrast(1.08) saturate(1.18) brightness(1.04);
+  filter: contrast(1.14) saturate(1.28) brightness(1.06);
+}
+body.desk #tank{
+  filter: contrast(1.18) saturate(1.34) brightness(1.08);
 }
 @media (prefers-reduced-motion:reduce){
-  #tank{filter: contrast(1.04) saturate(1.08);}
+  #tank{filter: contrast(1.06) saturate(1.1);}
 }
 #glassfx{
   position:fixed;inset:0;pointer-events:none;z-index:3;
   background:
-    linear-gradient(180deg, rgba(220,240,255,.08) 0%, transparent 16%, transparent 76%, rgba(2,10,22,.2) 100%),
-    radial-gradient(ellipse 70% 42% at 50% -4%, rgba(160,210,255,.1), transparent 60%);
-  box-shadow: inset 0 0 140px rgba(0,18,36,.16);
+    linear-gradient(180deg, rgba(210,236,255,.14) 0%, transparent 14%, transparent 74%, rgba(2,8,18,.32) 100%),
+    radial-gradient(ellipse 78% 46% at 50% -6%, rgba(170,220,255,.16), transparent 62%);
+  box-shadow: inset 0 0 180px rgba(0,14,32,.22);
 }
 #techfx{
   position:fixed;inset:0;pointer-events:none;z-index:4;
@@ -1093,13 +1096,13 @@ body.work #palette .pal-card{background:#fff;color:#1f2328}body.work #palIn{colo
   <button class="tt-back" id="ttBack">Back to the title</button>
 </div>
 
-<script src="glass.js?v=1"></script>
+<script src="glass.js?v=2"></script>
 <script src="world.js?v=34"></script>
 <script src="folk.js?v=20"></script>
 <script src="fins.js?v=45"></script>
 <script src="nn.js?v=2"></script>
 <script src="feel.js?v=9"></script>
-<script src="tech.js?v=5"></script>
+<script src="tech.js?v=6"></script>
 <script src="life.js?v=19"></script>
 <script src="saga.js?v=14"></script>
 <script src="mind.js?v=3"></script>

@@ -9,7 +9,7 @@
   "use strict";
 
   var origs = window.__techOrigs || (window.__techOrigs = {});
-  var T = { v: 2, ok: 1, kelp: 0, folk: 0, fish: 0, lastErr: "" };
+  var T = { v: 3, ok: 1, kelp: 0, folk: 0, fish: 0, lastErr: "" };
   window.__tech = T;
 
   var reduced = false;
@@ -238,7 +238,7 @@
 
   var causticTile = null;
   (function bakeCaustic() {
-    var W = 64, H = 64;
+    var W = 128, H = 128;
     var cv = document.createElement("canvas");
     cv.width = W;
     cv.height = H;
@@ -247,15 +247,16 @@
     for (var y = 0; y < H; y++) {
       for (var x = 0; x < W; x++) {
         var u = x / W, v = y / H;
-        var wx = u + 0.12 * Math.sin(v * PI2 * 2);
-        var wy = v + 0.12 * Math.sin(u * PI2 * 2);
-        var n = Math.abs(Math.sin(wx * PI2 * 3) * Math.sin(wy * PI2 * 3));
-        n = Math.pow(n, 2.6);
+        var wx = u + 0.14 * Math.sin(v * PI2 * 3) + 0.07 * Math.sin(v * PI2 * 7);
+        var wy = v + 0.14 * Math.sin(u * PI2 * 3) + 0.07 * Math.sin(u * PI2 * 5);
+        var n = Math.abs(Math.sin(wx * PI2 * 4) * Math.sin(wy * PI2 * 4));
+        n = 1 - Math.abs(n * 2 - 1);
+        n = Math.pow(n, 3.4);
         var i = (y * W + x) * 4;
-        img.data[i] = 170;
-        img.data[i + 1] = 220;
+        img.data[i] = 186;
+        img.data[i + 1] = 228;
         img.data[i + 2] = 255;
-        img.data[i + 3] = (n * 110) | 0;
+        img.data[i + 3] = (n * 150) | 0;
       }
     }
     g.putImageData(img, 0, 0);
@@ -269,8 +270,8 @@
     ctx.clip();
     ctx.globalCompositeOperation = "lighter";
     ctx.globalAlpha = a == null ? 0.22 : a;
-    var ox = frac(t * 0.07) * 64;
-    var oy = frac(t * 0.045) * 64;
+    var ox = frac(t * 0.07) * 128;
+    var oy = frac(t * 0.045) * 128;
     var pat = ctx.createPattern(causticTile, "repeat");
     if (pat) {
       ctx.translate(x - ox, y - oy);
@@ -368,10 +369,7 @@
       var pts = item.strand.pts;
       var n = pts.length;
       ctx.save();
-      ctx.beginPath();
-      if (ctx.roundRect) ctx.roundRect(tk[0] + 2, tk[1] + tk[3] * 0.08, tk[2] - 4, tk[3] * 0.78, 3);
-      else ctx.rect(tk[0] + 2, tk[1] + tk[3] * 0.08, tk[2] - 4, tk[3] * 0.78);
-      ctx.clip();
+      clipTank(ctx, tk, item.tank);
       ctx.strokeStyle = "rgba(36," + (110 + (item.strand.hue % 40)) + ",58,.92)";
       ctx.lineWidth = item.strand.thick + 0.8;
       ctx.lineCap = "round";
@@ -583,6 +581,7 @@
   var lastFolkT = 0;
 
   var overlay = null, octx = null, grain = null, grainT = 0;
+  var bloomA = null, bloomB = null, bloomTick = 0;
   function ensureOverlay() {
     if (overlay && overlay.parentNode) return;
     overlay = document.getElementById("techfx");
@@ -609,6 +608,8 @@
       }
     }
     g.putImageData(img, 0, 0);
+    bloomA = document.createElement("canvas");
+    bloomB = document.createElement("canvas");
   }
   function resizeOverlay() {
     ensureOverlay();
@@ -622,6 +623,38 @@
     }
     octx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
+  function runBloom(w, h) {
+    var tank = document.getElementById("tank");
+    if (!tank || !tank.width || !bloomA || !octx) return;
+    bloomTick++;
+    if (bloomTick % 2) return;
+    var bw = Math.max(96, (tank.width / 5) | 0);
+    var bh = Math.max(54, (tank.height / 5) | 0);
+    if (bloomA.width !== bw || bloomA.height !== bh) {
+      bloomA.width = bw;
+      bloomA.height = bh;
+      bloomB.width = bw;
+      bloomB.height = bh;
+    }
+    var a = bloomA.getContext("2d");
+    var b = bloomB.getContext("2d");
+    a.filter = "brightness(1.55) contrast(1.7) saturate(1.15)";
+    a.drawImage(tank, 0, 0, bw, bh);
+    a.filter = "none";
+    b.filter = "blur(7px)";
+    b.clearRect(0, 0, bw, bh);
+    b.drawImage(bloomA, 0, 0);
+    b.filter = "none";
+    octx.save();
+    octx.globalCompositeOperation = "lighter";
+    octx.globalAlpha = 0.32;
+    octx.drawImage(bloomB, 0, 0, w, h);
+    octx.globalAlpha = 0.12;
+    octx.filter = "blur(18px)";
+    octx.drawImage(bloomB, -w * 0.04, 0, w * 1.08, h);
+    octx.filter = "none";
+    octx.restore();
+  }
   function drawOverlay(now) {
     if (reduced) return;
     resizeOverlay();
@@ -629,10 +662,11 @@
     octx.clearRect(0, 0, w, h);
     if (sceneName() === "work") return;
     var quiet = sceneName() === "title";
+    try { runBloom(w, h); } catch (e) {}
     grainT += 1;
     octx.save();
     octx.globalCompositeOperation = "overlay";
-    octx.globalAlpha = quiet ? 0.03 : 0.06;
+    octx.globalAlpha = quiet ? 0.025 : 0.045;
     var ox = (grainT * 1.7) % 96, oy = (grainT * 1.1) % 96;
     var pat = octx.createPattern(grain, "repeat");
     octx.translate(-ox, -oy);
@@ -641,9 +675,9 @@
     octx.restore();
 
     octx.save();
-    var vig = octx.createRadialGradient(w * 0.5, h * 0.42, h * 0.2, w * 0.5, h * 0.5, h * 0.78);
+    var vig = octx.createRadialGradient(w * 0.5, h * 0.42, h * 0.18, w * 0.5, h * 0.5, h * 0.82);
     vig.addColorStop(0, "rgba(0,0,0,0)");
-    vig.addColorStop(1, "rgba(4,10,18," + (quiet ? "0.1" : "0.16") + ")");
+    vig.addColorStop(1, "rgba(4,10,18," + (quiet ? "0.14" : "0.22") + ")");
     octx.fillStyle = vig;
     octx.fillRect(0, 0, w, h);
     octx.restore();
@@ -651,27 +685,27 @@
     var sc = sceneName();
     if (sc === "tank" && !quiet) {
       var t = now / 1000;
-      fillCaustics(octx, 0, h * 0.08, w, h * 0.92, t, 0.07);
+      fillCaustics(octx, 0, h * 0.08, w, h * 0.92, t, 0.09);
       octx.save();
       octx.globalCompositeOperation = "lighter";
-      octx.strokeStyle = "rgba(200,235,255,.16)";
-      octx.lineWidth = 2;
+      octx.strokeStyle = "rgba(200,235,255,.22)";
+      octx.lineWidth = 2.2;
       octx.beginPath();
       var top = h * 0.09;
       octx.moveTo(0, top);
-      for (var x = 0; x <= w; x += 10) {
+      for (var x = 0; x <= w; x += 8) {
         octx.lineTo(x, top + gerstnerY(x, t, 0.2));
       }
       octx.stroke();
       var ray = octx.createLinearGradient(w * 0.5, 0, w * 0.55, h * 0.7);
-      ray.addColorStop(0, "rgba(180,220,255,.05)");
+      ray.addColorStop(0, "rgba(180,220,255,.08)");
       ray.addColorStop(1, "rgba(180,220,255,0)");
       octx.fillStyle = ray;
       octx.beginPath();
-      octx.moveTo(w * 0.38, 0);
-      octx.lineTo(w * 0.62, 0);
-      octx.lineTo(w * 0.72, h);
-      octx.lineTo(w * 0.28, h);
+      octx.moveTo(w * 0.36, 0);
+      octx.lineTo(w * 0.64, 0);
+      octx.lineTo(w * 0.74, h);
+      octx.lineTo(w * 0.26, h);
       octx.fill();
       octx.restore();
       drawWaves(octx, null);
@@ -814,18 +848,27 @@
     }
   }
 
-  function clipTank(ctx, tk) {
+  function clipTank(ctx, tk, i) {
+    var pts = window.__shopTankPts;
+    var q = pts && pts[i] && pts[i].q;
     ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(tk[0] + 2, tk[1] + tk[3] * 0.08, tk[2] - 4, tk[3] * 0.78, 3);
+    if (q && q.length >= 8) {
+      ctx.moveTo(q[0], q[1]);
+      ctx.lineTo(q[2], q[3]);
+      ctx.lineTo(q[4], q[5]);
+      ctx.lineTo(q[6], q[7]);
+      ctx.closePath();
+    } else if (ctx.roundRect) ctx.roundRect(tk[0] + 2, tk[1] + tk[3] * 0.08, tk[2] - 4, tk[3] * 0.78, 3);
     else ctx.rect(tk[0] + 2, tk[1] + tk[3] * 0.08, tk[2] - 4, tk[3] * 0.78);
     ctx.clip();
   }
 
-  function paintTankTech(ctx, t, tanks, wx, floorY) {
+  function paintTankTech(ctx, t, tanks, wx, floorY, live) {
     wx = wx || {};
     var o2 = o2q();
     var mu = 0.1 + (wx.clog ? 0.14 : 0) + (1 - o2) * 0.12;
     if (!(mu === mu)) mu = 0.12;
+    if (live) mu *= 0.35;
     var aMid = (mu * 0.45).toFixed(3);
     var aBot = (mu * 0.85).toFixed(3);
     for (var i = 0; i < tanks.length; i++) {
@@ -834,23 +877,25 @@
         var tx = tk[0], ty = tk[1], tw = tk[2], th = tk[3];
         if (tw < 8 || th < 8) continue;
         ctx.save();
-        clipTank(ctx, tk);
+        clipTank(ctx, tk, i);
 
-        var depth = ctx.createLinearGradient(tx, ty + th * 0.1, tx, ty + th * 0.86);
-        depth.addColorStop(0, "rgba(0,0,0,0)");
-        depth.addColorStop(0.45, "rgba(0,28,46," + aMid + ")");
-        depth.addColorStop(1, "rgba(0,18,32," + aBot + ")");
-        ctx.fillStyle = depth;
-        ctx.fillRect(tx, ty, tw, th);
+        if (mu > 0.02) {
+          var depth = ctx.createLinearGradient(tx, ty + th * 0.1, tx, ty + th * 0.86);
+          depth.addColorStop(0, "rgba(0,0,0,0)");
+          depth.addColorStop(0.45, "rgba(0,28,46," + aMid + ")");
+          depth.addColorStop(1, "rgba(0,18,32," + aBot + ")");
+          ctx.fillStyle = depth;
+          ctx.fillRect(tx, ty, tw, th);
+        }
 
-        fillCaustics(ctx, tx, ty + th * 0.18, tw, th * 0.64, t + i, wx.clog ? 0.08 : 0.2);
+        fillCaustics(ctx, tx, ty + th * 0.18, tw, th * 0.64, t + i, wx.clog ? 0.1 : (live ? 0.16 : 0.24));
 
         var sy = ty + th * 0.105;
-        ctx.strokeStyle = "rgba(210,240,255,.34)";
-        ctx.lineWidth = 1.6;
+        ctx.strokeStyle = "rgba(210,240,255,.42)";
+        ctx.lineWidth = 1.8;
         ctx.beginPath();
         ctx.moveTo(tx, sy);
-        for (var px = 0; px <= tw; px += 5) {
+        for (var px = 0; px <= tw; px += 4) {
           ctx.lineTo(tx + px, sy + gerstnerY(px, t, i * 0.7));
         }
         ctx.stroke();
@@ -858,7 +903,7 @@
         ctx.save();
         ctx.globalCompositeOperation = "lighter";
         var snell = ctx.createRadialGradient(tx + tw * 0.5, sy + 4, 2, tx + tw * 0.5, sy + 8, tw * 0.38);
-        snell.addColorStop(0, "rgba(220,245,255,.16)");
+        snell.addColorStop(0, "rgba(220,245,255,.22)");
         snell.addColorStop(1, "rgba(220,245,255,0)");
         ctx.fillStyle = snell;
         ctx.beginPath();
@@ -886,26 +931,7 @@
         drawWaves(ctx, [tx + 2, ty + th * 0.08, tw - 4, th * 0.78]);
         ctx.restore();
 
-        ctx.save();
-        ctx.strokeStyle = "rgba(210,235,255,.28)";
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(tx + 3, ty + th * 0.1);
-        ctx.lineTo(tx + 3, ty + th * 0.84);
-        ctx.moveTo(tx + tw - 3, ty + th * 0.1);
-        ctx.lineTo(tx + tw - 3, ty + th * 0.84);
-        ctx.stroke();
-        ctx.strokeStyle = "rgba(255,80,70,.08)";
-        ctx.beginPath();
-        ctx.moveTo(tx + 2, ty + th * 0.1);
-        ctx.lineTo(tx + 2, ty + th * 0.84);
-        ctx.stroke();
-        ctx.strokeStyle = "rgba(80,180,255,.08)";
-        ctx.beginPath();
-        ctx.moveTo(tx + tw - 2, ty + th * 0.1);
-        ctx.lineTo(tx + tw - 2, ty + th * 0.84);
-        ctx.stroke();
-        ctx.restore();
+        glassOnTank(ctx, tk, t, i);
 
         if (floorY) {
           ctx.save();
@@ -913,11 +939,17 @@
           var cx = tx + tw * 0.5 + Math.sin(t * 0.8 + i) * 6;
           var cy = floorY + 8;
           var glow = ctx.createRadialGradient(cx, cy, 2, cx, cy, tw * 0.45);
-          glow.addColorStop(0, "rgba(90,180,220," + (0.1 + 0.05 * Math.sin(t * 1.4 + i)).toFixed(3) + ")");
+          glow.addColorStop(0, "rgba(90,180,220," + (0.12 + 0.06 * Math.sin(t * 1.4 + i)).toFixed(3) + ")");
           glow.addColorStop(1, "rgba(90,180,220,0)");
           ctx.fillStyle = glow;
           ctx.beginPath();
           ctx.ellipse(cx, cy, tw * 0.42, 10, 0, 0, PI2);
+          ctx.fill();
+          ctx.globalCompositeOperation = "multiply";
+          ctx.globalAlpha = 0.22;
+          ctx.fillStyle = "rgba(8,16,24,1)";
+          ctx.beginPath();
+          ctx.ellipse(tx + tw * 0.5, floorY + 14, tw * 0.48, 9, 0, 0, PI2);
           ctx.fill();
           ctx.restore();
         }
@@ -926,6 +958,74 @@
         try { ctx.restore(); } catch (e2) {}
       }
     }
+  }
+
+  function glassOnTank(ctx, tk, t, i) {
+    var tx = tk[0], ty = tk[1], tw = tk[2], th = tk[3];
+    ctx.save();
+    clipTank(ctx, tk, i);
+    var gL = ctx.createLinearGradient(tx, ty, tx + tw * 0.28, ty);
+    gL.addColorStop(0, "rgba(255,255,255,.22)");
+    gL.addColorStop(1, "rgba(255,255,255,0)");
+    ctx.fillStyle = gL;
+    ctx.fillRect(tx, ty, tw * 0.28, th);
+    var gR = ctx.createLinearGradient(tx + tw, ty, tx + tw * 0.72, ty);
+    gR.addColorStop(0, "rgba(10,30,50,.18)");
+    gR.addColorStop(1, "rgba(10,30,50,0)");
+    ctx.fillStyle = gR;
+    ctx.fillRect(tx + tw * 0.72, ty, tw * 0.28, th);
+    var top = ctx.createLinearGradient(tx, ty + th * 0.08, tx, ty + th * 0.22);
+    top.addColorStop(0, "rgba(230,248,255,.16)");
+    top.addColorStop(1, "rgba(230,248,255,0)");
+    ctx.fillStyle = top;
+    ctx.fillRect(tx, ty, tw, th * 0.22);
+    ctx.globalCompositeOperation = "lighter";
+    ctx.strokeStyle = "rgba(255,252,245,.35)";
+    ctx.lineWidth = 1.4;
+    ctx.beginPath();
+    ctx.moveTo(tx + tw * 0.12, ty + th * 0.12);
+    ctx.quadraticCurveTo(tx + tw * 0.38, ty + th * 0.06, tx + tw * 0.62, ty + th * 0.13);
+    ctx.stroke();
+    if (!reduced) {
+      ctx.globalCompositeOperation = "source-over";
+      for (var d = 0; d < 7; d++) {
+        var dx = tx + tw * (0.12 + ((i * 11 + d * 5) % 17) / 22);
+        var dy = ty + th * (0.14 + ((i * 3 + d) % 5) * 0.018);
+        var rr = 1.1 + (d % 3) * 0.5;
+        ctx.globalAlpha = 0.18 + 0.08 * Math.sin(t * 0.7 + d);
+        ctx.strokeStyle = "rgba(220,240,255,.7)";
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.ellipse(dx, dy, rr, rr * 1.4, 0.2, 0, PI2);
+        ctx.stroke();
+        ctx.globalAlpha = 0.12;
+        ctx.fillStyle = "rgba(255,255,255,.8)";
+        ctx.beginPath();
+        ctx.ellipse(dx - rr * 0.3, dy - rr * 0.4, rr * 0.35, rr * 0.45, 0, 0, PI2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+    ctx.save();
+    ctx.strokeStyle = "rgba(210,235,255,.38)";
+    ctx.lineWidth = 2.2;
+    ctx.beginPath();
+    ctx.moveTo(tx + 3, ty + th * 0.1);
+    ctx.lineTo(tx + 3, ty + th * 0.84);
+    ctx.moveTo(tx + tw - 3, ty + th * 0.1);
+    ctx.lineTo(tx + tw - 3, ty + th * 0.84);
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(255,90,80,.1)";
+    ctx.beginPath();
+    ctx.moveTo(tx + 2, ty + th * 0.1);
+    ctx.lineTo(tx + 2, ty + th * 0.84);
+    ctx.stroke();
+    ctx.strokeStyle = "rgba(80,190,255,.12)";
+    ctx.beginPath();
+    ctx.moveTo(tx + tw - 2, ty + th * 0.1);
+    ctx.lineTo(tx + tw - 2, ty + th * 0.84);
+    ctx.stroke();
+    ctx.restore();
   }
 
   wrap("drawFishSprite", function (orig, self, args) {
@@ -945,9 +1045,9 @@
       ctx.globalCompositeOperation = "overlay";
       ctx.drawImage(mark, -size * 0.7, -size * 0.4, size * 1.3, size * 0.8);
       ctx.globalCompositeOperation = "lighter";
-      ctx.globalAlpha = 0.08;
+      ctx.globalAlpha = 0.14;
       var rim = ctx.createRadialGradient(-size * 0.15, -size * 0.2, 0, 0, 0, size * 0.7);
-      rim.addColorStop(0, "rgba(180,230,255,.55)");
+      rim.addColorStop(0, "rgba(180,230,255,.7)");
       rim.addColorStop(1, "rgba(180,230,255,0)");
       ctx.fillStyle = rim;
       ctx.beginPath();
@@ -955,7 +1055,7 @@
       ctx.fill();
       var tDotL = 0.55;
       var spec = Math.pow(Math.sqrt(Math.max(0, 1 - tDotL * tDotL)), 12);
-      ctx.globalAlpha = 0.18 + spec * 0.35;
+      ctx.globalAlpha = 0.28 + spec * 0.45;
       ctx.strokeStyle = "rgba(255,252,240,1)";
       ctx.lineWidth = Math.max(0.8, size * 0.06);
       ctx.lineCap = "round";
@@ -989,10 +1089,8 @@
       ensureKelp(tanks);
       ensureSph(tanks);
       var liveShop = !!(window.shopBg && window.shopBg.complete && window.shopBg.naturalWidth);
-      if (!liveShop) {
-        paintTankTech(ctx, t, tanks, lastWx, lastFloorY);
-        drawKelp(ctx, tanks);
-      }
+      paintTankTech(ctx, t, tanks, lastWx, lastFloorY, liveShop);
+      drawKelp(ctx, tanks);
     } catch (e) {
       T.lastErr = String(e && e.message || e);
     }
@@ -1041,12 +1139,21 @@
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
       var pulse = 0.5 + 0.5 * Math.sin(t * 1.7);
-      var bloom = ctx.createRadialGradient(x + w * 0.5, y + h * 0.16, 4, x + w * 0.5, y + h * 0.16, w * 0.34);
-      bloom.addColorStop(0, "rgba(255,200,120," + (0.05 + pulse * 0.03).toFixed(3) + ")");
+      var bloom = ctx.createRadialGradient(x + w * 0.5, y + h * 0.16, 4, x + w * 0.5, y + h * 0.16, w * 0.38);
+      bloom.addColorStop(0, "rgba(255,200,120," + (0.08 + pulse * 0.04).toFixed(3) + ")");
       bloom.addColorStop(1, "rgba(255,180,80,0)");
       ctx.fillStyle = bloom;
-      ctx.fillRect(x, y, w, h * 0.5);
+      ctx.fillRect(x, y, w, h * 0.55);
       ctx.restore();
+    } catch (e) {}
+    return r;
+  });
+
+  wrap("drawShopTankInterior", function (orig, self, args) {
+    var r = orig.apply(self, args);
+    try {
+      if (reduced || !args[0]) return r;
+      glassOnTank(args[0], [args[1], args[2], args[3], args[4]], (typeof performance !== "undefined" ? performance.now() : Date.now()) / 1000, args[5] || 0);
     } catch (e) {}
     return r;
   });

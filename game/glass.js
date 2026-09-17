@@ -12,6 +12,7 @@
   var dpr = window.devicePixelRatio || 1;
   window.__finsGlass = {
     desk: desk,
-    dpr: Math.min(desk ? 2.25 : 2, dpr),
+    dpr: Math.min(desk ? 2.5 : 2, Math.max(1, dpr)),
+    aaa: true,
   };
 })();
