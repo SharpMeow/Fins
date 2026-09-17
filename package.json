@@ -28,21 +28,15 @@
     "mac": {
       "category": "public.app-category.games",
       "target": ["dmg", "zip"],
-      "identity": null,
-      "executableName": "Fins"
+      "identity": null
     },
     "win": {
-      "target": ["nsis", "portable"],
-      "executableName": "Fins"
+      "target": ["nsis", "portable"]
     },
     "linux": {
       "target": ["AppImage", "deb"],
       "category": "Game",
-      "executableName": "Fins",
-      "desktop": {
-        "Name": "Fin's",
-        "Comment": "A harbor aquarium shop."
-      }
+      "executableName": "Fins"
     },
     "nsis": {
       "oneClick": true,
