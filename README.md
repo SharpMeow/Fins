@@ -87,13 +87,42 @@ If you are an agent:
 
 ---
 
-## Run it
+## Three ways to play
 
-Needs a Chromium browser. A local server is kinder to the maps than a file://.
+**In a tab.** Serve `game/` and open `index.html`. Same shop. The live preview is this.
+
+**As a window.** The desktop shell is Chromium without the browser chrome. No tab sleeping. F11 is fullscreen. Mac, Windows, Linux — one source, three packages.
 
 ```bash
 git clone https://github.com/SharpMeow/fins-shop.git
 cd fins-shop
+npm install
+npm start
+```
+
+**As a download.** GitHub Actions builds the installers. Run the **desktop** workflow, or push a tag `v1.0.0`. Artifacts:
+
+| Machine | What you get |
+|---|---|
+| Mac | `.dmg` (unsigned — right-click, Open, the first time) |
+| Windows | installer `.exe`, or a portable `.exe` |
+| Linux | `.AppImage` or `.deb` |
+
+The shop inside is the same `game/` folder the tab uses.
+
+### Does a window draw better?
+
+It can spend more pixels. It will not grow a new renderer.
+
+The tank is still Canvas 2D plus WebGL2 water. A tab throttles when you look away; a window does not. Retina can hold 2.25× the backing store instead of 1.5×. Settings still has Render scale if the machine is loud. There is no native Metal/Vulkan rewrite hiding under this. If the glass looks cheap, that is the art and the shaders, not the shell.
+
+---
+
+## Run it in a tab
+
+Needs a Chromium browser. A local server is kinder to the maps than a file://.
+
+```bash
 python3 -m http.server 8080 --directory game
 ```
 

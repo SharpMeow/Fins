@@ -612,7 +612,7 @@
   }
   function resizeOverlay() {
     ensureOverlay();
-    var dpr = Math.min(1.5, window.devicePixelRatio || 1);
+    var dpr = Math.min((window.__finsGlass && window.__finsGlass.dpr) || 1.5, window.devicePixelRatio || 1);
     var w = window.innerWidth, h = window.innerHeight;
     if (overlay.width !== (w * dpr) | 0 || overlay.height !== (h * dpr) | 0) {
       overlay.width = (w * dpr) | 0;

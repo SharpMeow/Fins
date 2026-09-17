@@ -1,0 +1,49 @@
+{
+  "name": "fins-shop",
+  "productName": "Fin's",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A harbor aquarium shop that keeps going after you look away.",
+  "author": "Chaos",
+  "license": "BUSL-1.1",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --publish never",
+    "dist:mac": "electron-builder --mac --publish never",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:linux": "electron-builder --linux --publish never"
+  },
+  "build": {
+    "appId": "com.chaos.fins",
+    "productName": "Fin's",
+    "copyright": "Copyright © 2026 Chaos",
+    "directories": { "output": "dist" },
+    "files": [
+      "desktop/**/*",
+      "game/**/*",
+      "package.json"
+    ],
+    "extraMetadata": { "main": "desktop/main.cjs" },
+    "mac": {
+      "category": "public.app-category.games",
+      "target": ["dmg", "zip"],
+      "identity": null
+    },
+    "win": {
+      "target": ["nsis", "portable"]
+    },
+    "linux": {
+      "target": ["AppImage", "deb"],
+      "category": "Game"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false
+    }
+  },
+  "devDependencies": {
+    "electron": "^37.2.1",
+    "electron-builder": "^26.0.12"
+  }
+}
