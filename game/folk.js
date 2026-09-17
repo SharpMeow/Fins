@@ -21,6 +21,7 @@
   var tintCache = new Map();
   var TINT_MAX = 96;
   var stepAt = Object.create(null);
+  var lastPos = Object.create(null);
 
   function load() {
     KEYS.forEach(function (key) {
@@ -36,17 +37,18 @@
       img.onerror = function () {
         console.warn("folk: missing sheet", key);
       };
-      img.src = "folk/" + key + ".png?v=21";
+      img.src = "folk/" + key + ".png?v=22";
     });
   }
 
   function inferGrid(img) {
     var ratio = img.width / img.height;
-    if (ratio >= 3.5) return { cols: 8, rows: 1 };
-    if (ratio >= 1.7) return { cols: 4, rows: 2 };
-    if (ratio <= 0.55) return { cols: 2, rows: 4 };
-    if (ratio <= 0.7) return { cols: 2, rows: 3 };
-    return { cols: 2, rows: 2 };
+    if (Math.abs(ratio - 1) < 0.08) return { cols: 1, rows: 1 };
+    if (ratio >= 7.2) return { cols: 8, rows: 1 };
+    if (ratio >= 3.4) return { cols: 4, rows: 1 };
+    if (ratio >= 1.55) return { cols: 2, rows: 1 };
+    if (ratio <= 0.55) return { cols: 1, rows: 2 };
+    return { cols: 1, rows: 1 };
   }
 
   function sliceSheet(img) {
@@ -137,31 +139,31 @@
     return seed & 1 ? "man_casual" : "man_work";
   }
 
+  function ease(t) {
+    t = t < 0 ? 0 : t > 1 ? 1 : t;
+    return t * t * (3 - 2 * t);
+  }
   function frameBlend(walk, n, moving, look) {
-    n = Math.max(1, n || 4);
-    var id = look && look.id != null ? String(look.id) : "";
-    var idleSheet = id.indexOf("fin:") === 0 || id.indexOf("staff:") === 0 || id === "fin" || id === "staff";
+    n = Math.max(1, n || 1);
+    if (n === 1) return { i0: 0, i1: 0, t: 0 };
+    var tnow = typeof performance !== "undefined" ? performance.now() : Date.now();
     if (!moving) {
+      if (n >= 6) return { i0: 0, i1: 0, t: 0 };
       if (look && look.greet && n > 3) return { i0: n - 1, i1: n - 1, t: 0 };
-      if (look && look.work && n > 2) return { i0: 2, i1: 2, t: 0 };
-      var t = (typeof performance !== "undefined" ? performance.now() : Date.now()) / 1000;
+      if (look && look.work && n > 2) return { i0: Math.min(2, n - 1), i1: Math.min(2, n - 1), t: 0 };
       var seed = (look && look.seed) || 0;
-      var period = idleSheet ? 2.6 : 1.7;
-      var f = (((t + seed * 0.37) / period) % n);
+      var f = ((tnow / 1000) * 0.7 + seed * 0.37) % n;
       var i0 = f | 0;
       if (i0 >= n) i0 = 0;
       var i1 = (i0 + 1) % n;
-      var frac = f - i0;
-      var tblend = frac > 0.8 ? (frac - 0.8) / 0.2 : 0;
-      return { i0: i0, i1: i1, t: tblend };
+      return { i0: i0, i1: i1, t: ease(f - i0) };
     }
-    if (idleSheet) return { i0: 0, i1: 0, t: 0 };
-    var p = (((Number(walk) || 0) % 2) + 2) % 2;
-    var f = (p * n) / 2;
+    var p = (((Number(walk) || 0) % 2) + 2) % 2 / 2;
+    var f = p * n;
     var i0 = f | 0;
     if (i0 >= n) i0 = 0;
     var i1 = (i0 + 1) % n;
-    return { i0: i0, i1: i1, t: f - i0 };
+    return { i0: i0, i1: i1, t: ease(f - i0) };
   }
 
   function parseHex(hex) {
@@ -331,7 +333,23 @@
     var n = sheet.n || sheet.frames.length;
     var fb = frameBlend(walk, n, moving, look);
     var src0 = tinted(key, fb.i0, look, colorHex) || sheet.frames[fb.i0];
-    var src1 = fb.t > 0.06 ? tinted(key, fb.i1, look, colorHex) || sheet.frames[fb.i1] : null;
+    var src1 = fb.t > 0.02 ? tinted(key, fb.i1, look, colorHex) || sheet.frames[fb.i1] : null;
+    var union = sheet.box;
+    var box0 = (sheet.boxes && sheet.boxes[fb.i0]) || union;
+    var box1 = (sheet.boxes && sheet.boxes[fb.i1]) || union;
+    if (!union || union.h < 4) return false;
+    var destH = size * (key === "kid" ? 0.72 : 1.02);
+    var destW = destH * (union.w / union.h);
+    var behind = !!(look && look.behind);
+    var id = look && look.id != null ? String(look.id) : "";
+    if (id) {
+      var lp = lastPos[id];
+      if (lp) {
+        x = lp.x + (x - lp.x) * 0.42;
+        y = lp.y + (y - lp.y) * 0.42;
+      }
+      lastPos[id] = { x: x, y: y };
+    }
     var union = sheet.box;
     var box0 = (sheet.boxes && sheet.boxes[fb.i0]) || union;
     var box1 = (sheet.boxes && sheet.boxes[fb.i1]) || union;
@@ -346,14 +364,15 @@
     if (!moving) {
       var t = (typeof performance !== "undefined" ? performance.now() : Date.now()) / 1000;
       var seed = (look && look.seed) || 0;
-      ctx.translate(Math.sin(t * 0.7 + seed) * destW * 0.012, 0);
-      ctx.scale(1, 1 + Math.sin(t * 1.55 + seed) * 0.012);
+      ctx.translate(Math.sin(t * 0.7 + seed) * destW * 0.01, Math.sin(t * 1.15 + seed) * destH * 0.008);
+      ctx.scale(1 + Math.sin(t * 1.4 + seed) * 0.01, 1 + Math.sin(t * 1.4 + seed) * 0.018);
     } else {
       var phase = (((Number(walk) || 0) % 1) + 1) % 1;
-      var bob = Math.sin(phase * Math.PI) * destH * 0.03;
-      var contact = Math.abs(Math.cos(phase * Math.PI));
+      var bob = Math.abs(Math.sin(phase * Math.PI * 2)) * destH * 0.028;
+      var contact = Math.pow(Math.abs(Math.cos(phase * Math.PI * 2)), 4);
       ctx.translate(0, -bob);
-      ctx.scale(1 + contact * 0.028, 1 - contact * 0.038);
+      ctx.rotate(Math.sin(phase * Math.PI * 2) * 0.03);
+      ctx.scale(1 + contact * 0.02, 1 - contact * 0.03);
     }
     ctx.imageSmoothingEnabled = true;
     if (ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = "high";
@@ -363,7 +382,7 @@
       ctx.rect(-destW, -destH, destW * 2, destH * cut);
       ctx.clip();
     }
-    if (src1 && fb.t > 0.06) {
+    if (src1 && fb.t > 0.02) {
       ctx.globalAlpha = 1;
       drawFrame(ctx, src0, box0, union, destH);
       ctx.globalAlpha = fb.t;

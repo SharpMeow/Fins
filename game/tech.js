@@ -1028,7 +1028,19 @@
     ctx.restore();
   }
 
+  var fishPrev = Object.create(null);
   wrap("drawFishSprite", function (orig, self, args) {
+    var a = args[0] || {};
+    if (a.x != null && a.y != null && a.fish) {
+      var id = fishId(a.fish) || a.x;
+      var pr = fishPrev[id];
+      if (pr) {
+        a.x = pr.x + (a.x - pr.x) * 0.38;
+        a.y = pr.y + (a.y - pr.y) * 0.38;
+        args[0] = a;
+      }
+      fishPrev[id] = { x: a.x, y: a.y };
+    }
     var a = args[0] || {};
     var r = orig.apply(self, args);
     if (!r || !a.ctx || reduced) return r;
