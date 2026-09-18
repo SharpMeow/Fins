@@ -623,11 +623,45 @@
     }
     octx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
-  function runBloom(w, h) {
+  // Bloom reads the tank canvas back into a small buffer. When that read follows the game's own
+  // draw in the same frame, the browser has to finish rasterising everything the frame queued
+  // before it can hand the pixels over, and the main thread waits for it: measured at 34 to 43 ms
+  // per call under software GL, and a pipeline stall on a real GPU. The same copy taken at the top
+  // of the frame, before the game touches the canvas, waits on nothing (0.0 ms median) because the
+  // previous frame's raster is long done. So the sample is taken in a pre-frame hook and the glow
+  // lags the picture by one frame, which no eye can see on a lamp halo.
+  var preFrame = [];
+  (function installPreFrame() {
+    if (window.__finsPreFrame) {
+      preFrame = window.__finsPreFrame;
+      return;
+    }
+    window.__finsPreFrame = preFrame;
+    var orig = window.requestAnimationFrame;
+    if (typeof orig !== "function") return;
+    var lastT = -1;
+    window.requestAnimationFrame = function (cb) {
+      return orig.call(window, function (t) {
+        if (t !== lastT) {
+          lastT = t;
+          for (var i = 0; i < preFrame.length; i++) {
+            try { preFrame[i](t); } catch (e) {}
+          }
+        }
+        return cb(t);
+      });
+    };
+  })();
+
+  var bloomReady = false;
+  function sampleBloom() {
+    if (reduced || !bloomA) return;
     var tank = document.getElementById("tank");
-    if (!tank || !tank.width || !bloomA || !octx) return;
+    if (!tank || !tank.width) return;
     bloomTick++;
     if (bloomTick % 2) return;
+    var sc = sceneName();
+    if (sc === "work") return;
     var bw = Math.max(96, (tank.width / 5) | 0);
     var bh = Math.max(54, (tank.height / 5) | 0);
     if (bloomA.width !== bw || bloomA.height !== bh) {
@@ -638,13 +672,21 @@
     }
     var a = bloomA.getContext("2d");
     var b = bloomB.getContext("2d");
-    a.filter = "brightness(1.55) contrast(1.7) saturate(1.15)";
+    // Downscale first with no filter on the draw. A context filter is applied at the source's
+    // resolution before the scale, so filtering on this draw grades the whole tank canvas
+    // (1.3 Mpx at 1440x900) to make a 288x180 buffer. Chaining the grade onto the blur pass runs
+    // every filter over the 52 kpx buffer instead. Same picture.
     a.drawImage(tank, 0, 0, bw, bh);
-    a.filter = "none";
-    b.filter = "blur(7px)";
+    b.filter = "brightness(1.55) contrast(1.7) saturate(1.15) blur(7px)";
     b.clearRect(0, 0, bw, bh);
     b.drawImage(bloomA, 0, 0);
     b.filter = "none";
+    bloomReady = true;
+  }
+  preFrame.push(sampleBloom);
+
+  function runBloom(w, h) {
+    if (!bloomReady || !octx) return;
     octx.save();
     octx.globalCompositeOperation = "lighter";
     octx.globalAlpha = 0.32;

@@ -199,6 +199,32 @@
     if (ctx) ctx.restore();
   };
 
+  // Each wall tank shows a crop of a 1600x900 plate at roughly 120x80 on screen. Drawing the JPEG
+  // itself every frame for every tank meant one of the eight draws paid a full re-decode each
+  // frame (measured 15.7 ms per call on one slot, the other seven under 0.15 ms, and every plate
+  // free in isolation: a decoded-image cache miss, not the picture). The crop is rendered once
+  // into a small canvas sized to what is drawn, quantised up in 128 px steps so a resize does
+  // not rebuild it every frame, and the frame draws that. 25x fewer source pixels per draw and
+  // no dependence on the browser's image cache.
+  var plateCrops = {};
+  function plateCrop(key, w, h) {
+    var img = tankPlates[key];
+    if (!img || !img.complete || !img.naturalWidth) return null;
+    var dpr = (window.__finsGlass && window.__finsGlass.dpr) || window.devicePixelRatio || 1;
+    var need = Math.min(1024, Math.ceil((w * dpr) / 128) * 128);
+    var c = plateCrops[key];
+    if (c && c.width >= need) return c;
+    var iw = img.naturalWidth, ih = img.naturalHeight;
+    var sw = iw * 0.8, sh = ih * 0.78;
+    c = c || document.createElement("canvas");
+    c.width = need;
+    c.height = Math.max(1, Math.round((need * sh) / sw));
+    var g = c.getContext("2d");
+    g.drawImage(img, iw * 0.1, ih * 0.1, sw, sh, 0, 0, c.width, c.height);
+    plateCrops[key] = c;
+    return c;
+  }
+
   window.drawShopTankInterior = function (ctx, x, y, w, h, idx) {
     if (!ctx || w < 8 || h < 8) return;
     var wall = wallOf(idx);
@@ -207,11 +233,9 @@
     if (ctx.roundRect) ctx.roundRect(x + 2, y + h * 0.08, w - 4, h * 0.78, 4);
     else ctx.rect(x + 2, y + h * 0.08, w - 4, h * 0.78);
     ctx.clip();
-    var img = tankPlates[wall.key];
-    if (img && img.complete && img.naturalWidth) {
-      var iw = img.naturalWidth,
-        ih = img.naturalHeight;
-      ctx.drawImage(img, iw * 0.1, ih * 0.1, iw * 0.8, ih * 0.78, x, y + h * 0.06, w, h * 0.82);
+    var crop = plateCrop(wall.key, w, h);
+    if (crop) {
+      ctx.drawImage(crop, x, y + h * 0.06, w, h * 0.82);
     } else {
       ctx.fillStyle = wall.fill;
       ctx.fillRect(x, y, w, h);
