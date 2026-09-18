@@ -220,7 +220,14 @@
     c.width = need;
     c.height = Math.max(1, Math.round((need * sh) / sw));
     var g = c.getContext("2d");
+    // The plates are painted a stop lighter than the photographed room, and every coat of glass,
+    // tint and water on top lifts them further, so in play they read as frosted plastic pasted on
+    // the photo. A grade at bake time pulls them back into the room's exposure. Compared as
+    // crops at game size: this, the ungraded plate, and the plate with every overlay removed.
+    // The graded one is the only one that sits in the photo. Baked once, costs nothing per frame.
+    g.filter = "contrast(1.2) saturate(1.18) brightness(0.9)";
     g.drawImage(img, iw * 0.1, ih * 0.1, sw, sh, 0, 0, c.width, c.height);
+    g.filter = "none";
     plateCrops[key] = c;
     return c;
   }
@@ -240,8 +247,11 @@
       ctx.fillStyle = wall.fill;
       ctx.fillRect(x, y, w, h);
     }
+    // Half the tint it had: the plate now carries its own color, and the tint is a cast, not a veil.
     ctx.fillStyle = wall.tint;
+    ctx.globalAlpha = 0.5;
     ctx.fillRect(x, y, w, h);
+    ctx.globalAlpha = 1;
     ctx.strokeStyle = wall.rim;
     ctx.lineWidth = 1.6;
     ctx.beginPath();

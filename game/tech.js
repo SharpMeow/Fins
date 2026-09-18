@@ -362,6 +362,10 @@
   var _cr = { x: 0, y: 0 };
   function drawKelp(ctx, tanks) {
     if (!kelp.length) return;
+    // Over the painted plates in the shop the strands are drawn as fronds in the water: darker,
+    // desaturated, and half-transparent, so they sit among the painted plants instead of reading
+    // as crayon on top of them. The tank room keeps the full-strength strand.
+    var painted = !!(window.shopBg && window.shopBg.complete && window.shopBg.naturalWidth) && sceneName() === "shop";
     for (var k = 0; k < kelp.length; k++) {
       var item = kelp[k];
       var tk = tanks[item.tank];
@@ -370,8 +374,10 @@
       var n = pts.length;
       ctx.save();
       clipTank(ctx, tk, item.tank);
-      ctx.strokeStyle = "rgba(36," + (110 + (item.strand.hue % 40)) + ",58,.92)";
-      ctx.lineWidth = item.strand.thick + 0.8;
+      ctx.strokeStyle = painted
+        ? "rgba(26," + (72 + (item.strand.hue % 30)) + ",40,.5)"
+        : "rgba(36," + (110 + (item.strand.hue % 40)) + ",58,.92)";
+      ctx.lineWidth = painted ? item.strand.thick + 0.2 : item.strand.thick + 0.8;
       ctx.lineCap = "round";
       ctx.lineJoin = "round";
       ctx.beginPath();
@@ -387,7 +393,7 @@
         }
       }
       ctx.stroke();
-      ctx.strokeStyle = "rgba(110,200,130,.38)";
+      ctx.strokeStyle = painted ? "rgba(120,190,120,.14)" : "rgba(110,200,130,.38)";
       ctx.lineWidth = Math.max(1, item.strand.thick * 0.45);
       ctx.stroke();
       ctx.restore();
@@ -1007,7 +1013,7 @@
     ctx.save();
     clipTank(ctx, tk, i);
     var gL = ctx.createLinearGradient(tx, ty, tx + tw * 0.28, ty);
-    gL.addColorStop(0, "rgba(255,255,255,.22)");
+    gL.addColorStop(0, "rgba(255,255,255,.12)");
     gL.addColorStop(1, "rgba(255,255,255,0)");
     ctx.fillStyle = gL;
     ctx.fillRect(tx, ty, tw * 0.28, th);
@@ -1017,13 +1023,13 @@
     ctx.fillStyle = gR;
     ctx.fillRect(tx + tw * 0.72, ty, tw * 0.28, th);
     var top = ctx.createLinearGradient(tx, ty + th * 0.08, tx, ty + th * 0.22);
-    top.addColorStop(0, "rgba(230,248,255,.16)");
+    top.addColorStop(0, "rgba(230,248,255,.09)");
     top.addColorStop(1, "rgba(230,248,255,0)");
     ctx.fillStyle = top;
     ctx.fillRect(tx, ty, tw, th * 0.22);
     ctx.globalCompositeOperation = "lighter";
-    ctx.strokeStyle = "rgba(255,252,245,.35)";
-    ctx.lineWidth = 1.4;
+    ctx.strokeStyle = "rgba(255,252,245,.24)";
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
     ctx.moveTo(tx + tw * 0.12, ty + th * 0.12);
     ctx.quadraticCurveTo(tx + tw * 0.38, ty + th * 0.06, tx + tw * 0.62, ty + th * 0.13);
@@ -1049,23 +1055,15 @@
     }
     ctx.restore();
     ctx.save();
-    ctx.strokeStyle = "rgba(210,235,255,.38)";
-    ctx.lineWidth = 2.2;
+    // One soft edge catch per side. The red and blue fringe lines that sat beside it read as a
+    // display glitch on a photographed room rather than as glass.
+    ctx.strokeStyle = "rgba(210,235,255,.2)";
+    ctx.lineWidth = 1.4;
     ctx.beginPath();
     ctx.moveTo(tx + 3, ty + th * 0.1);
     ctx.lineTo(tx + 3, ty + th * 0.84);
     ctx.moveTo(tx + tw - 3, ty + th * 0.1);
     ctx.lineTo(tx + tw - 3, ty + th * 0.84);
-    ctx.stroke();
-    ctx.strokeStyle = "rgba(255,90,80,.1)";
-    ctx.beginPath();
-    ctx.moveTo(tx + 2, ty + th * 0.1);
-    ctx.lineTo(tx + 2, ty + th * 0.84);
-    ctx.stroke();
-    ctx.strokeStyle = "rgba(80,190,255,.12)";
-    ctx.beginPath();
-    ctx.moveTo(tx + tw - 2, ty + th * 0.1);
-    ctx.lineTo(tx + tw - 2, ty + th * 0.84);
     ctx.stroke();
     ctx.restore();
   }
@@ -1203,14 +1201,10 @@
     return r;
   });
 
-  wrap("drawShopTankInterior", function (orig, self, args) {
-    var r = orig.apply(self, args);
-    try {
-      if (reduced || !args[0]) return r;
-      glassOnTank(args[0], [args[1], args[2], args[3], args[4]], (typeof performance !== "undefined" ? performance.now() : Date.now()) / 1000, args[5] || 0);
-    } catch (e) {}
-    return r;
-  });
+  // The glass pass used to run here too, a second time per tank, under the interior's
+  // perspective transform while clipping to a quad given in canvas space. Two stacked coats of
+  // white gradient and rim line per tank is what made the play tanks read as frosted plastic
+  // pasted on the photo. paintTankTech draws it once, in canvas space, after the water.
 
   wrap("paintTownMap", function (orig, self, args) {
     var r = orig.apply(self, args);
