@@ -160,7 +160,7 @@
       try {
         if (!rec) return rec;
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         var ls = state();
         if (keep || !st || rec.phase !== "look" || st._luxSaid) return rec;
         st._luxSaid = 1;
@@ -232,9 +232,7 @@
   function line() {
     var st = state();
     if (st.last) return st.last;
-    return have(st.kind) >= 2
-      ? "The " + st.kind + " is the luxury this year."
-      : "The street is without " + st.kind + ".";
+    return whisper();
   }
 
   function seedWiki() {

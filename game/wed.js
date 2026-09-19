@@ -102,10 +102,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae || st._goingHold || st._lateKid || st._mask || st._hold || st._lord || st._great || st._envoy)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function arrive(rec, st, other, force) {
@@ -306,10 +306,19 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var ws = state();
+    if (ws.missed) return -0.07;
+    if (ws.bound) return 0.06;
+    if (ws.seen && ws.day === shopDay()) return 0.03;
+    return 0;
+  }
+
   window.wed = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (a, b) {
       var pair = pickPair() || {};
       var rec = { kind: "collector", phase: "look", line: "", name: a || pair.a || "Tomas Russo" };

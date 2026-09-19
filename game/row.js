@@ -170,6 +170,9 @@
   }
 
   function keepOf(st) {
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
     return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 

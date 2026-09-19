@@ -446,7 +446,7 @@
         if (rec.phase === "look" && st && !st._paneSaid) {
           st._paneSaid = 1;
           var had = rec.line;
-          var keep = !!(st._lateMae || st._goingHold || st._lateKid);
+          var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
           if (f.risen && P.etch < 0.55 && !keep) {
             rec.line = "What's wrong with its eyes. From the street.";
             st.line = rec.line;

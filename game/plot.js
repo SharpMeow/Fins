@@ -102,22 +102,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._hush ||
-        st._feast ||
-        st._gyve)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function pickScheme() {
@@ -299,10 +287,18 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var ps = state();
+    if (ps.done && ps.kind !== "sway") return -0.08;
+    if (ps.seen && !ps.done && ps.day === shopDay()) return -0.03;
+    return 0;
+  }
+
   window.plot = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (a, b) {
       var rec = { kind: "collector", phase: "look", line: "", name: a || "" };
       var st = { phase: "look", bought: false };

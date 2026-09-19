@@ -212,7 +212,7 @@
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
         var cuts = state().cuts;
         if (!cuts.length) return rec;
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         if (rec.phase === "look" && st && !st._cutSaid && !keep) {
           st._cutSaid = 1;
           var latest = cuts[cuts.length - 1];

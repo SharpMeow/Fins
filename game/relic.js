@@ -257,7 +257,7 @@
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
         var art = state().window;
         if (!art || !art.n) return rec;
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         if (rec.phase === "look" && st && !st._relicSaid && !keep) {
           st._relicSaid = 1;
           if (rec.kind === "collector" || rec.kind === "neighbor" || Math.random() < 0.28) {

@@ -118,24 +118,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._feast ||
-        st._gyve ||
-        st._claim)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function otherOnAisle(name) {
@@ -194,7 +180,10 @@
           st.bought = false;
           st.line = rec.line;
           try {
-            if (window.row && row.seed && shopDay() >= 1 && Math.random() < 0.35) row.seed(who, mate);
+            if (window.kin && kin.hurt) {
+              kin.hurt(who, 0.03, "a rival on the aisle");
+              kin.hurt(mate, 0.03, "a rival on the aisle");
+            }
           } catch (eR) {}
         } else if (bs.kind === "nemesis") {
           rec.line = "I'm here about " + first(mate) + "'s bag.";
@@ -244,9 +233,8 @@
   }
 
   function line() {
-    var st = ensure();
+    var st = state();
     if (st.last) return st.last;
-    if (st.a) return first(st.a) + " and " + first(st.b) + " are " + st.kind + "s.";
     return whisper();
   }
 
@@ -280,10 +268,18 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var bs = state();
+    if (bs.kind === "rival" || bs.kind === "nemesis") return -0.04;
+    if ((bs.kind === "lover" || bs.kind === "soulmate") && bs.last) return 0.03;
+    return 0;
+  }
+
   window.bond = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (a, b, k) {
       var st = state();
       var live = living();

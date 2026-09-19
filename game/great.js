@@ -192,7 +192,7 @@
       try {
         if (!rec) return rec;
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         var gs_ = state();
         if (
           !keep &&
@@ -281,10 +281,16 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var gs_ = state();
+    return gs_.seen && gs_.day === shopDay() ? 0.06 : 0;
+  }
+
   window.great = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function () {
       var rec = { kind: "collector", phase: "look", line: "", name: "" };
       var st = { phase: "look", bought: false };

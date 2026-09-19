@@ -178,7 +178,7 @@
       try {
         if (!rec) return rec;
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         var sg = state();
         if (!sg.on || !st) return rec;
         if (rec.phase === "look" && !st._siegeSaid && !keep) {

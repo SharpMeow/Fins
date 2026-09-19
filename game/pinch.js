@@ -209,7 +209,7 @@
     if (state().open) return 0;
     if (!fig || fig.dead || fig.id === "mae" || fig.id === "keep") return 0;
     if (rec.kind === "neighbor" || rec.kind === "collector") return 0;
-    var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid));
+    var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
     if (keep) return 0;
     var c = 0.03;
     var sc = sceneName();

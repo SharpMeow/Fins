@@ -528,7 +528,7 @@
           if (!st.want) st.want = fig.want;
         }
 
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         var k = kinOf(fig);
         var died = deadHome(fig);
         var kept = liveHome(fig);

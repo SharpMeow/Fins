@@ -154,24 +154,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._feast ||
-        st._gyve ||
-        st._claim)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function askHead(rec, st, fig, h, force) {
@@ -352,10 +338,26 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var st = ensure();
+    if (st.filled) return 0.05;
+    var n = 0, p = 0;
+    for (var i = 0; i < st.houses.length; i++) {
+      p += st.houses[i].prestige || 0.4;
+      n++;
+    }
+    if (!n) return 0;
+    var avg = p / n;
+    if (avg < 0.22) return -0.06;
+    if (avg > 0.7) return 0.05;
+    return 0;
+  }
+
   window.house = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     ofName: ofName,
     bump: bump,
     seed: function (n) {

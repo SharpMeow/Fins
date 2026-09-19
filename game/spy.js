@@ -144,7 +144,7 @@
       try {
         if (!rec) return rec;
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         var ss = state();
         if (
           !keep &&
@@ -229,10 +229,18 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var ss = state();
+    if (ss.leaked) return -0.08;
+    if (ss.seen && ss.day === shopDay()) return -0.04;
+    return 0;
+  }
+
   window.spy = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function () {
       var rec = { kind: "collector", phase: "look", line: "", name: "" };
       var st = { phase: "look", bought: false };

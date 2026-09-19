@@ -91,22 +91,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._plot ||
-        st._hush ||
-        st._feast ||
-        st._gyve)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function passWindows(parent, child) {
@@ -166,14 +154,13 @@
     var pass = findPass();
     if (!pass && !force) return false;
     if (!pass) {
-      var live = folk().filter(function (f) {
-        return f && !f.dead && f.id !== "keep";
-      });
-      var deadKeep = folk().filter(function (f) {
-        return f && f.dead;
+      if (!force) return false;
+      var kid = folk().filter(function (f) {
+        return f && !f.dead && f.how === "child";
       })[0];
-      if (!live.length) return false;
-      pass = { parent: deadKeep || { n: "Nedda Marr", id: "keep" }, child: live[0], other: live[1] || null };
+      var par = kid && kid.kinOf ? folk().filter(function (f) { return f && f.id === kid.kinOf; })[0] : null;
+      if (!kid || !par) return false;
+      pass = { parent: par, child: kid, other: null };
     }
     var nick = passWindows(pass.parent, pass.child);
     st.child = pass.child.n;
@@ -314,10 +301,15 @@
     } catch (e) {}
   }
 
+  function edge() {
+    return state().dispute ? -0.05 : 0;
+  }
+
   window.heir = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function () {
       inherit(true);
       return state();

@@ -160,7 +160,7 @@
         if (!rec) return rec;
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
         var h = state();
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         if (rec.phase === "pay" && st && !st._handPay && !keep) {
           st._handPay = 1;
           if (h.bag < 0.3 && Math.random() < 0.42) {

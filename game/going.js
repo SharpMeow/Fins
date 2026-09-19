@@ -728,12 +728,15 @@
         applyTide();
         try {
           var el = document.getElementById("hookWhisper");
-          var wh = whisper();
           var L = state().letter;
-          if (el && wh && (L.open || lastDeath || lastFry || tide() > 0.45)) {
-            if (el.textContent !== wh) {
-              el.textContent = wh;
-              el.classList.add("on", "pop");
+          if (el && L && L.open && !L.filled && L.from) {
+            var letter = "A letter from " + L.from + ". They asked for a pair of " + L.want + ".";
+            var cur = el.textContent || "";
+            if (!cur || cur === letter || /in a row|Paper\. Water|The till is a run|Don't miss|waiting on a bag/.test(cur)) {
+              if (cur !== letter) {
+                el.textContent = letter;
+                el.classList.add("on", "pop");
+              }
             }
           }
         } catch (eW) {}

@@ -206,7 +206,7 @@
         } catch (e) {}
         if (!fig || fig.dead) return rec;
         var so = soulOf(fig);
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         if (rec.phase === "look" && st && !st._soulSaid && !keep) {
           st._soulSaid = 1;
           var wet = aisleWet();

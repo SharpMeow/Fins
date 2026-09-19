@@ -90,22 +90,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._feast ||
-        st._gyve)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function findSecret() {
@@ -277,10 +265,18 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var hs = state();
+    if (hs.told) return -0.08;
+    if (hs.hooked) return -0.04;
+    return 0;
+  }
+
   window.hush = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (n) {
       var rec = { kind: "collector", phase: "look", line: "", name: n || "" };
       var st = { phase: "look", bought: false };
