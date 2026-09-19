@@ -831,6 +831,30 @@
       }
     } catch (eMk) {}
     try {
+      if (window.soul && soul.line) {
+        var soln = soul.line();
+        if (soln) add("soul", soln);
+      }
+    } catch (eSo) {}
+    try {
+      if (window.pinch && pinch.line) {
+        var pnl = pinch.line();
+        if (pnl) add("pinch", pnl);
+      }
+    } catch (ePi) {}
+    try {
+      if (window.hand && hand.line) {
+        var hl = hand.line();
+        if (hl) add("hand", hl);
+      }
+    } catch (eHa) {}
+    try {
+      if (window.cut && cut.line) {
+        var ctl = cut.line();
+        if (ctl) add("cut", ctl);
+      }
+    } catch (eCu) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {

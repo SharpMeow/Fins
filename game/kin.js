@@ -764,6 +764,13 @@
       return state().folk;
     },
     of: byName,
+    id: byId,
+    hurt: function (n, amt, why) {
+      hurt(byName(n) || byId(n), amt, why);
+    },
+    gift: function (n, amt, why) {
+      gift(byName(n) || byId(n), amt, why);
+    },
   };
 
   if (window.__onBeat) window.__onBeat(tick, 240);
