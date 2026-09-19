@@ -1,0 +1,52 @@
+# Nothing builds this game. The layers in game/ are loaded as plain <script>
+# tags, so whatever is in them is what runs, and a stray bracket is a black
+# page rather than a build error. This runs on every pull request and every
+# push to main so that a broken layer is caught here and not in the shop.
+name: check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The cache-bust check compares the branch against its base.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Kept out of package.json: npm install for the desktop app should not
+      # pull down a browser. Pinned so a tool release cannot turn the build red
+      # on its own.
+      - name: Tools
+        run: |
+          npm install --no-save --no-audit --no-fund eslint@10.1.0 playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Syntax
+        run: npm run check:syntax
+
+      - name: Wiring
+        run: node tools/check-wiring.mjs "${{ github.event.pull_request.base.sha }}"
+
+      - name: Lint
+        run: npm run check:lint
+
+      - name: Boot
+        run: npm run check:boot -- --shot boot.png
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: boot-screenshot
+          path: boot.png
+          if-no-files-found: ignore

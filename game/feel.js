@@ -32,10 +32,21 @@
 (function () {
   "use strict";
 
-  var reduced = false;
+  var reducedOS = false;
   try {
-    reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+    reducedOS = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   } catch (e) {}
+  var reduced = reducedOS;
+
+  /* Settings carries its own Reduce motion switch. It used to move the game's
+     own drawing and leave this layer shaking the screen anyway. */
+  function refreshCalm() {
+    var r = reducedOS;
+    try {
+      if (window.gameState && gameState.reduceMotion) r = true;
+    } catch (e) {}
+    reduced = r;
+  }
 
   var lastSfx = 0;
   var voices = 0;
@@ -50,6 +61,9 @@
   var sparks = [];
   var pellets = [];
   var last = 0;
+  var shakeT = 0;
+  var shakeSeed = 0;
+  var painted = false;
   var hudPulse = Object.create(null);
   var wired = false;
 
@@ -69,10 +83,21 @@
     return true;
   }
 
+  /* sound.js holds the context when the bundle does not hand its own out. */
+  function bridge() {
+    try {
+      return window.finsAudio || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   function audio() {
     try {
       if (window.oe && typeof oe.init === "function") oe.init();
-      return (window.oe && oe.ctx) || null;
+      if (window.oe && oe.ctx) return oe.ctx;
+      var b = bridge();
+      return (b && b.ctx()) || null;
     } catch (e) {
       return null;
     }
@@ -82,17 +107,24 @@
     if (window.ge && ge.bus) return ge.bus;
     if (window.oe && oe.sfxBus) return oe.sfxBus;
     if (window.oe && oe.master) return oe.master;
+    var b = bridge();
+    var lb = b && b.bus();
+    if (lb) return lb;
     var c = audio();
     return c ? c.destination : null;
   }
 
   function vol() {
     if ((window.ge && ge.bus) || (window.oe && oe.sfxBus)) return 1;
+    var b = bridge();
+    if (b && b.bus()) return b.vol();
     return 0.55;
   }
 
   function ok() {
     if (!sfxOn()) return false;
+    var b = bridge();
+    if (!(window.oe && oe.ctx) && b) return b.ok();
     var c = audio();
     if (!c) return false;
     if (c.state === "suspended") {
@@ -104,11 +136,18 @@
   }
 
   function panTo(x) {
-    if (window.ge && isFinite(x)) {
+    if (!isFinite(x)) return;
+    if (window.ge) {
       try {
         var W = typeof window.D === "number" && window.D ? window.D : (overlay && overlay.width) || 1;
         ge.pan = Math.max(-0.6, Math.min(0.6, (x / W) * 2 - 1));
         ge.hint = x;
+      } catch (e) {}
+    }
+    var b = bridge();
+    if (b) {
+      try {
+        b.panAt(x);
       } catch (e) {}
     }
   }
@@ -128,6 +167,8 @@
 
   function connect(node) {
     var c = audio();
+    var b = bridge();
+    if (c && b && !(window.ge && ge.bus) && b.bus()) return b.connect(node);
     var out = bus();
     if (!c || !out) return node;
     var p = window.ge && isFinite(ge.pan) && Math.abs(ge.pan) > 0.04 && c.createStereoPanner;
@@ -176,16 +217,12 @@
     var c = audio();
     if (!c) return;
     var t = c.currentTime + (delay || 0);
-    var n = Math.max(64, Math.round(c.sampleRate * Math.min(1.2, dur + 0.04)));
-    var buf = c.createBuffer(1, n, c.sampleRate);
-    var data = buf.getChannelData(0);
-    var acc = 0;
-    for (var i = 0; i < n; i++) {
-      acc = acc * 0.92 + (Math.random() * 2 - 1) * 0.08;
-      data[i] = acc * 6;
-    }
     var src = c.createBufferSource();
-    src.buffer = buf;
+    src.buffer = pinkBuf(c);
+    src.loop = true;
+    /* Start somewhere else in the buffer each time so a repeated cue is not
+       the same grain of noise twice. */
+    var skip = Math.random() * Math.max(0.01, src.buffer.duration - dur - 0.05);
     var f = c.createBiquadFilter();
     f.type = kind || "lowpass";
     f.frequency.value = Math.max(60, freq || 800);
@@ -198,8 +235,34 @@
     src.connect(f);
     f.connect(g);
     connect(g);
-    src.start(t);
+    src.start(t, skip);
     endVoice(src, t + dur + 0.03);
+  }
+
+  /* Two seconds of pink noise, built once and read from a different offset on
+     every cue. The old path allocated a buffer per call: a quarter of a
+     megabyte a shot in a game that is meant to be left running. */
+  var pink = null;
+  var pinkCtx = null;
+
+  function pinkBuf(c) {
+    var b = bridge();
+    if (b && typeof b.noise === "function") {
+      var shared = b.noise("pink", 2);
+      if (shared) return shared;
+    }
+    if (pink && pinkCtx === c) return pink;
+    var n = Math.max(64, Math.round(c.sampleRate * 2));
+    var buf = c.createBuffer(1, n, c.sampleRate);
+    var data = buf.getChannelData(0);
+    var acc = 0;
+    for (var i = 0; i < n; i++) {
+      acc = acc * 0.92 + (Math.random() * 2 - 1) * 0.08;
+      data[i] = acc * 6;
+    }
+    pink = buf;
+    pinkCtx = c;
+    return buf;
   }
 
   function jitter(f, amt) {
@@ -484,7 +547,6 @@
   CATALOG.open = CATALOG.modal;
   CATALOG.shut = CATALOG.lid;
   CATALOG.foot = CATALOG.wood;
-  CATALOG.whistle = CATALOG.whistle;
   CATALOG.tune = CATALOG.whistle;
 
   function playNamed(name, x) {
@@ -517,6 +579,7 @@
   function punch(amt) {
     if (reduced) return;
     trauma = Math.min(1, trauma + (amt == null ? 0.25 : amt));
+    shakeSeed = Math.random() * 6.283;
   }
 
   function flash(color, amt) {
@@ -537,13 +600,18 @@
     if (reduced && floats.length > 6) return;
     var cv = document.getElementById("tank");
     var r = cv ? cv.getBoundingClientRect() : { left: 0, top: 0, width: innerWidth, height: innerHeight };
+    var str = String(text);
+    var mag = Math.abs(parseFloat(str.replace(/[^0-9.\-]/g, ""))) || 0;
     floats.push({
       t: 0,
       dur: 0.95,
       x: x == null ? r.width * 0.5 : x,
       y: y == null ? r.height * 0.42 : y,
-      text: String(text),
+      text: str,
       col: color || "#f4c453",
+      /* A four-figure sale should not come up the same size as a penny. */
+      size: 15 + Math.min(11, Math.log(1 + mag) * 1.9),
+      drift: (Math.random() * 2 - 1) * 9,
     });
     if (floats.length > 24) floats.shift();
   }
@@ -552,41 +620,61 @@
     if (reduced) return;
     ripples.push({
       t: 0,
-      dur: 0.7,
+      dur: 0.86,
       x: x,
       y: y,
       col: color || "180,220,245",
-      r0: 6,
-      r1: 54,
+      r0: 5,
+      r1: 62,
     });
     if (ripples.length > 18) ripples.shift();
   }
 
-  function burst(x, y, color, n) {
-    if (reduced) n = Math.min(n || 8, 6);
-    n = n || 12;
-    for (var i = 0; i < n; i++) {
-      var a = (i / n) * Math.PI * 2 + Math.random() * 0.4;
-      var sp = 40 + Math.random() * 90;
-      sparks.push({
-        t: 0,
-        dur: 0.45 + Math.random() * 0.35,
-        x: x,
-        y: y,
-        vx: Math.cos(a) * sp,
-        vy: Math.sin(a) * sp - 30,
-        col: color || "#f4c453",
-        r: 1.4 + Math.random() * 2.2,
-      });
-    }
-    if (sparks.length > 80) sparks.splice(0, sparks.length - 80);
+  function spark(x, y, col, opt) {
+    opt = opt || {};
+    var a = opt.a == null ? Math.random() * Math.PI * 2 : opt.a;
+    var sp = opt.sp == null ? 40 + Math.random() * 90 : opt.sp;
+    sparks.push({
+      t: 0,
+      dur: opt.dur || 0.45 + Math.random() * 0.35,
+      x: x,
+      y: y,
+      vx: Math.cos(a) * sp,
+      vy: Math.sin(a) * sp - (opt.lift == null ? 30 : opt.lift),
+      col: col || "#f4c453",
+      r: opt.r || 1.4 + Math.random() * 2.2,
+      drag: opt.drag == null ? 1.6 : opt.drag,
+      grav: opt.grav == null ? 140 : opt.grav,
+      flake: !!opt.flake,
+      rot: Math.random() * 6.283,
+      spin: (Math.random() * 2 - 1) * 7,
+    });
+    if (sparks.length > 90) sparks.splice(0, sparks.length - 90);
   }
 
+  function burst(x, y, color, n) {
+    n = reduced ? Math.min(n || 8, 6) : n || 12;
+    for (var i = 0; i < n; i++) {
+      spark(x, y, color, { a: (i / n) * Math.PI * 2 + Math.random() * 0.4 });
+    }
+  }
+
+  /* Paper, not sparks: each flake keeps its own colour, turns as it falls and
+     is slowed by the air rather than dropping like shot. */
   function confetti(x, y) {
     var cols = ["#f4c453", "#ff6f59", "#3fbf8a", "#dcd3ff", "#7ac74f", "#e6f1f8"];
-    burst(x, y, cols[0], reduced ? 8 : 16);
-    for (var i = 0; i < (reduced ? 6 : 14); i++) {
-      sparks[sparks.length - 1 - (i % Math.max(1, sparks.length))].col = cols[i % cols.length];
+    var n = reduced ? 10 : 26;
+    for (var i = 0; i < n; i++) {
+      spark(x, y, cols[i % cols.length], {
+        a: -Math.PI * 0.5 + (Math.random() * 2 - 1) * 1.15,
+        sp: 90 + Math.random() * 190,
+        lift: 60,
+        dur: 0.9 + Math.random() * 0.7,
+        r: 2.2 + Math.random() * 2.6,
+        drag: 2.4,
+        grav: 190,
+        flake: true,
+      });
     }
   }
 
@@ -618,6 +706,10 @@
       text: amount != null ? (amount > 0 ? "+" + amount : String(amount)) : "$",
       col: "#f4c453",
       fly: 1,
+      size: 16,
+      /* Thrown, not dragged: the control point lifts the arc above the line. */
+      cx: x + (r.left + r.width * 0.5 - cr.left - x) * 0.4,
+      cy: Math.min(y, r.top + r.height * 0.5 - cr.top) - 70,
     });
     pulseHud("r-coins");
   }
@@ -642,30 +734,74 @@
     syncOverlay();
   }
 
+  var ovW = 0;
+  var ovH = 0;
+  var ovDpr = 0;
+
   function syncOverlay() {
     if (!overlay) return;
     var dpr = Math.min((window.__finsGlass && window.__finsGlass.dpr) || 2, window.devicePixelRatio || 1);
     var w = innerWidth;
     var h = innerHeight;
-    if (overlay.width !== (w * dpr) | 0 || overlay.height !== (h * dpr) | 0) {
-      overlay.width = (w * dpr) | 0;
-      overlay.height = (h * dpr) | 0;
-    }
+    if (w === ovW && h === ovH && dpr === ovDpr) return;
+    ovW = w;
+    ovH = h;
+    ovDpr = dpr;
+    overlay.width = Math.round(w * dpr);
+    overlay.height = Math.round(h * dpr);
     overlay.style.width = w + "px";
     overlay.style.height = h + "px";
     if (octx) octx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
+  /* How much of the spark's path is smeared behind it. A fixed slice of time,
+     not a frame, so it draws the same length on any panel. */
+  var TRAIL = 0.026;
+
+  function busy() {
+    return (
+      flashA > 0.002 ||
+      trauma > 0.002 ||
+      floats.length > 0 ||
+      ripples.length > 0 ||
+      sparks.length > 0 ||
+      pellets.length > 0
+    );
+  }
+
+  function clearAll() {
+    floats.length = 0;
+    ripples.length = 0;
+    sparks.length = 0;
+    pellets.length = 0;
+    flashA = 0;
+    trauma = 0;
+  }
+
   function tick(t) {
-    var dt = last ? Math.min(0.05, (t - last) / 1000) : 0.016;
+    var gap = last ? (t - last) / 1000 : 0.016;
+    /* Back from a background tab: run the room forward, do not replay a
+       splash that finished while nobody was looking. */
+    if (gap > 0.5) {
+      clearAll();
+      var tankBack = document.getElementById("tank");
+      if (tankBack && tankBack.style.transform) tankBack.style.transform = "";
+    }
+    var dt = last ? Math.min(0.05, gap) : 0.016;
     last = t;
+    refreshCalm();
+
     if (trauma > 0.002 && !reduced) {
       trauma = Math.max(0, trauma - dt * 2.6);
+      shakeT += dt;
       var sh = trauma * trauma;
       var tank = document.getElementById("tank");
       if (tank) {
-        var ox = (Math.random() * 2 - 1) * sh * 10;
-        var oy = (Math.random() * 2 - 1) * sh * 7;
+        /* A decaying wobble on two rates rather than fresh noise per frame:
+           an impact reads the same on a 165 Hz panel as on a 60 Hz one, where
+           per-frame jitter just reads as static. */
+        var ox = Math.sin(shakeT * 78.5 + shakeSeed) * sh * 11;
+        var oy = Math.sin(shakeT * 61.3 + shakeSeed * 1.7 + 1.1) * sh * 7.5;
         tank.style.transform = "translate(" + ox.toFixed(2) + "px," + oy.toFixed(2) + "px)";
       }
     } else if (trauma) {
@@ -690,14 +826,29 @@
       s.t += dt;
       s.x += s.vx * dt;
       s.y += s.vy * dt;
-      s.vy += 140 * dt;
+      /* Air, so a flake settles instead of accelerating away. */
+      var k = Math.max(0, 1 - s.drag * dt);
+      s.vx *= k;
+      s.vy = s.vy * k + s.grav * dt;
+      s.rot += s.spin * dt;
       if (s.t >= s.dur) sparks.splice(i, 1);
     }
     for (i = pellets.length - 1; i >= 0; i--) {
       pellets[i].t += dt;
       if (pellets[i].t >= pellets[i].dur) pellets.splice(i, 1);
     }
-    draw();
+
+    /* An idle shop should not be paying for a full-screen clear sixty times a
+       second. Draw while there is something to draw, wipe once when there is
+       not, then leave the canvas alone. */
+    if (busy()) {
+      draw();
+      painted = true;
+    } else if (painted) {
+      syncOverlay();
+      if (octx) octx.clearRect(0, 0, innerWidth, innerHeight);
+      painted = false;
+    }
     requestAnimationFrame(tick);
   }
 
@@ -707,41 +858,86 @@
     var w = innerWidth;
     var h = innerHeight;
     octx.clearRect(0, 0, w, h);
+
+    /* A flat white rectangle over the whole room reads as a cheap cut. The
+       light comes in at the edges and leaves the glass alone. */
     if (flashA > 0.01) {
-      octx.fillStyle = "rgba(" + flashCol + "," + flashA.toFixed(3) + ")";
+      var fa = flashA * flashA * 1.9;
+      var gr = octx.createRadialGradient(w * 0.5, h * 0.44, Math.min(w, h) * 0.12, w * 0.5, h * 0.44, Math.max(w, h) * 0.72);
+      gr.addColorStop(0, "rgba(" + flashCol + "," + (fa * 0.34).toFixed(3) + ")");
+      gr.addColorStop(0.55, "rgba(" + flashCol + "," + (fa * 0.62).toFixed(3) + ")");
+      gr.addColorStop(1, "rgba(" + flashCol + "," + Math.min(0.85, fa).toFixed(3) + ")");
+      octx.fillStyle = gr;
       octx.fillRect(0, 0, w, h);
     }
-    var k, p, a;
+
+    var k, p, a, u;
+
+    /* Rings on a surface: they slow as they widen, thin as they go, and carry
+       a second ring behind the first. */
     for (k = 0; k < ripples.length; k++) {
       p = ripples[k];
-      a = 1 - p.t / p.dur;
-      var rad = p.r0 + (p.r1 - p.r0) * (p.t / p.dur);
-      octx.strokeStyle = "rgba(" + p.col + "," + (0.45 * a).toFixed(3) + ")";
-      octx.lineWidth = 2;
+      u = p.t / p.dur;
+      var spread = 1 - Math.pow(1 - u, 2.4);
+      a = Math.pow(1 - u, 1.7);
+      var rad = p.r0 + (p.r1 - p.r0) * spread;
+      octx.lineWidth = 0.7 + 2.1 * (1 - u);
+      octx.strokeStyle = "rgba(" + p.col + "," + (0.5 * a).toFixed(3) + ")";
       octx.beginPath();
-      octx.arc(p.x, p.y, rad, 0, Math.PI * 2);
+      octx.ellipse(p.x, p.y, rad, rad * 0.88, 0, 0, Math.PI * 2);
       octx.stroke();
+      if (rad > 16) {
+        octx.lineWidth = 0.6 + 1.1 * (1 - u);
+        octx.strokeStyle = "rgba(" + p.col + "," + (0.22 * a).toFixed(3) + ")";
+        octx.beginPath();
+        octx.ellipse(p.x, p.y, rad * 0.61, rad * 0.54, 0, 0, Math.PI * 2);
+        octx.stroke();
+      }
     }
-    for (k = 0; k < sparks.length; k++) {
-      p = sparks[k];
-      a = 1 - p.t / p.dur;
-      octx.globalAlpha = a;
-      octx.fillStyle = p.col;
-      octx.beginPath();
-      octx.arc(p.x, p.y, p.r, 0, 7);
-      octx.fill();
-    }
-    octx.globalAlpha = 1;
+
     for (k = 0; k < pellets.length; k++) {
       p = pellets[k];
-      var u = p.t / p.dur;
+      u = p.t / p.dur;
       var yy = p.y0 + (p.y1 - p.y0) * (u * u);
       octx.fillStyle = "rgba(217,160,107," + (1 - u * 0.3).toFixed(3) + ")";
       octx.beginPath();
       octx.arc(p.x, yy, p.r, 0, 7);
       octx.fill();
     }
-    octx.font = "700 16px Nunito, Segoe UI, sans-serif";
+
+    /* Sparks add light; paper does not. */
+    if (sparks.length) {
+      octx.lineCap = "round";
+      for (k = 0; k < sparks.length; k++) {
+        p = sparks[k];
+        u = p.t / p.dur;
+        a = Math.pow(1 - u, 1.4);
+        octx.globalAlpha = a;
+        if (p.flake) {
+          octx.globalCompositeOperation = "source-over";
+          octx.save();
+          octx.translate(p.x, p.y);
+          octx.rotate(p.rot);
+          octx.fillStyle = p.col;
+          /* Turned edge-on it is a sliver, flat on it is a square of paper. */
+          var fw = p.r * 2.1;
+          var fh = p.r * 1.3 * Math.abs(Math.cos(p.rot * 1.6));
+          octx.fillRect(-fw * 0.5, -fh * 0.5, fw, Math.max(0.7, fh));
+          octx.restore();
+        } else {
+          octx.globalCompositeOperation = "lighter";
+          octx.strokeStyle = p.col;
+          octx.lineWidth = Math.max(0.9, p.r * 1.8 * (1 - u * 0.55));
+          octx.beginPath();
+          octx.moveTo(p.x - p.vx * TRAIL, p.y - p.vy * TRAIL);
+          octx.lineTo(p.x, p.y);
+          octx.stroke();
+        }
+      }
+      octx.globalCompositeOperation = "source-over";
+      octx.globalAlpha = 1;
+    }
+
     octx.textAlign = "center";
     octx.textBaseline = "middle";
     for (k = 0; k < floats.length; k++) {
@@ -749,16 +945,26 @@
       var tt = p.t / p.dur;
       var ease = 1 - Math.pow(1 - tt, 3);
       var fx = p.x;
-      var fy = p.y - 42 * ease;
+      var fy = p.y - 46 * ease;
       if (p.fly && p.tx != null) {
-        fx = p.x + (p.tx - p.x) * ease;
-        fy = p.y + (p.ty - p.y) * ease;
+        /* Quadratic through the lifted control point, so the coin is thrown
+           at the till rather than slid along a rail. */
+        var iv = 1 - ease;
+        fx = iv * iv * p.x + 2 * iv * ease * p.cx + ease * ease * p.tx;
+        fy = iv * iv * p.y + 2 * iv * ease * p.cy + ease * ease * p.ty;
+      } else {
+        fx += p.drift * ease;
       }
+      /* Lands slightly over size, then settles. */
+      var sc = tt < 0.16 ? 0.62 + (tt / 0.16) * 0.52 : 1.14 - Math.min(1, (tt - 0.16) / 0.22) * 0.14;
+      var size = Math.round((p.size || 16) * sc);
+      octx.font = "800 " + size + "px Nunito, 'Segoe UI', system-ui, sans-serif";
       octx.globalAlpha = tt < 0.7 ? 1 : 1 - (tt - 0.7) / 0.3;
-      octx.fillStyle = p.col;
-      octx.strokeStyle = "rgba(6,14,24,.55)";
-      octx.lineWidth = 3;
+      octx.strokeStyle = "rgba(6,14,24,.6)";
+      octx.lineWidth = Math.max(2, size * 0.17);
+      octx.lineJoin = "round";
       octx.strokeText(p.text, fx, fy);
+      octx.fillStyle = p.col;
       octx.fillText(p.text, fx, fy);
     }
     octx.globalAlpha = 1;
@@ -832,7 +1038,7 @@
     if (scene === "shop") ripple(x, y, "210,190,160");
     else {
       ripple(x, y, "190,230,255");
-      if (now() - lastSfx > 90) playNamed("drip", x);
+      if (now() - lastSfx > 220) playNamed("drip", x);
     }
   }
 
@@ -842,13 +1048,14 @@
     var x = r.left + r.width * 0.5;
     var y = r.top + r.height * 0.5;
     if (node.classList.contains("order") || node.classList.contains("wild")) {
-      if (now() - lastSfx > 80) playNamed("bell");
+      if (now() - lastSfx > 80) playNamed("bell", x);
       punch(0.08);
+      ripple(x, y, "244,196,83");
     } else if (node.classList.contains("sick")) {
-      if (now() - lastSfx > 80) playNamed("warn");
+      if (now() - lastSfx > 80) playNamed("warn", x);
       flash("#ff6f59", 0.1);
     } else if (node.classList.contains("filter")) {
-      if (now() - lastSfx > 80) playNamed("pump");
+      if (now() - lastSfx > 80) playNamed("pump", x);
     }
   }
 
@@ -891,7 +1098,6 @@
       flash("#f4c453", 0.05);
     });
     wrapI("hatch", function () {
-      var cv = document.getElementById("tank");
       burst(innerWidth * 0.5, innerHeight * 0.55, "#cfe6f2", 14);
     });
     wrapI("unlock", function () {
@@ -997,14 +1203,22 @@
       }
     });
 
-    var ambAt = 0;
-    var lastScene = "";
     var lastStep = 0;
+    var engineStep = typeof window.folkStep === "function" ? window.folkStep : null;
     window.folkStep = function (x, y) {
       if (!sfxOn()) return;
       var t = now();
+      /* folk.js fires once per planted foot per person on screen, so the room
+         needs a floor on how often the boards can answer. */
       if (t - lastStep < 90) return;
       lastStep = t;
+      panTo(x);
+      if (engineStep) {
+        try {
+          engineStep(x, y);
+          return;
+        } catch (e) {}
+      }
       var scene = "";
       try {
         if (typeof sceneNow === "function") scene = String(sceneNow() || "");
@@ -1014,52 +1228,13 @@
           if (on && on.dataset.scene) scene = on.dataset.scene;
         }
       } catch (e) {}
-      panTo(x);
       if (scene === "shop") playNamed("wood", x);
       else if (scene === "street") playNamed("gravel", x);
       else playNamed("foot", x);
     };
-    setInterval(function () {
-      var scene = "";
-      try {
-        if (typeof sceneNow === "function") scene = String(sceneNow() || "");
-        else if (typeof gameState === "object" && gameState && gameState.scene) scene = String(gameState.scene);
-      } catch (e) {}
-      if (document.body.classList.contains("titling")) scene = "title";
-      if (scene !== lastScene) {
-        lastScene = scene;
-        // Transition stingers live in flow.js so rooms don't double-hit.
-      }
-      var t = now();
-      if (t - ambAt < 3800) return;
-      if (!sfxOn()) return;
-      ambAt = t;
-      var hour = 12;
-      try {
-        if (typeof gameState === "object" && gameState && isFinite(gameState.t))
-          hour = (((gameState.t % 2400) + 2400) % 2400) / 100;
-      } catch (e) {}
-      var night = hour < 6 || hour > 21;
-      if (scene === "shop") {
-        var roll = Math.random();
-        var hush = false;
-        var nCrowd = 0;
-        try {
-          hush = !!(window.__shopMood && window.__shopMood.kind === "flee" && (performance.now() / 1000) < window.__shopMood.until);
-          nCrowd = (window.__shopCrowd && window.__shopCrowd.length) || 0;
-        } catch (e) {}
-        if (hush) playNamed(Math.random() < 0.5 ? "heartbeat" : "room");
-        else if (nCrowd > 3) playNamed(roll < 0.55 ? "murmur" : roll < 0.8 ? "bubble" : "room");
-        else if (roll < 0.4) playNamed("murmur");
-        else if (roll < 0.7) playNamed("bubble");
-        else if (roll < 0.85) playNamed("drip");
-        else playNamed("room");
-      } else if (scene === "street") {
-        playNamed(night ? "wind" : Math.random() < 0.55 ? "car" : "crowd");
-      } else if (scene === "tank") {
-        playNamed(Math.random() < 0.7 ? "bubble" : "drip");
-      }
-    }, 1800);
+    /* The room's ambience, beds and hums and the odd gull, belongs to the
+       engine, which keys it off scene, hour and weather and fades between
+       them. A second timer firing one-shots on top only muddied it. */
   }
 
   window.feel = {

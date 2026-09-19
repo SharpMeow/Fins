@@ -588,6 +588,9 @@
 
   var overlay = null, octx = null, grain = null, grainT = 0;
   var bloomA = null, bloomB = null, bloomTick = 0;
+  // Last size the overlay bitmap was built at. ensureOverlay clears it when it
+  // builds a new context, because a new context starts on identity.
+  var ovW = 0, ovH = 0, ovDpr = 0;
   function ensureOverlay() {
     if (overlay && overlay.parentNode) return;
     overlay = document.getElementById("techfx");
@@ -598,6 +601,7 @@
       document.body.appendChild(overlay);
     }
     octx = overlay.getContext("2d");
+    ovW = ovH = ovDpr = 0;
     grain = document.createElement("canvas");
     grain.width = 96;
     grain.height = 96;
@@ -617,16 +621,22 @@
     bloomA = document.createElement("canvas");
     bloomB = document.createElement("canvas");
   }
+  // `!==` binds tighter than `|`, so the old guard here read
+  // `(overlay.width !== w * dpr) | 0` and came out 1 whenever the device ratio
+  // was fractional. drawOverlay calls this every frame, and assigning a canvas
+  // width tears the bitmap down and builds it again, so the bloom layer was
+  // being reallocated sixty times a second on a scaled display. Compare the
+  // rounded sizes, and only touch the canvas when one of them moved.
   function resizeOverlay() {
     ensureOverlay();
     var dpr = Math.min((window.__finsGlass && window.__finsGlass.dpr) || 1.5, window.devicePixelRatio || 1);
     var w = window.innerWidth, h = window.innerHeight;
-    if (overlay.width !== (w * dpr) | 0 || overlay.height !== (h * dpr) | 0) {
-      overlay.width = (w * dpr) | 0;
-      overlay.height = (h * dpr) | 0;
-      overlay.style.width = w + "px";
-      overlay.style.height = h + "px";
-    }
+    if (w === ovW && h === ovH && dpr === ovDpr) return;
+    ovW = w; ovH = h; ovDpr = dpr;
+    overlay.width = Math.round(w * dpr);
+    overlay.height = Math.round(h * dpr);
+    overlay.style.width = w + "px";
+    overlay.style.height = h + "px";
     octx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   // Bloom reads the tank canvas back into a small buffer. When that read follows the game's own
