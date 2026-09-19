@@ -34,6 +34,8 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The tank is a choir.** Every living fish is a voice. The shop's music is not a playlist — it is the water, singing what it has seen. A named fish carries the melody. Sell the last of a line and a voice drops; the gold line under the name says so. Raise a name from the pages and the whole chord comes back a half-step off. Fever, a beast off the harbor, a boycott, a wet aisle: they detune it. People at the glass can hear it. They say "that one watched me." Work mode turns it into the fluorescent hum, and the hum still sours when the water is off. No aquarium game, no shop sim, no idle, uses its inventory as the score.
 
+**The shop is porous.** Every other shop sim deletes what you sell. Fin's does not. A bag is not a deletion. They go home with someone on Salem. The baker's window is a tank. If they live, she will say so. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left. At night the harbor comes in under the boards — not rain, the sea, on the spring tide. Named fish lean with it. Floss dries the aisle. The tide does not care. When a road inland is cut, the hold writes. A letter on the counter: a place, a pair, a kind. Fill it. A road to the harbor can reopen. Leave it five days and the gold line stays late. Nobody else has done this: the street keeps your stock, the sea keeps a key to the door, and the unfinished thing on the counter is a letter from a town you have only read.
+
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
 **The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The hold is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
@@ -51,13 +53,13 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 | | What everyone else ships | What Fin's ships |
 |---|---|---|
 | The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches |
-| The shop | upgrade tree, staff bars | a wet aisle, a baker, a till that is a run |
-| The world | a multiplier, flavor text | a thousand-year atlas that still acts |
+| The shop | upgrade tree, staff bars | a wet aisle, a baker, a till that is a run, a block that keeps what you sold |
+| The world | a multiplier, flavor text | a thousand-year atlas that still acts, a letter you can answer |
 | The idle | a number in another tab | a room you can fail in while you are gone |
-| The sound | a loop | the water, singing what it has seen |
+| The sound | a loop | the water, singing what it has seen — and the windows on Salem |
 | The line | a toast | one gold sentence of unfinished work |
 
-Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, and a tank that is the score.
+Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, and a door the harbor has a key to.
 
 ---
 
@@ -161,6 +163,14 @@ The baker on Salem is Mae Costa. She bakes. She wants goldfish. She walks past w
 A walk-in is a conversation with a last visit. A miss is a sentence. Trust is a number that wet boards can cut.
 
 You can type `/act` and do a thing in the street. The street heard it. Mood moves. A loud thing on Salem empties the shop. Kindness is cheaper and still shows. That is not a cheat console that prints gold. It is a person doing something in a place that keeps witnesses.
+
+### The shop is porous
+
+A bag is not a deletion. They go home with someone on Salem. The baker already said it — *the last one is still in the bakery window* — and now it is true. If they live, she asks for another. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left.
+
+Rain at the door is weather. The harbor at night is the sea. Spring tide, new moon or full, the water comes in under the boards by the door. Named fish lean with it. Floss dries the aisle. The tide will be back at the next high.
+
+When a road inland is cut, the hold writes. A letter on the counter: a place, a pair, a kind. Someone walks in off that road and says the letter's words. Fill the pair. The hold is answered, and a road to the harbor can reopen. Leave it five days and the letter goes unanswered.
 
 ### The till, the money, the counter
 

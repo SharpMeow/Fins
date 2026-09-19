@@ -747,6 +747,28 @@
       }
     } catch (eCh) {}
     try {
+      if (window.going && going.line) {
+        var gl = going.line();
+        if (gl) add("block", gl);
+      }
+      if (window.going && going.homes) {
+        var hs = going.homes();
+        var shown = 0;
+        for (var hi = 0; hi < hs.length && shown < 2; hi++) {
+          if (!hs[hi] || hs[hi].dead) continue;
+          var call = hs[hi].nick || ("the " + hs[hi].sp);
+          add("block", call + " is in " + hs[hi].who + "'s window.");
+          shown++;
+        }
+      }
+      if (window.going && going.letter) {
+        var lt = going.letter();
+        if (lt && lt.open && !lt.filled) {
+          add("hold", "A letter from " + lt.from + ". They asked for a pair of " + lt.want + ".");
+        }
+      }
+    } catch (eGo) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {
