@@ -564,6 +564,7 @@
   }
 
   function whisper(w) {
+    w = w || weather();
     if (w.beast > 0.12 && w.beastLine) return w.beastLine;
     if (w.fever > 0.42 && w.feverName) return w.feverName;
     if (w.boycott) return "The hall put the word out. The aisle is empty.";
