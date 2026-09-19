@@ -24,7 +24,7 @@ You open in Year 1000. The tanks are already running. People come in off the str
 
 Most idle games are a number that goes up while you are in another tab. Fin's is a room you can fail in. The water has a temperature. The baker on the next block remembers the last bag. A named fish will not sell if it is holding too still. A thousand years of people already lived on this street before you hung the sign, and they did not stop when the clock hit present day.
 
-Public source. [Business Source License 1.1](LICENSE).
+Source is private. [PolyForm Small Business 1.0.0](LICENSE).
 
 ---
 
@@ -94,6 +94,8 @@ The Guide is not a tip box. It is a live knowledge base: what is happening now, 
 ### What is looking back
 
 A difficulty director watches how you play — skill and calm, an ensemble that disagrees with itself on purpose. It does not hate you. It also does not flatten the room into a balanced tutorial. The water still packs. The baker still remembers.
+
+The tank is a choir. Every living fish is a voice. The shop's music is not a playlist — it is the water, singing what it has seen. A named fish carries the melody. Sell the last of a line and a voice drops. Raise a name from the pages and it comes back a half-step off. Fever, a beast off the harbor, a boycott: they detune the chord. People at the glass can hear it. They say so. Work mode turns it into the fluorescent hum, and the hum still sours when the water is off. That is the merge: the continent's weather lands in one place you can hear.
 
 ```
   street ──► door ──► aisle ──► glass ──► till
@@ -217,7 +219,7 @@ Fin's is a game you serve from a folder, not a package you install into somethin
 
 **Use it when** the work is this shop: the water, the street, the daybook, the run. When a change has to show up in play — odds, speech, a wet floor — not in a tab that nobody opens.
 
-**Leave it when** you want a generic tycoon kit or a Store listing. The source is public. The license is not a free-for-all.
+**Leave it when** you want a generic tycoon kit or a Store listing. The repo is private. The license is not a free-for-all.
 
 If you are an agent:
 
@@ -226,7 +228,7 @@ If you are an agent:
 3. Do not invent a second HUD. The strip at the top is already too willing to wrap.
 4. A toast that fires on continue without a bag is a bug. The run starts this session.
 5. Keep the name Fin's. The shopkeeper is not the sign.
-6. The source is BSL. Do not relicense it as MIT. Do not publish the art as a starter kit.
+6. The license is PolyForm Small Business 1.0.0. Do not relicense it as MIT. Do not publish the art as a starter kit.
 7. Run `npm run check` before you push. Nothing else will.
 
 ### What has to be true before you push
@@ -261,11 +263,11 @@ Every check was proved by planting the bug it is meant to catch and watching the
 
 ## License
 
-[Business Source License 1.1](LICENSE).
+[PolyForm Small Business 1.0.0](LICENSE).
 
 Play it. Study it. Keep a copy.
 
-Do not sell the source, and do not ship Fin's as a competing shop. On 17 September 2030 this version becomes Apache 2.0.
+Individuals and small companies (under 100 people, under $1,000,000 USD of prior-year revenue, 2019 dollars) may use, change, and redistribute it. Larger companies need a separate paid license. Do not relicense it as MIT. Do not ship Fin's as a competing shop.
 
 Built by Chaos.
 

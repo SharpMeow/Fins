@@ -171,6 +171,12 @@
       if (window.shopSite && shopSite.wet() > 0.36) return "The aisle is wet. They're turning around.";
     } catch (eW2) {}
     try {
+      if (window.choir && typeof choir.whisper === "function") {
+        var cw = choir.whisper();
+        if (cw) return cw;
+      }
+    } catch (eCh) {}
+    try {
       if (window.weave && typeof weave.next === "function") {
         var wn = weave.next();
         if (wn) return wn;

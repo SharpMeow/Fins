@@ -741,6 +741,12 @@
       }
     } catch (eB) {}
     try {
+      if (window.choir && choir.line) {
+        var cl = choir.line();
+        if (cl) add("glass", cl);
+      }
+    } catch (eCh) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {
