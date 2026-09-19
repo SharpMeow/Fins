@@ -6,6 +6,7 @@
   var lastTick = 0;
   var lastUi = 0;
   var lastComing = "";
+  var didBrowse = false;
 
   function gs() {
     try {
@@ -146,7 +147,8 @@
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__road) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function () {
       var rec = orig.apply(this, arguments);
@@ -167,7 +169,6 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__road = 1;
   }
 
   function enhance() {

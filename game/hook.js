@@ -186,6 +186,30 @@
       }
     } catch (eGo) {}
     try {
+      if (window.ill && typeof ill.whisper === "function") {
+        var iw = ill.whisper();
+        if (iw) return iw;
+      }
+    } catch (eIl) {}
+    try {
+      if (window.relic && typeof relic.whisper === "function") {
+        var rw = relic.whisper();
+        if (rw) return rw;
+      }
+    } catch (eRe) {}
+    try {
+      if (window.kin && typeof kin.whisper === "function") {
+        var kw = kin.whisper();
+        if (kw) return kw;
+      }
+    } catch (eKi) {}
+    try {
+      if (window.mark && typeof mark.whisper === "function") {
+        var mw = mark.whisper();
+        if (mw) return mw;
+      }
+    } catch (eMk) {}
+    try {
       if (window.sill && typeof sill.whisper === "function") {
         var sw = sill.whisper();
         if (sw) return sw;

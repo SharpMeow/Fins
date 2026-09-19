@@ -55,6 +55,16 @@
       lot: "kept cold, lot",
     },
     {
+      id: "salt",
+      cat: "Water",
+      name: "Aquarium salt",
+      pack: 2,
+      cost: 18,
+      unit: "tin",
+      blurb: "White-spot hates it. The street notices if you treated after a bag went out sick.",
+      lot: "evaporated in Revere, lot",
+    },
+    {
       id: "brine",
       cat: "Feed",
       name: "Frozen brine shrimp",
@@ -325,6 +335,9 @@
       try {
         if (window.fever && fever.treat) fever.treat();
       } catch (eFv) {}
+    } else if (id === "salt") {
+      rememberFish("the salt in the water");
+      say("Salt in the column. White-spot hates it.");
     } else if (id === "brine") {
       treat(0.22, 0.06, "the frozen shrimp");
       say("Cubes thawed. They came up for them.");
