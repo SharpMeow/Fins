@@ -264,7 +264,18 @@
       return site().aisleC || 18;
     },
     puddle: function () {
-      return { nx: 0.48, ny: 0.74 };
+      var s = site();
+      var best = null;
+      for (var i = 0; i < s.cells.length; i++) {
+        var c = s.cells[i];
+        if (c.kind === "floor" && c.wet > 0.1 && (!best || c.wet > best.wet)) best = c;
+      }
+      if (!best) return { nx: 0.48, ny: 0.74, wet: 0 };
+      return {
+        nx: (best.x + 0.5) / W,
+        ny: 0.58 + (best.y / H) * 0.32,
+        wet: best.wet,
+      };
     },
     dry: dry,
   };
