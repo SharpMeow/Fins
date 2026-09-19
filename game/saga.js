@@ -11,6 +11,7 @@
   var lastUi = 0;
   var seeded = false;
   var usedNicks = Object.create(null);
+  var didBrowse = false;
 
   var ONSET = {
     tetra: ["Ne", "Ve", "I", "Ka", "Ri", "Sa", "Li", "To", "Mi", "Ae"],
@@ -449,7 +450,8 @@
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__saga) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function (idx, slot, W, floorY, personS, simT) {
       var rec = orig.apply(this, arguments);
@@ -464,7 +466,6 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__saga = 1;
   }
 
   function world() {

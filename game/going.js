@@ -19,6 +19,9 @@
   var lastBagAt = 0;
   var lastTideSaid = 0;
   var lastHour = -1;
+  var didBrowse = false;
+  var didChoir = false;
+  var didFish = false;
 
   function now() {
     return typeof performance !== "undefined" ? performance.now() / 1000 : Date.now() / 1000;
@@ -531,7 +534,8 @@
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__going) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function (idx, slot, W, floorY, personS, simT) {
       var rec = orig.apply(this, arguments);
@@ -593,11 +597,11 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__going = 1;
   }
 
   function wrapChoir() {
-    if (!window.choir || !choir.weather || choir.weather.__going) return;
+    if (didChoir || !window.choir || !choir.weather) return;
+    didChoir = true;
     var orig = choir.weather;
     choir.weather = function () {
       var w = orig.apply(this, arguments);
@@ -623,11 +627,11 @@
       } catch (e) {}
       return w;
     };
-    choir.weather.__going = 1;
   }
 
   function wrapFish() {
-    if (typeof window.drawFishSprite !== "function" || window.drawFishSprite.__going) return;
+    if (didFish || typeof window.drawFishSprite !== "function") return;
+    didFish = true;
     var orig = window.drawFishSprite;
     window.drawFishSprite = function (a) {
       try {
@@ -639,7 +643,6 @@
       } catch (e) {}
       return orig.apply(this, arguments);
     };
-    window.drawFishSprite.__going = 1;
   }
 
   function echoLine() {

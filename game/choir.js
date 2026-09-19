@@ -24,6 +24,8 @@
   var wiredPtr = false;
   var lastLost = "";
   var lastSour = "";
+  var didFish = false;
+  var didBrowse = false;
 
   var PENT = [0, 2, 4, 7, 9, 12];
 
@@ -459,7 +461,8 @@
   }
 
   function wrapFish() {
-    if (typeof window.drawFishSprite !== "function" || window.drawFishSprite.__choir) return;
+    if (didFish || typeof window.drawFishSprite !== "function") return;
+    didFish = true;
     var orig = window.drawFishSprite;
     window.drawFishSprite = function (a) {
       try {
@@ -495,11 +498,11 @@
       } catch (e) {}
       return orig.apply(this, arguments);
     };
-    window.drawFishSprite.__choir = 1;
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__choir) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function (idx, slot, W, floorY, personS, simT) {
       var rec = orig.apply(this, arguments);
@@ -527,7 +530,6 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__choir = 1;
   }
 
   function watchVoices(w) {

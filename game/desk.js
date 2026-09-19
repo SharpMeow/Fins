@@ -11,6 +11,7 @@
   var lastSaleN = -1;
   var tillReady = false;
   var wired = false;
+  var didBrowse = false;
   var keep = null;
 
   var floor = [];
@@ -221,7 +222,8 @@
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__desk) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function (idx, slot, W, floorY, personS, simT) {
       var rec = orig.apply(this, arguments);
@@ -249,8 +251,6 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__desk = 1;
-    wired = true;
   }
 
   function onSeller(st, rec) {
@@ -768,6 +768,35 @@
         }
       }
     } catch (eGo) {}
+    try {
+      if (window.late && late.line) {
+        var ll = late.line();
+        if (ll) add("late", ll);
+      }
+      if (window.late && late.keeper) {
+        var kp = late.keeper();
+        if (kp && kp.n) add("late", kp.n + " kept this shop through Year " + kp.leftY + ".");
+      }
+      if (window.late && late.missed) {
+        var md = late.missed();
+        for (var mi = 0; mi < md.length && mi < 3; mi++) add("away", md[mi]);
+      }
+    } catch (eLa) {}
+    try {
+      if (window.pane && pane.line) {
+        var pl = pane.line();
+        if (pl) add("pane", pl);
+      }
+      if (window.pane && pane.clarity && pane.clarity() < 0.5) {
+        add("pane", "They can't see in.");
+      }
+    } catch (ePa) {}
+    try {
+      if (window.sill && sill.line) {
+        var sln = sill.line();
+        if (sln) add("sill", sln);
+      }
+    } catch (eSi) {}
     try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];

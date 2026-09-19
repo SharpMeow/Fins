@@ -36,6 +36,14 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The shop is porous.** Every other shop sim deletes what you sell. Fin's does not. A bag is not a deletion. They go home with someone on Salem. The baker's window is a tank. If they live, she will say so. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left. At night the harbor comes in under the boards — not rain, the sea, on the spring tide. Named fish lean with it. Floss dries the aisle. The tide does not care. When a road inland is cut, the hold writes. A letter on the counter: a place, a pair, a kind. Fill it. A road to the harbor can reopen. Leave it five days and the gold line stays late. Nobody else has done this: the street keeps your stock, the sea keeps a key to the door, and the unfinished thing on the counter is a letter from a town you have only read.
 
+**You are late.** You hung the sign in Year 1000. Someone kept this shop before you — Rook, Nedda, Asa, Wren, Pim, once Mae's aunt. The street still uses their names. A fish in the tank is theirs. The baker will say you're not them. Sell that fish and a kid asks where it went. The remaining of a pair holds still, because the other one is in a window on Salem.
+
+**While you were gone.** Idle games pay you for looking away. Fin's writes what you missed. The baker came, or she walked. The filter packed. The harbor came in. A named fish held still. A window on Salem went dark. The gold line is the first thing that happened without you. Life has the rest. The shop kept going. That was the promise on the first line.
+
+**The glass is two-way.** The shop window is a shopfront. People on Salem see the tank. Rain, night, etch, a risen name, a fish holding still: they see that from the street. They come in because of what they saw, or they walk. The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. Floss dries the aisle. It does not clean the glass. Window wash does — vinegar and newsprint, Harbor Supply. Then they can see in. Nobody else has a shop whose window is an optical system and whose building is a chemistry problem.
+
+**Windows on Salem are tanks.** You sold a fish. Open Map. Their window is lit. A tiny one swims in it. Night, they glow. They die, the window goes dark. Click it. The gold line names the house. The baker's window is the first one you learn to look for. Fin's own window is there too: from the street, they can see in. The choir already heard the ones that left. Now you can see them.
+
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
 **The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The hold is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
@@ -53,13 +61,14 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 | | What everyone else ships | What Fin's ships |
 |---|---|---|
 | The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches |
-| The shop | upgrade tree, staff bars | a wet aisle, a baker, a till that is a run, a block that keeps what you sold |
-| The world | a multiplier, flavor text | a thousand-year atlas that still acts, a letter you can answer |
+| The shop | upgrade tree, staff bars | a wet aisle, a baker, a till that is a run, a block that keeps what you sold, a building that etches and rots |
+| The world | a multiplier, flavor text | a thousand-year atlas that still acts, a letter you can answer, windows on Salem that keep what you sold |
 | The idle | a number in another tab | a room you can fail in while you are gone |
 | The sound | a loop | the water, singing what it has seen — and the windows on Salem |
 | The line | a toast | one gold sentence of unfinished work |
+| The window | a backdrop | a shopfront the street can see into |
 
-Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, and a door the harbor has a key to.
+Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, and windows on Salem that are still tanks.
 
 ---
 
@@ -81,7 +90,7 @@ Or: the filter packed overnight, the aisle is a dark ellipse on the boards, and 
 |---|---|
 | **Tank** | the water. Click to feed. Click a fish for its card — name, thought, stress, who it swims with. Stand still and they come to the glass. |
 | **Shop** | the aisle. Rain on the window. People on the boards. The puddle, if there is one. This is where the sale happens, or does not. |
-| **Map** | the North End. Homes, trades, faiths, a reason to be on a block. Some walk to your door. Some go to Haymarket. Some are at sea. |
+| **Map** | the North End. Homes, trades, faiths, a reason to be on a block. Windows on Salem are tanks: a bag lights one. Click it. Some walk to your door. Some go to Haymarket. Some are at sea. |
 
 Life is the daybook: sold, walked, who asked for what, the hour, the weather, what the keeper said. One page. Not five systems shouting.
 
@@ -144,9 +153,11 @@ Stand still over the tank. They will come to the glass.
 
 Sixteen by ten cells of heat, standing water, glass, oak, pressure. A leak is not a toast. It is a puddle on the wettest board, not a fixed spot. People will not step in it. The sale will not close. Floss dries the aisle. The filter packing is how the room turns people around at the door.
 
+The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. A rusty housing packs faster. Floss does not clean the glass. Life's little map goes the color of the damage.
+
 Outside the window the weather is doing something. Rain, fog, a hard sky, night. That air comes in. The room cools. Named fish notice. Odds change. A gale empties Salem Street. A cold snap is a heater. A heatwave is a tank you cannot cool.
 
-The shop window is the street. Stand in Shop and watch. A secret unlocks if you are there while weather is on the glass.
+The shop window is the street. People on Salem see the tank. Rain, night, etch, a risen name: they see that from outside. They come in because of what they saw, or they walk. Stand in Shop and watch. A secret unlocks if you are there while weather is on the glass.
 
 ### The ear
 
@@ -216,7 +227,7 @@ Weather cools the room. The room stresses the named fish. A stressed fish will n
 
 ## A morning
 
-You open. Year 1000, a clear spring. Eighteen fish. Three of them have names. The gold line says the inland hold is late — a war cut a road, and word has not arrived.
+You open. Year 1000, a clear spring. Eighteen fish. Three of them have names. One of them was named by the person who kept this shop before you. The baker will say you're not them. The glass already has their etch on it. The gold line says the inland hold is late — a war cut a road, and word has not arrived.
 
 You click the water. You do not sell the last of a kind. The filter is packing; you click it before the boards go dark. Someone comes in, asks for a tetra. You have two. The aisle is dry. Paper, then the register. The run is 1.
 
@@ -226,7 +237,7 @@ The choir is quieter by one named voice, if you sold a named one. If you didn't,
 
 Or: you sold the last adult before lunch. She looks. She leaves. Life writes it. The whisper says *The baker walked. No goldfish.* Tomorrow she will say so from the door.
 
-That is deeper than a number going up. It is also slower, on purpose. If you wanted a counter that pays you for being away, this is the wrong counter.
+That is deeper than a number going up. It is also slower, on purpose. If you wanted a counter that pays you for being away, this is the wrong counter. Tab out. Come back. The gold line is what happened without you.
 
 ---
 
@@ -330,7 +341,7 @@ Fin's is a game you serve from a folder, not a package you install into somethin
 
 If you are an agent:
 
-1. Play it before you patch it. The gold line, the pair rule, the puddle, the choir.
+1. Play it before you patch it. The gold line, the pair rule, the puddle, the choir, the letter, the keeper who was here, the glass they can see into, the windows on Salem.
 2. Do not flatten the shop into a sim you cannot walk.
 3. Do not invent a second HUD. The strip at the top is already too willing to wrap.
 4. A toast that fires on continue without a bag is a bug. The run starts this session.
