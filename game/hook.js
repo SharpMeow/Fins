@@ -168,6 +168,12 @@
       }
     } catch (eC) {}
     try {
+      if (window.going && typeof going.whisper === "function") {
+        var gw = going.whisper();
+        if (gw) return gw;
+      }
+    } catch (eGo) {}
+    try {
       if (window.shopSite && shopSite.wet() > 0.36) return "The aisle is wet. They're turning around.";
     } catch (eW2) {}
     try {
