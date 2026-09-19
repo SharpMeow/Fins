@@ -10,9 +10,6 @@
   var veil = null;
   var grade = null;
   var lastScene = "";
-  var bedNodes = [];
-  var bedGain = null;
-  var bedScene = "";
   var wired = false;
 
   var VEIL = {
@@ -27,22 +24,12 @@
     "shop>tank": "water",
     "tank>shop": "wood",
     "shop>street": "door",
-    "street>shop": "door",
     "shop>back": "wood",
     "back>shop": "wood",
     "street>tank": "whoosh",
     "back>tank": "water",
     "tank>street": "whoosh",
   };
-
-  function audio() {
-    try {
-      if (window.oe && typeof oe.init === "function") oe.init();
-      return (window.oe && oe.ctx) || null;
-    } catch (e) {
-      return null;
-    }
-  }
 
   function play(name) {
     try {
@@ -122,101 +109,9 @@
     }, 70);
   }
 
-  function stopBed() {
-    for (var i = 0; i < bedNodes.length; i++) {
-      try {
-        bedNodes[i].stop();
-      } catch (e) {}
-      try {
-        bedNodes[i].disconnect();
-      } catch (e) {}
-    }
-    bedNodes = [];
-    if (bedGain) {
-      try {
-        bedGain.disconnect();
-      } catch (e) {}
-    }
-    bedGain = null;
-    bedScene = "";
-  }
-
-  function noiseBuf(c, seconds, brown) {
-    var n = Math.max(1, Math.round(c.sampleRate * seconds));
-    var buf = c.createBuffer(1, n, c.sampleRate);
-    var d = buf.getChannelData(0);
-    var acc = 0;
-    for (var i = 0; i < n; i++) {
-      var w = Math.random() * 2 - 1;
-      if (brown) {
-        acc = acc * 0.97 + w * 0.03;
-        d[i] = acc * 3.2;
-      } else d[i] = w;
-    }
-    return buf;
-  }
-
-  function startBed(scene) {
-    if (bedScene === scene && bedGain) return;
-    stopBed();
-    var c = audio();
-    if (!c || c.state === "suspended") return;
-    var dest = (window.oe && (oe.sfxBus || oe.master)) || c.destination;
-    bedGain = c.createGain();
-    bedGain.gain.value = 0.0001;
-    bedGain.connect(dest);
-
-    function loop(buf, filterType, freq, q, amp) {
-      var src = c.createBufferSource();
-      src.buffer = buf;
-      src.loop = true;
-      var f = c.createBiquadFilter();
-      f.type = filterType || "lowpass";
-      f.frequency.value = freq || 400;
-      f.Q.value = q == null ? 0.7 : q;
-      var g = c.createGain();
-      g.gain.value = amp;
-      src.connect(f);
-      f.connect(g);
-      g.connect(bedGain);
-      src.start();
-      bedNodes.push(src);
-    }
-
-    var brown = noiseBuf(c, 2.4, true);
-    var white = noiseBuf(c, 1.6, false);
-    var wx = {};
-    try {
-      if (typeof bt === "function") wx = bt() || {};
-      else if (window.__wx) wx = window.__wx;
-    } catch (e) {
-      wx = window.__wx || {};
-    }
-    if (scene === "tank") {
-      loop(brown, "lowpass", 280, 0.6, 0.55);
-      loop(white, "bandpass", 1400, 0.8, 0.12);
-      bedGain.gain.exponentialRampToValueAtTime(0.045, c.currentTime + 0.4);
-    } else if (scene === "shop") {
-      loop(brown, "lowpass", 220, 0.5, 0.5);
-      loop(white, "bandpass", 900, 0.6, 0.08);
-      bedGain.gain.exponentialRampToValueAtTime(0.032, c.currentTime + 0.4);
-    } else if (scene === "street") {
-      loop(brown, "lowpass", 180, 0.4, 0.45);
-      loop(white, "highpass", 1800, 0.4, 0.16);
-      bedGain.gain.exponentialRampToValueAtTime(0.038, c.currentTime + 0.4);
-    } else if (scene === "back") {
-      loop(brown, "lowpass", 160, 0.5, 0.42);
-      bedGain.gain.exponentialRampToValueAtTime(0.022, c.currentTime + 0.5);
-    } else {
-      bedGain.gain.exponentialRampToValueAtTime(0.01, c.currentTime + 0.3);
-    }
-    bedScene = scene;
-
-    if ((wx.rain || 0) > 0.12 && (scene === "shop" || scene === "street" || scene === "tank")) {
-      var rainAmp = scene === "tank" ? 0.06 : 0.1 + Math.min(0.18, wx.rain * 0.22);
-      loop(white, "highpass", scene === "tank" ? 2400 : 3200, 0.3, rainAmp);
-    }
-  }
+  /* The room's own sound, bed and hum and gulls and rain, is the engine's, keyed off
+     scene, hour and weather, crossfaded, and silent on the mute. This file used
+     to lay a second bed over it that checked none of those things. */
 
   function dayAmt() {
     try {
@@ -286,7 +181,6 @@
     document.body.setAttribute("data-scene", to);
     flashVeil(to);
     sting(to, from);
-    startBed(to);
     tickGrade();
     if (to === "tank" && from === "shop" && !reduced) {
       document.body.classList.add("flow-lean");
@@ -305,7 +199,6 @@
     if (watchTitle._was && !titling) {
       flashVeil("shop");
       play("door");
-      startBed(sceneNow());
     }
     watchTitle._was = titling;
   }
@@ -315,8 +208,6 @@
     watchTitle();
     tickGrade();
     tickYear();
-    var sc = sceneNow();
-    if (sc && sc !== bedScene) startBed(sc);
     window.setTimeout(tick, 900);
   }
 
@@ -378,13 +269,6 @@
       window.sceneNow = sceneNow;
     } catch (e) {}
     tick();
-    document.addEventListener(
-      "pointerdown",
-      function () {
-        startBed(sceneNow());
-      },
-      { once: true, capture: true }
-    );
   }
 
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
