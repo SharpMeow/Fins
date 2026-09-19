@@ -891,6 +891,78 @@
       }
     } catch (eMs) {}
     try {
+      if (window.age && age.line) {
+        var agl = age.line();
+        if (agl) add("age", agl);
+      }
+    } catch (eAg) {}
+    try {
+      if (window.hold && hold.line) {
+        var hol = hold.line();
+        if (hol) add("hold", hol);
+      }
+    } catch (eHo) {}
+    try {
+      if (window.lord && lord.line) {
+        var ldl = lord.line();
+        if (ldl) add("lord", ldl);
+      }
+    } catch (eLd) {}
+    try {
+      if (window.great && great.line) {
+        var grl = great.line();
+        if (grl) add("great", grl);
+      }
+    } catch (eGr) {}
+    try {
+      if (window.wonder && wonder.line) {
+        var wdl = wonder.line();
+        if (wdl) add("wonder", wdl);
+      }
+    } catch (eWd) {}
+    try {
+      if (window.envoy && envoy.line) {
+        var evl = envoy.line();
+        if (evl) add("envoy", evl);
+      }
+    } catch (eEv) {}
+    try {
+      if (window.vow && vow.line) {
+        var vwl = vow.line();
+        if (vwl) add("vow", vwl);
+      }
+    } catch (eVw) {}
+    try {
+      if (window.siege && siege.line) {
+        var sgl = siege.line();
+        if (sgl) add("siege", sgl);
+      }
+    } catch (eSg) {}
+    try {
+      if (window.pact && pact.line) {
+        var pcl = pact.line();
+        if (pcl) add("pact", pcl);
+      }
+    } catch (ePc) {}
+    try {
+      if (window.lux && lux.line) {
+        var lxl = lux.line();
+        if (lxl) add("lux", lxl);
+      }
+    } catch (eLx) {}
+    try {
+      if (window.spy && spy.line) {
+        var syl = spy.line();
+        if (syl) add("spy", syl);
+      }
+    } catch (eSy) {}
+    try {
+      if (window.seat && seat.line) {
+        var sel = seat.line();
+        if (sel) add("seat", sel);
+      }
+    } catch (eSe) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {

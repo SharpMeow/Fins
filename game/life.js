@@ -358,6 +358,30 @@
     try {
       if (window.craft && typeof craft.edge === "function") p += craft.edge();
     } catch (e13) {}
+    try {
+      if (window.age && typeof age.edge === "function") p += age.edge();
+    } catch (e14) {}
+    try {
+      if (window.hold && typeof hold.edge === "function") p += hold.edge();
+    } catch (e15) {}
+    try {
+      if (window.wonder && typeof wonder.edge === "function") p += wonder.edge();
+    } catch (e16) {}
+    try {
+      if (window.envoy && typeof envoy.edge === "function") p += envoy.edge();
+    } catch (e17) {}
+    try {
+      if (window.vow && typeof vow.edge === "function") p += vow.edge();
+    } catch (e18) {}
+    try {
+      if (window.siege && typeof siege.edge === "function") p += siege.edge();
+    } catch (e19) {}
+    try {
+      if (window.pact && typeof pact.edge === "function") p += pact.edge();
+    } catch (e20) {}
+    try {
+      if (window.lux && typeof lux.edge === "function") p += lux.edge();
+    } catch (e21) {}
     if (clogged()) p -= 0.16;
     if (aisleWet() && !(st && st.coming)) return 0;
     if (st && st.coming) p = Math.max(p, 0.85);
