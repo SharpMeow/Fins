@@ -1,5 +1,5 @@
 /* blood.js — the little one comes home.
-   Dwarf Fortress names a child of a line. Fin's fry was speech. Mae said
+   Fin's fry was speech. Mae said
    she brought the little one. Nothing entered the water. The bag that
    went home can send a child back: same kind, a mother already in the
    book, a collector who can tell. No second HUD. Odds, speech, the till,
@@ -287,8 +287,8 @@
         id: "k_blood",
         sec: "The shop floor",
         t: "The little one comes home",
-        tags: "fry blood line pedigree child bag window mae collector dwarf",
-        w: "<p>Dwarf Fortress names a child of a line. Fin's fry was speech. Mae said she brought the little one. Nothing entered the water. The bag that went home can send a child back: same kind, a mother already in the book, a collector who can tell. They will ask if that one is of Glimia's. It is.</p><p><b>What to do about it:</b> keep a space in the tank. Do not sell the last of a line and expect the child to mean nothing. Life names who came back. The gold line does not cheer you — it tells you the water took them.</p>",
+        tags: "fry blood line pedigree child bag window mae collector",
+        w: "<p>Fin's fry was speech. Mae said she brought the little one. Nothing entered the water. The bag that went home can send a child back: same kind, a mother already in the book, a collector who can tell. They will ask if that one is of Glimia's. It is.</p><p><b>What to do about it:</b> keep a space in the tank. Do not sell the last of a line and expect the child to mean nothing. Life names who came back. The gold line does not cheer you — it tells you the water took them.</p>",
       });
     } catch (e) {}
   }

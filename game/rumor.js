@@ -1,5 +1,5 @@
 /* rumor.js — a fact that walks.
-   Heat, source, a line on the floor. DF's rumours are how a world talks to itself.
+   Heat, source, a line on the floor. Rumour is how a world talks to itself.
    Here they change what a regular will pay. */
 (function () {
   "use strict";

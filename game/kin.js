@@ -1,5 +1,5 @@
 /* kin.js — the street is a civ.
-   Dwarf Fortress's missing object, for the aisle. Walk-ins are not kinds.
+   Walk-ins are not kinds.
    They are people: a name, a job, kin, a god, a preference, a memory of
    a bag. A miss walks to the cousin. A dead fish in a window is a grudge.
    No second HUD. Odds, speech, the gold line, a family that notices. */
@@ -733,7 +733,7 @@
         id: "k_kin",
         sec: "You and your people",
         t: "The street is a civ",
-        tags: "kin family regular cousin grudge name baker mae people dwarf",
+        tags: "kin family regular cousin grudge name baker mae people",
         w: "<p>Walk-ins are not kinds. They are people. A name, a job, kin, a god, a preference, a memory of a bag. Mae has a child on this block. The previous keeper left cousins. A miss walks to the family. A dead fish in a window is a grudge. A collector wants a named line, not a SKU.</p><p><b>What to do about it:</b> read Life. The names repeat. Keep the pair the cousin asked for. Do not sell a sick one to a family that talks.</p>",
       });
     } catch (e) {}

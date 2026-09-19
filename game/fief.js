@@ -1,5 +1,5 @@
 /* fief.js — the harbor is a liege, and tyranny is who still bags.
-   Crusader Kings: vassals, opinion, factions, a contract. Fin's hall
+   Fin's hall
    already collected dues. Now the harbor master is a mouth. People
    pay a liege. If the hall is cruel they bag here as refuge, or they
    stop because the faction said so. Tyranny is an empty aisle with
@@ -193,8 +193,8 @@
         id: "k_fief",
         sec: "The quarter",
         t: "The harbor is a liege",
-        tags: "vassal liege tyranny faction opinion dues crusader harbor hall",
-        w: "<p>Crusader Kings: vassals, opinion, factions, a contract. Fin's hall already collected dues. Now the harbor master is a mouth. People pay a liege. If the hall is cruel they bag here as refuge, or they stop because the faction said so. Tyranny is an empty aisle with a reason.</p><p><b>What to do about it:</b> the hall's standing is the liege's opinion. A boycott was empty. A faction is empty and they say why. Life names the harbor.</p>",
+        tags: "vassal liege tyranny faction opinion dues harbor hall",
+        w: "<p>Fin's hall already collected dues. Now the harbor master is a mouth. People pay a liege. If the hall is cruel they bag here as refuge, or they stop because the faction said so. Tyranny is an empty aisle with a reason.</p><p><b>What to do about it:</b> the hall's standing is the liege's opinion. A boycott was empty. A faction is empty and they say why. Life names the harbor.</p>",
       });
     } catch (e) {}
   }

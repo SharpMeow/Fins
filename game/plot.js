@@ -1,5 +1,5 @@
 /* plot.js — someone on the aisle is waiting for someone else.
-   Crusader Kings schemes: murder, abduct, sway. Fin's shop is the
+   Fin's shop is the
    room they wait in. A gift that is a vector. A person who does not
    bag. If the target walks in, the plot advances. Bag the gift and
    the window on Salem goes wrong. No second HUD. Odds, speech, the
@@ -272,8 +272,8 @@
         id: "k_plot",
         sec: "The shop floor",
         t: "Someone is waiting",
-        tags: "scheme plot murder abduct sway intrigue crusader wait aisle",
-        w: "<p>Crusader Kings schemes: murder, abduct, sway. Fin's shop is the room they wait in. A gift that is a vector. A person who does not bag. If the target walks in, the plot advances. Bag the gift and the window on Salem goes wrong.</p><p><b>What to do about it:</b> listen. A collector who is waiting is not buying. Life names who they waited for. The gold line does not cheer you.</p>",
+        tags: "scheme plot murder abduct sway intrigue wait aisle",
+        w: "<p>Fin's shop is the room they wait in. A gift that is a vector. A person who does not bag. If the target walks in, the plot advances. Bag the gift and the window on Salem goes wrong.</p><p><b>What to do about it:</b> listen. A collector who is waiting is not buying. Life names who they waited for. The gold line does not cheer you.</p>",
       });
     } catch (e) {}
   }

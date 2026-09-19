@@ -1,5 +1,5 @@
 /* siege.js — a war is a keel on the glass, not a combat screen.
-   Civilization sieges empty a city. Fin's embargo and forgotten beast
+   Fin's embargo and forgotten beast
    were numbers. Now militia walk the aisle. Named fish hold still.
    At night the thing in the harbor is in the shop window. People leave.
    No second HUD. Odds, speech, the chord. */
@@ -313,8 +313,8 @@
         id: "k_siege",
         sec: "The chronicle",
         t: "The harbor is under a keel",
-        tags: "war siege beast barbarian militia glass civilization embargo",
-        w: "<p>Civilization sieges empty a city. Fin's embargo and forgotten beast were numbers. Now militia walk the aisle. Named fish hold still. At night the thing in the harbor is in the shop window. People leave. The till feels a war that is not a combat screen.</p><p><b>What to do about it:</b> wait it out. Keep the pair. The gold line will say if the keel lifted.</p>",
+        tags: "war siege beast barbarian militia glass embargo",
+        w: "<p>Fin's embargo and forgotten beast were numbers. Now militia walk the aisle. Named fish hold still. At night the thing in the harbor is in the shop window. People leave. The till feels a war that is not a combat screen.</p><p><b>What to do about it:</b> wait it out. Keep the pair. The gold line will say if the keel lifted.</p>",
       });
     } catch (e) {}
   }

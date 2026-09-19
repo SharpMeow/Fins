@@ -1,5 +1,5 @@
 /* ward.js — a child, and the aunt who says no.
-   Crusader Kings: wards, guardians, education, coming of age. Fin's
+   Fin's
    kids already asked for guppies. Now they do not come alone. The
    guardian decides. The child wanted the guppy. The aunt said no.
    A child who was still in school becomes someone with a bent.
@@ -236,8 +236,8 @@
         id: "k_ward",
         sec: "You and your people",
         t: "A child, and the aunt who says no",
-        tags: "ward guardian education child coming of age crusader aunt guppy",
-        w: "<p>Crusader Kings: wards, guardians, education, coming of age. Fin's kids already asked for guppies. Now they do not come alone. The guardian decides. The child wanted the guppy. The aunt said no. A child who was still in school becomes someone with a bent. They copy the guardian.</p><p><b>What to do about it:</b> the kid is not the customer. Life names who said no. When they grow, they bag like the person who brought them.</p>",
+        tags: "ward guardian education child coming of age aunt guppy",
+        w: "<p>Fin's kids already asked for guppies. Now they do not come alone. The guardian decides. The child wanted the guppy. The aunt said no. A child who was still in school becomes someone with a bent. They copy the guardian.</p><p><b>What to do about it:</b> the kid is not the customer. Life names who said no. When they grow, they bag like the person who brought them.</p>",
       });
     } catch (e) {}
   }

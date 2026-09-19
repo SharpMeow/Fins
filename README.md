@@ -44,41 +44,41 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **Windows on Salem are tanks.** You sold a fish. Open Map. Their window is lit. A tiny one swims in it. Night, they glow. They die, the window goes dark. Click it. The gold line names the house. The baker's window is the first one you learn to look for. Fin's own window is there too: from the street, they can see in. The choir already heard the ones that left. Now you can see them.
 
-**People have names.** Dwarf Fortress does not spawn "a miner." It has Urist, child of someone, who likes steel and still holds a grudge. Fin's was spawning kinds: a kid, a collector, lunch. Not anymore. The street is a civ. Mae bakes. Her child is on this block. The previous keeper left cousins. A miss walks to the family. A dead fish in a window is a grudge. A collector wants a named line, not a SKU. Life lists the people. They come back.
+**People have names.** Other games spawn a job. Fin's has Mae, child of someone, who likes the key and still holds a grudge. The street is a civ. Mae bakes. Her child is on this block. The previous keeper left cousins. A miss walks to the family. A dead fish in a window is a grudge. A collector wants a named line, not a SKU. Life lists the people. They come back.
 
-**The artifact is in the window.** A strange mood leaves an object. Other games put it in a stockpile. Fin's puts it in the glass. The previous keeper left a key. A named fish leaves a Wake, a Filigree, a Salt-Mark, the memory that was in them cut into it. Collectors come to see it. The choir sweetens while it sits. The gold line names it. Nobody else has a shop whose window is a legends screen.
+**The artifact is in the window.** A strange mood leaves an object. Other games put it in a box. Fin's puts it in the glass. The previous keeper left a key. A named fish leaves a Wake, a Filigree, a Salt-Mark, the memory that was in them cut into it. Collectors come to see it. The choir sweetens while it sits. The gold line names it. Nobody else has a shop whose window is a shopfront and a named object at once.
 
-**The bag carries the water.** Dwarf Fortress lets dust walk a fortress. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch: each one hates a different bottle. A bag is a vector. Treat it, or the choir sours until the name breaks.
+**The bag carries the water.** A bag is not a receipt. It is a vector. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch: each one hates a different bottle. Treat it, or the choir sours until the name breaks.
 
-**The dead want a plate.** Dwarf Fortress will not let a name stay in the book. A slab, or a ghost. Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet. You inherited the unburied.
+**The dead want a plate.** A name cannot stay in the book without a plate. Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet. You inherited the unburied.
 
 **The street ages.** Mae's child is on this block. In a few days someone else is born. An unused cousin dies and the family keeps the name. The people on Salem are not a spawn table. They are a civ that keeps going after you hang the sign.
 
-**Someone took it.** Dwarf Fortress does not delete a missing sock. A kid on a wet aisle, a lunch while you are in the tank: a named one gone, no bag, no sale. It is in their window. The family hears. They come to make it right, or they never bag here again. Three days and the story goes cold. The choir keeps it.
+**Someone took it.** A missing fish is not a deleted slot. A kid on a wet aisle, a lunch while you are in the tank: a named one gone, no bag, no sale. It is in their window. The family hears. They come to make it right, or they never bag here again. Three days and the story goes cold. The choir keeps it.
 
 **People have inner lives.** The tanks already remember. The street did not. A walk-in has a like, a hate, a short memory, a morning they dwell on. Mae hates the wet, or she likes the key. A person who saw a death hardens. They will not stand in the puddle they already named. That is why they walked.
 
 **The hands rust.** A day without a bag and the knot is sloppy. People say so. They walk. Treat with rusty water-hands and the still comes back. String a run and the hands remember. Tab out for a week and the first bag of the morning does not hold.
 
-**The glass keeps the morning.** Dwarf Fortress engraves a specific death. Fin's glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street.
+**The glass keeps the morning.** The glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street.
 
-**The unplated walk the glass.** Dwarf Fortress ghosts appear. Fin's haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. Chalk writes the name. She rests. The choir keeps a wronger note until you do.
+**The unplated walk the glass.** The haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. Chalk writes the name. She rests. The choir keeps a wronger note until you do.
 
-**A fight can kill.** Dwarf Fortress does not stop at stress. A tantrum breaks a workshop, then a skull. Fin's fights wrote the book and raised the pulse. They did not empty a slot. Two of a kind, proud, a foe already named, the pulse over the line: one dies on the gravel. The remaining holds still. The name goes in the book. Chalk is due.
+**A fight can kill.** A fight used to write the book and raise the pulse. It did not empty a slot. Two of a kind, proud, a foe already named, the pulse over the line: one dies on the gravel. The remaining holds still. The name goes in the book. Chalk is due.
 
-**The little one comes home.** Dwarf Fortress names a child of a line. Fin's fry was speech. Mae said she brought the little one. Nothing entered the water. The bag that went home can send a child back: same kind, a mother already in the book, a collector who can tell. They will ask if that one is of Glimia's. It is.
+**The little one comes home.** Fry used to be speech. Mae said she brought the little one. Nothing entered the water. The bag that went home can send a child back: same kind, a mother already in the book, a collector who can tell. They will ask if that one is of Glimia's. It is.
 
-**Nedda left a cat.** Dwarf Fortress does not spawn a pet. It has a cat that sleeps on a stockpile, hunts vermin, and whose death is a tantrum. Aquarium shops have a till-cat. The previous keeper left one. It sits in the window. Regulars ask. It takes the flashing off the glass. Days without a bag and it leaves. Mae will not bag if it is gone.
+**Nedda left a cat.** Aquarium shops have a till-cat. The previous keeper left one. It sits in the window. Regulars ask. It takes the flashing off the glass. Days without a bag and it leaves. Mae will not bag if it is gone.
 
-**A row on the aisle.** Dwarf Fortress taverns do not queue. Two people, a grudge, a wet board. They shove. The puddle spreads. Everyone else walks. A named one hits the glass and holds still. A theft still open is how it starts.
+**A row on the aisle.** Two people, a grudge, a wet board. They shove. The puddle spreads. Everyone else walks. A named one hits the glass and holds still. A theft still open is how it starts.
 
-**Someone on the aisle is not who they said.** Dwarf Fortress hides a vampire in a fortress. The previous keeper left. Once, they walk in. They look at the one they kept. They do not bag. The fish knows. A kid says that's not a customer. Sell that fish and they walk, and the street hears it from a mouth that used to own the keys.
+**Someone on the aisle is not who they said.** The previous keeper left. Once, they walk in. They look at the one they kept. They do not bag. The fish knows. A kid says that's not a customer. Sell that fish and they walk, and the street hears it from a mouth that used to own the keys.
 
 **The hall means the empty aisle.** Dues and a mandate were numbers. A boycott was a sour note. Now the hall says stay away and they do. A collector still asks for the pair the hall wanted. Miss the week and the aisle is actually empty.
 
-**The atlas walks in.** Civilization games put cities, leaders, wonders, great people, religions, wars, luxuries, spies, and golden ages on a map you leave the shop to look at. Fin's does not. A settler wants a pair for a shop that is not this one. A person of an inland civ comes with an agenda. A great merchant pays double; a prophet founds a belief; an admiral wants a pair for a flagship. A hold is raising a wonder and pilgrims come to look. A hamlet sends an envoy and suzerainty is who still bags here. A vow makes a kind holy and the last of it taboo. A war is a keel on the glass and a beast in the window. A pact is a caravan. A denunciation empties a mouth. A luxury is a fish the street is unhappy without. Someone is writing the names down. A governor brings an edict. One named fish is the one the others follow. The Age of Quiet Water is not a banner. It is whether they stay.
+**The atlas walks in.** Other games put cities, leaders, wonders, and wars on a map you leave the shop to look at. Fin's does not. A settler wants a pair for a shop that is not this one. A person of an inland civ comes with an agenda. A great merchant pays double; a prophet founds a belief; an admiral wants a pair for a flagship. A hold is raising a wonder and pilgrims come to look. A hamlet sends an envoy and who still bags here is who they still walk for. A vow makes a kind holy and the last of it taboo. A war is a keel on the glass and a beast in the window. A pact is a caravan. A denunciation empties a mouth. A luxury is a fish the street is unhappy without. Someone is writing the names down. A governor brings an edict. One named fish is the one the others follow. The Age of Quiet Water is not a banner. It is whether they stay.
 
-**The street is a court.** Crusader Kings puts dynasties, marriages, schemes, and succession on a map you play as a person. Fin's does not open a character sheet. A surname is a house: a head, prestige, a kind they bag, a rival they will not stand next to. Two people come for a pair because they are taking vows. Fill it and the houses bind. A child inherits the window, not a title; someone of the same house says it is not theirs. A trait is why they walked — paranoid of the crowd, kind of the wet boards, greedy for a named line, honest about who took it. Someone on the aisle is waiting for someone else. A secret is a hook at the till. Friend, rival, lover, nemesis: two names, not a like. Someone claims a named fish by blood, and will not pay. One person breaks: they confess, they weep, they smash, the boards go wet. A house is laying a table, or a funeral, or a hunt. A child wanted the guppy. The aunt said no. They held someone under the keel; a pair lets them walk. The harbor is a liege. Tyranny is who still bags here.
+**The street is a court.** Other games put houses, marriages, schemes, and succession on a map you play as a person. Fin's does not open a character sheet. A surname is a house: a head, prestige, a kind they bag, a rival they will not stand next to. Two people come for a pair because they are taking vows. Fill it and the houses bind. A child inherits the window, not a title; someone of the same house says it is not theirs. A trait is why they walked — paranoid of the crowd, kind of the wet boards, greedy for a named line, honest about who took it. Someone on the aisle is waiting for someone else. A secret is a hook at the till. Friend, rival, lover, nemesis: two names, not a like. Someone claims a named fish by blood, and will not pay. One person breaks: they confess, they weep, they smash, the boards go wet. A house is laying a table, or a funeral, or a hunt. A child wanted the guppy. The aunt said no. They held someone under the keel; a pair lets them walk. The harbor is a liege. Tyranny is who still bags here.
 
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
@@ -322,14 +322,14 @@ Boston is one port. Four more engines keep the rest of the continent. The choir 
 - **Rumour.** A fact that walks. Heat, a source, a line on the floor before it is a number.
 - **The hall.** Dues, standing, a mandate. Miss the week and they boycott. Fill the pair they asked for and the aisle fills. A boycott is an empty aisle and a thin chord.
 - **Fever.** A sickness that walks the road. Heat, sometimes a name. People look from the door. The glass can catch it. The choir detunes.
-- **The hands.** Bags have quality. A plaque in a tongue. String the sales and someone will say the word masterwork.
+- **The hands.** Bags have quality. A plaque in a tongue. String the sales and someone will say the word.
 
 <p align="center">
   <img src="docs/because.png" alt="War inland cuts a road, the hold is late, word drops, the bag misses. A failed run makes a kind scarce; they still ask." width="900">
 </p>
 
 <p align="center">
-  <img src="docs/civs.png" alt="Civilizations still standing after a thousand years, seed 256." width="52%">
+  <img src="docs/civs.png" alt="Peoples still standing after a thousand years, seed 256." width="52%">
   &nbsp;
   <img src="docs/biomes.png" alt="What the continent is made of, seed 256." width="38%">
 </p>

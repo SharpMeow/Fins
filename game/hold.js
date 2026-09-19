@@ -1,5 +1,5 @@
 /* hold.js — cities still found after you hang the sign.
-   Civilization settlers are a unit. Fin's settler walks in off a longer
+   Fin's settler walks in off a longer
    road and wants a pair for a shop that is not this one. Fill it and a
    hold is on the map. Miss it and that street bags at Haymarket.
    Loyalty is who still comes. No second HUD. Odds, speech, the till. */
@@ -271,8 +271,8 @@
         id: "k_hold",
         sec: "The quarter",
         t: "Someone is raising a shop",
-        tags: "settler city founding hold loyalty haymarket civilization",
-        w: "<p>Civilization founds a city with a settler. Fin's settler walks in off a longer road and wants a pair for a shop that is not this one. Fill it and a hold is on the map. Miss it and that street bags at Haymarket. Loyalty is who still comes.</p><p><b>What to do about it:</b> keep two of what they asked for. The letter is a cut road. This is a new street.</p>",
+        tags: "settler city founding hold loyalty haymarket",
+        w: "<p>Fin's settler walks in off a longer road and wants a pair for a shop that is not this one. Fill it and a hold is on the map. Miss it and that street bags at Haymarket. Loyalty is who still comes.</p><p><b>What to do about it:</b> keep two of what they asked for. The letter is a cut road. This is a new street.</p>",
       });
     } catch (e) {}
   }

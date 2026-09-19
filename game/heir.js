@@ -1,5 +1,5 @@
 /* heir.js — a child inherits the window, not a title.
-   Crusader Kings is succession. Partition, a disputed claim, a name
+   Partition, a disputed claim, a name
    that used to be someone else's. Fin's windows on Salem already
    belonged to a person. They die. The child walks in. The fish is
    still in that glass. Someone of the same house says it is not
@@ -282,8 +282,8 @@
         id: "k_heir",
         sec: "You and your people",
         t: "A child inherits the window",
-        tags: "succession heir inherit window disputed claim crusader partition child",
-        w: "<p>Crusader Kings is succession. Partition, a disputed claim, a name that used to be someone else's. Fin's windows on Salem already belonged to a person. They die. The child walks in. The fish is still in that glass. Someone of the same house says it is not theirs.</p><p><b>What to do about it:</b> the window changed hands. Life names the child. A disputed house will not bag. Do not sell the one that is still in that glass if the child is coming for the line.</p>",
+        tags: "succession heir inherit window disputed claim partition child",
+        w: "<p>A disputed claim, a name that used to be someone else's. The windows on Salem already belonged to a person. They die. The child walks in. The fish is still in that glass. Someone of the same house says it is not theirs.</p><p><b>What to do about it:</b> the window changed hands. Life names the child. A disputed house will not bag. Do not sell the one that is still in that glass if the child is coming for the line.</p>",
       });
     } catch (e) {}
   }

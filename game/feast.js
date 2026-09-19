@@ -1,5 +1,5 @@
 /* feast.js — a house is laying a table.
-   Crusader Kings activities: a feast, a hunt, a funeral, a pilgrimage.
+
    Fin's does not open a calendar. A collector walks in. The Costas
    are laying a table. A pair as the centerpiece. Fill it and the
    house stays, the choir sweetens, they pay. Miss it and they go
@@ -286,8 +286,8 @@
         id: "k_feast",
         sec: "The quarter",
         t: "A house is laying a table",
-        tags: "feast hunt funeral pilgrimage activity crusader pair centerpiece house",
-        w: "<p>Crusader Kings activities: a feast, a hunt, a funeral, a pilgrimage. Fin's does not open a calendar. A collector walks in. The Costas are laying a table. A pair as the centerpiece. Fill it and the house stays, the choir sweetens, they pay. Miss it and they go to Haymarket. A funeral wants the kind the dead one liked.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names the table. Life writes whether it was laid here.</p>",
+        tags: "feast hunt funeral pilgrimage activity pair centerpiece house",
+        w: "<p>Fin's does not open a calendar. A collector walks in. The Costas are laying a table. A pair as the centerpiece. Fill it and the house stays, the choir sweetens, they pay. Miss it and they go to Haymarket. A funeral wants the kind the dead one liked.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names the table. Life writes whether it was laid here.</p>",
       });
     } catch (e) {}
   }

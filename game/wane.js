@@ -1,5 +1,5 @@
 /* wane.js — the unplated walk the glass.
-   Dwarf Fortress ghosts appear. Fin's haunt was a count, a sour note, an
+   Fin's haunt was a count, a sour note, an
    empty nail. Ingum has been dead since Year 412. At night she is in the
    shop window. People leave. Named fish hold still. Chalk writes the name
    and she rests. No second HUD. Odds, speech, the choir, a figure in the pane. */
@@ -305,8 +305,8 @@
         id: "k_wane",
         sec: "The chronicle",
         t: "The unplated walk the glass",
-        tags: "ghost haunt slab plate night ingum glass unburied dwarf",
-        w: "<p>Dwarf Fortress ghosts appear. Fin's haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. The choir keeps a wronger note. Chalk writes the name. She rests.</p><p><b>What to do about it:</b> Harbor Supply, counter chalk. Write the oldest name before last hour. Life lists who is still walking. Do not raise them instead. That is a different wrong note.</p>",
+        tags: "ghost haunt slab plate night ingum glass unburied",
+        w: "<p>Fin's haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. The choir keeps a wronger note. Chalk writes the name. She rests.</p><p><b>What to do about it:</b> Harbor Supply, counter chalk. Write the oldest name before last hour. Life lists who is still walking. Do not raise them instead. That is a different wrong note.</p>",
       });
     } catch (e) {}
   }

@@ -592,15 +592,15 @@
           id: "k_live",
           sec: "The chronicle",
           t: "The living atlas",
-          tags: "atlas living year historical figure marry feud birth death agent worldgen",
+          tags: "atlas living year historical figure marry feud birth death agent",
           w: "<p>Year 1000 was not the last year. Every day in the shop is a year out there. The people in the record are still marrying, charting, feuding, dying, and having children. Close blood is not forbidden in the record. Siblings marry. A parent and a child marry. The line is written: they are of one blood. Children of that union often do not thrive; the ones who live are sickly and short-lived. Atlas, The living year, is the feed.</p><p><b>What to do about it:</b> open Atlas after a few days. The green mark is alive. A marriage with a blood note is not a bug. It is the line paying.</p>",
         },
         {
           id: "k_facets",
           sec: "The street",
           t: "Fifty facets",
-          tags: "personality facets brave greedy vengeful art curious dwarf",
-          w: "<p>Every person in the record, and every person who can walk into the shop, is rated on fifty facets: greed, bravery, vengefulness, curiosity, art, duty, and the rest. Only the extremes get written down, the way a dwarf's thoughts only mention that she is a nervous wreck or that he is greedy. Average people are silent. Extreme people start wars, make artifacts, or take against a neighbor.</p><p><b>What to do about it:</b> Atlas, a living name. The four lines under it are the facets that crossed the line.</p>",
+          tags: "personality facets brave greedy vengeful art curious",
+          w: "<p>Every person in the record, and every person who can walk into the shop, is rated on fifty facets: greed, bravery, vengefulness, curiosity, art, duty, and the rest. Only the extremes get written down, the way a thought only writes down the extreme. Average people are silent. Extreme people start wars, make artifacts, or take against a neighbor.</p><p><b>What to do about it:</b> Atlas, a living name. The four lines under it are the facets that crossed the line.</p>",
         },
         {
           id: "k_matter",

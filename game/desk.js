@@ -1,6 +1,6 @@
 /* desk.js — the shopkeeper's inner life, and the sale as a conversation.
-   Recettear's lesson: one line that is mood, want, and money. DF's lesson:
-   the person behind the counter also remembers. */
+   One line that is mood, want, and money. The person behind the counter
+   also remembers. */
 (function () {
   "use strict";
 

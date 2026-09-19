@@ -690,7 +690,7 @@
         sec: "The shop floor",
         t: "The run",
         tags: "combo streak bags addictive one more till mornings whisper",
-        w: "<p>The line in the top bar is the unfinished thing. A customer at the glass. A pair one away. A fish in a mood. A run of bags. Civilization called it one more turn. This shop calls it the till.</p><p>Miss and the run breaks. Open in the morning and the mornings count. <b>What to do about it:</b> read the gold line. Do not tab out in the last hour if someone is still looking.</p>",
+        w: "<p>The line in the top bar is the unfinished thing. A customer at the glass. A pair one away. A fish in a mood. A run of bags. This shop calls it the till.</p><p>Miss and the run breaks. Open in the morning and the mornings count. <b>What to do about it:</b> read the gold line. Do not tab out in the last hour if someone is still looking.</p>",
       };
       for (var i = 0; i < w.length; i++) if (w[i] && w[i].id === art.id) return;
       w.push(art);

@@ -1,5 +1,5 @@
 /* hush.js — a secret is a hook at the till.
-   Crusader Kings: secrets, hooks, blackmail. Fin's already had a
+   Fin's already had a
    theft, a keeper who walked back in, a child who inherited a window.
    Someone knows. They use it. Bag me that one or the block hears.
    Refuse and they tell. Bag it and they have a hook on the shop.
@@ -250,8 +250,8 @@
         id: "k_hush",
         sec: "The shop floor",
         t: "A secret is a hook",
-        tags: "secret hook blackmail hush intrigue crusader till tell",
-        w: "<p>Crusader Kings: secrets, hooks, blackmail. Fin's already had a theft, a keeper who walked back in, a child who inherited a window. Someone knows. They use it. Bag me that one or the block hears. Refuse and they tell. Bag it and they have a hook on the shop.</p><p><b>What to do about it:</b> a collector who talks like that is not browsing. Fill it or the gold line names the secret. Life writes which.</p>",
+        tags: "secret hook blackmail hush intrigue till tell",
+        w: "<p>Fin's already had a theft, a keeper who walked back in, a child who inherited a window. Someone knows. They use it. Bag me that one or the block hears. Refuse and they tell. Bag it and they have a hook on the shop.</p><p><b>What to do about it:</b> a collector who talks like that is not browsing. Fill it or the gold line names the secret. Life writes which.</p>",
       });
     } catch (e) {}
   }

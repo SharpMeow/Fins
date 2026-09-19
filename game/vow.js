@@ -300,7 +300,7 @@
         id: "k_vow",
         sec: "The chronicle",
         t: "A belief that walks",
-        tags: "religion vow pantheon holy taboo prophet civilization faith",
+        tags: "religion vow pantheon holy taboo prophet faith",
         w: "<p>Faith already has a festival. This is the founding. A prophet, a kind that is holy, a last-of-a-pair that is taboo. Kids repeat it. People will bag the blessed one even when the aisle is a little wet. They will not bag the last. The choir knows which voice is holy.</p><p><b>What to do about it:</b> keep two of the holy kind. The gold line will name the vow.</p>",
       });
     } catch (e) {}

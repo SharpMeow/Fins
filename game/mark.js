@@ -1,5 +1,4 @@
 /* mark.js — the dead want a plate.
-   Dwarf Fortress will not let a name stay in the book. A slab, or a ghost.
    Ingum has been dead since Year 412. Nobody put her on the wall. The choir
    keeps a wrong note until you write the name in chalk. The glass etches it
    anyway. You inherited the unburied. No second HUD. Odds, speech, the chord. */
@@ -338,8 +337,8 @@
         id: "k_mark",
         sec: "The chronicle",
         t: "The dead want a plate",
-        tags: "slab memorial plate chalk ghost unburied ingum dead dwarf",
-        w: "<p>Dwarf Fortress will not let a name stay in the book. A slab, or a ghost. Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet.</p><p><b>What to do about it:</b> Harbor Supply, counter chalk. Write the oldest name. Life lists who is still waiting. Do not raise them instead. That is a different wrong note.</p>",
+        tags: "slab memorial plate chalk ghost unburied ingum dead",
+        w: "<p>Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet.</p><p><b>What to do about it:</b> Harbor Supply, counter chalk. Write the oldest name. Life lists who is still waiting. Do not raise them instead. That is a different wrong note.</p>",
       });
     } catch (e) {}
   }

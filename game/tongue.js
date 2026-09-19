@@ -1,6 +1,6 @@
-/* tongue.js — a language per civilization.
-   Phonology, names, a dialect on the floor. DF keeps a language for every people;
-   the shop hears it when they walk in off the road. */
+/* tongue.js — a language per people.
+   Phonology, names, a dialect on the floor. Every people has a tongue.
+   The shop hears it when they walk in off the road. */
 (function () {
   "use strict";
 

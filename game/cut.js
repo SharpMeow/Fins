@@ -1,5 +1,5 @@
 /* cut.js — the glass keeps the morning.
-   Dwarf Fortress engraves a specific death, a founding, a strike.
+
    Fin's glass was etching as weather. Now it cuts a sentence: who
    died, who took it, who was born, who was plated. Vinegar cleans
    the haze. It does not clean the morning. People on Salem read it
@@ -301,8 +301,8 @@
         id: "k_cut",
         sec: "The chronicle",
         t: "The glass keeps the morning",
-        tags: "etch engraving glass morning history pane dwarf legends",
-        w: "<p>Dwarf Fortress engraves a specific death. Fin's glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street. They come in because of what it says, or they walk.</p><p><b>What to do about it:</b> wash the window if you want them to read it. Leave the haze if you do not. The cut stays either way. Life lists the mornings.</p>",
+        tags: "etch engraving glass morning history pane",
+        w: "<p>Fin's glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street. They come in because of what it says, or they walk.</p><p><b>What to do about it:</b> wash the window if you want them to read it. Leave the haze if you do not. The cut stays either way. Life lists the mornings.</p>",
       });
     } catch (e) {}
   }

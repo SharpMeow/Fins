@@ -1,10 +1,9 @@
 /* mask.js — someone on the aisle is not who they said.
-   Dwarf Fortress hides a vampire in a fortress. A name, a job, a lie
-   that holds until the slab is read. Fin's previous keeper left. The
-   street still uses their name. Once, they walk in. They look at the
-   one they kept. They do not bag. The fish knows. A kid does not.
-   Sell that fish and they walk, and the street hears it from a mouth
-   that used to own the keys. No second HUD. Odds, speech, the till. */
+   The previous keeper left. The street still uses their name. Once,
+   they walk in. They look at the one they kept. They do not bag. The
+   fish knows. A kid does not. Sell that fish and they walk, and the
+   street hears it from a mouth that used to own the keys. No second
+   HUD. Odds, speech, the till. */
 (function () {
   "use strict";
 
@@ -282,8 +281,8 @@
         id: "k_mask",
         sec: "The chronicle",
         t: "Someone on the aisle is not who they said",
-        tags: "keeper identity vampire mask nedda secret return aisle dwarf",
-        w: "<p>Dwarf Fortress hides a vampire in a fortress. A name, a job, a lie that holds until the slab is read. Fin's previous keeper left. Once, they walk in. They look at the one they kept. They do not bag. The fish knows. A kid says that's not a customer. Sell that fish and they walk, and the street hears it from a mouth that used to own the keys.</p><p><b>What to do about it:</b> do not bag the one they kept. Life will name the walk. The gold line does not introduce them.</p>",
+        tags: "keeper identity mask nedda secret return aisle",
+        w: "<p>The previous keeper left. Once, they walk in. They look at the one they kept. They do not bag. The fish knows. A kid says that's not a customer. Sell that fish and they walk, and the street hears it from a mouth that used to own the keys.</p><p><b>What to do about it:</b> do not bag the one they kept. Life will name the walk. The gold line does not introduce them.</p>",
       });
     } catch (e) {}
   }

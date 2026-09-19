@@ -1,5 +1,5 @@
 /* wed.js — two people come for a pair because they are taking vows.
-   Crusader Kings is marriage. Alliances, betrothals, a feast that is
+   Alliances, betrothals, a feast that is
    a wedding. Fin's does not open a character sheet. Two walk-ins, one
    kind, a pair as the gift. Fill it and the houses bind. Miss it and
    both families hear. Kids say they are getting married. No second
@@ -288,8 +288,8 @@
         id: "k_wed",
         sec: "You and your people",
         t: "They are taking vows",
-        tags: "wedding marriage betrothal alliance pair vows crusader houses bind",
-        w: "<p>Crusader Kings is marriage. Alliances, betrothals, a feast that is a wedding. Fin's does not open a character sheet. Two walk-ins, one kind, a pair as the gift. Fill it and the houses bind. Miss it and both families hear. Kids say they are getting married.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names the pair. Life writes whether the houses bound.</p>",
+        tags: "wedding marriage betrothal alliance pair vows houses bind",
+        w: "<p>Alliances, betrothals, a feast that is a wedding. Fin's does not open a character sheet. Two walk-ins, one kind, a pair as the gift. Fill it and the houses bind. Miss it and both families hear. Kids say they are getting married.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names the pair. Life writes whether the houses bound.</p>",
       });
     } catch (e) {}
   }

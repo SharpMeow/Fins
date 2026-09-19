@@ -1,5 +1,5 @@
 /* age.js — the harbor has eras, and they are not a tree.
-   Civilization golden ages are a banner. Fin's is the street staying
+   Fin's is the street staying
    or walking. The atlas already named the Age. Now it lands on the
    aisle: a golden morning, they bag; a dark one, they don't.
    No second HUD. Odds, speech, the chord. */
@@ -210,8 +210,8 @@
         id: "k_age",
         sec: "The chronicle",
         t: "The age lands on the aisle",
-        tags: "era golden dark age civilization atlas harbor",
-        w: "<p>Civilization puts a golden age on a banner. Fin's puts it on the boards. The atlas already named the Age. A good hall, a good bag, no war inland: the street stays. A boycott, a beast, a keel: they walk. The choir sweetens or sours with it. The till feels it.</p><p><b>What to do about it:</b> keep the hall. Fill the pair. The gold line will say if the age turned. It will not steal the letter.</p>",
+        tags: "era golden dark age atlas harbor",
+        w: "<p>The age lands on the boards. The atlas already named it. A good hall, a good bag, no war inland: the street stays. A boycott, a beast, a keel: they walk. The choir sweetens or sours with it. The till feels it.</p><p><b>What to do about it:</b> keep the hall. Fill the pair. The gold line will say if the age turned. It will not steal the letter.</p>",
       });
     } catch (e) {}
   }

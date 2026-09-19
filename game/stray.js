@@ -1,10 +1,8 @@
 /* stray.js — Nedda left a cat.
-   Dwarf Fortress does not spawn "a pet." It has a cat that sleeps on a
-   stockpile, hunts vermin, and whose death is a tantrum. Aquarium shops
-   have a till-cat. Fin's has the one the previous keeper left. It sits
-   in the window. Regulars ask. It takes the flashing off the glass.
-   Days without a bag and it leaves. Mae will not bag if it is gone.
-   No second HUD. Odds, speech, the choir, a shape on the sill. */
+   Aquarium shops have a till-cat. Fin's has the one the previous keeper
+   left. It sits in the window. Regulars ask. It takes the flashing off
+   the glass. Days without a bag and it leaves. Mae will not bag if it
+   is gone. No second HUD. Odds, speech, the choir, a shape on the sill. */
 (function () {
   "use strict";
 
@@ -414,8 +412,8 @@
         id: "k_stray",
         sec: "The shop floor",
         t: "The till-cat",
-        tags: "cat stray pet till moth nedda vermin hunt bag dwarf",
-        w: "<p>Dwarf Fortress does not spawn a pet. It has a cat that sleeps on a stockpile, hunts vermin, and whose death is a tantrum. Aquarium shops have a till-cat. The previous keeper left one. It sits in the window. Regulars ask. It takes the flashing off the glass. Days without a bag and it leaves. Mae will not bag if it is gone.</p><p><b>What to do about it:</b> string a bag. The cat eats when the till does. Life names them. The gold line will say if they left.</p>",
+        tags: "cat stray pet till moth nedda vermin hunt bag",
+        w: "<p>Aquarium shops have a till-cat. The previous keeper left one. It sits in the window. Regulars ask. It takes the flashing off the glass. Days without a bag and it leaves. Mae will not bag if it is gone.</p><p><b>What to do about it:</b> string a bag. The cat eats when the till does. Life names them. The gold line will say if they left.</p>",
       });
     } catch (e) {}
   }
