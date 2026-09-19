@@ -5,7 +5,7 @@
   "private": true,
   "description": "A harbor aquarium shop that keeps going after you look away.",
   "author": "Chaos <chaos@users.noreply.github.com>",
-  "license": "BUSL-1.1",
+  "license": "PolyForm-Small-Business-1.0.0",
   "main": "desktop/main.cjs",
   "scripts": {
     "start": "electron .",
