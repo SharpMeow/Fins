@@ -198,6 +198,24 @@
       }
     } catch (eRo) {}
     try {
+      if (window.siege && typeof siege.whisper === "function") {
+        var sgw = siege.whisper();
+        if (sgw) return sgw;
+      }
+    } catch (eSg) {}
+    try {
+      if (window.great && typeof great.whisper === "function") {
+        var grw = great.whisper();
+        if (grw) return grw;
+      }
+    } catch (eGr) {}
+    try {
+      if (window.envoy && typeof envoy.whisper === "function") {
+        var evw = envoy.whisper();
+        if (evw) return evw;
+      }
+    } catch (eEv) {}
+    try {
       if (window.going && typeof going.whisper === "function") {
         var gw = going.whisper();
         if (gw) return gw;
@@ -269,6 +287,60 @@
         if (cw2) return cw2;
       }
     } catch (eCu) {}
+    try {
+      if (window.age && typeof age.whisper === "function") {
+        var agw = age.whisper();
+        if (agw) return agw;
+      }
+    } catch (eAg) {}
+    try {
+      if (window.hold && typeof hold.whisper === "function") {
+        var how = hold.whisper();
+        if (how) return how;
+      }
+    } catch (eHo) {}
+    try {
+      if (window.lord && typeof lord.whisper === "function") {
+        var ldw = lord.whisper();
+        if (ldw) return ldw;
+      }
+    } catch (eLd) {}
+    try {
+      if (window.wonder && typeof wonder.whisper === "function") {
+        var wdw = wonder.whisper();
+        if (wdw) return wdw;
+      }
+    } catch (eWd) {}
+    try {
+      if (window.vow && typeof vow.whisper === "function") {
+        var vww = vow.whisper();
+        if (vww) return vww;
+      }
+    } catch (eVw) {}
+    try {
+      if (window.pact && typeof pact.whisper === "function") {
+        var pcw = pact.whisper();
+        if (pcw) return pcw;
+      }
+    } catch (ePc) {}
+    try {
+      if (window.lux && typeof lux.whisper === "function") {
+        var lxw = lux.whisper();
+        if (lxw) return lxw;
+      }
+    } catch (eLx) {}
+    try {
+      if (window.spy && typeof spy.whisper === "function") {
+        var spyw = spy.whisper();
+        if (spyw) return spyw;
+      }
+    } catch (eSy) {}
+    try {
+      if (window.seat && typeof seat.whisper === "function") {
+        var stw2 = seat.whisper();
+        if (stw2) return stw2;
+      }
+    } catch (eSe) {}
     try {
       if (window.sill && typeof sill.whisper === "function") {
         var sw = sill.whisper();

@@ -76,6 +76,8 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The hall means the empty aisle.** Dues and a mandate were numbers. A boycott was a sour note. Now the hall says stay away and they do. A collector still asks for the pair the hall wanted. Miss the week and the aisle is actually empty.
 
+**The atlas walks in.** Civilization games put cities, leaders, wonders, great people, religions, wars, luxuries, spies, and golden ages on a map you leave the shop to look at. Fin's does not. A settler wants a pair for a shop that is not this one. A person of an inland civ comes with an agenda. A great merchant pays double; a prophet founds a belief; an admiral wants a pair for a flagship. A hold is raising a wonder and pilgrims come to look. A hamlet sends an envoy and suzerainty is who still bags here. A vow makes a kind holy and the last of it taboo. A war is a keel on the glass and a beast in the window. A pact is a caravan. A denunciation empties a mouth. A luxury is a fish the street is unhappy without. Someone is writing the names down. A governor brings an edict. One named fish is the one the others follow. The Age of Quiet Water is not a banner. It is whether they stay.
+
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
 **The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The hold is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
@@ -92,17 +94,17 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 | | What everyone else ships | What Fin's ships |
 |---|---|---|
-| The people | a spawn, a job label | a civ: names, kin, grudges, a row on the aisle, a keeper who walks back in, the unplated dead who walk the glass |
-| The bag | a deletion | a window, a vector, fry that come home as a named line, a death on the block, sometimes a theft |
-| The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches, a fight that can kill, a till-cat that hunts the flashing |
+| The people | a spawn, a job label | a civ: names, kin, grudges, a row on the aisle, a keeper who walks back in, the unplated dead who walk the glass, an envoy, a governor, a spy writing the names |
+| The bag | a deletion | a window, a vector, fry that come home as a named line, a death on the block, sometimes a theft, a pair that founds a hold |
+| The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches, a fight that can kill, a till-cat that hunts the flashing, a mayor the others follow |
 | The hands | a stat that only goes up | a knot that rusts if you stop bagging |
-| The world | a multiplier, flavor text | a thousand-year atlas that still acts, a letter you can answer, a hall that can empty the aisle, windows on Salem that keep what you sold |
+| The world | a multiplier, flavor text | a thousand-year atlas that still acts: a letter, a hall that empties the aisle, a settler, a wonder, a vow, a keel, a pact, a luxury, a golden age that is the street staying |
 | The idle | a number in another tab | a room you can fail in while you are gone |
 | The sound | a loop | the water, singing what it has seen — and the windows on Salem |
 | The line | a toast | one gold sentence of unfinished work |
 | The window | a backdrop | a shopfront the street can see into, and a legends screen for the object in it |
 
-Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, windows on Salem that are still tanks, a bag that can carry a named sickness, the unburied still walking the glass at night, a fight that can kill, fry of a named line that actually enter the water, a till-cat the previous keeper left, a row that wets the boards, a keeper who walks back in, a hall that can empty the aisle, a theft that is not a deletion, hands that forget the knot, and glass that keeps the morning.
+Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, windows on Salem that are still tanks, a bag that can carry a named sickness, the unburied still walking the glass at night, a fight that can kill, fry of a named line that actually enter the water, a till-cat the previous keeper left, a row that wets the boards, a keeper who walks back in, a hall that can empty the aisle, a theft that is not a deletion, hands that forget the knot, glass that keeps the morning, a settler raising a shop inland, a civ that has a mouth, a great person who walks in once, a wonder pilgrims come to see, an envoy whose hamlet only bags here, a vow that makes a kind holy, a keel on the glass, a pact that is a caravan, a luxury that is a fish, a spy writing the names, a mayor in the water, and an age that is whether they stay.
 
 ---
 
