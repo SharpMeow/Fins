@@ -855,6 +855,24 @@
       }
     } catch (eCu) {}
     try {
+      if (window.wane && wane.line) {
+        var wl = wane.line();
+        if (wl) add("wane", wl);
+      }
+    } catch (eWa) {}
+    try {
+      if (window.spiral && spiral.line) {
+        var spl = spiral.line();
+        if (spl) add("spiral", spl);
+      }
+    } catch (eSp) {}
+    try {
+      if (window.blood && blood.line) {
+        var bll = blood.line();
+        if (bll) add("blood", bll);
+      }
+    } catch (eBl) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {

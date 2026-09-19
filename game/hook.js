@@ -186,11 +186,29 @@
       }
     } catch (ePi) {}
     try {
+      if (window.spiral && typeof spiral.whisper === "function") {
+        var spw = spiral.whisper();
+        if (spw) return spw;
+      }
+    } catch (eSp) {}
+    try {
       if (window.going && typeof going.whisper === "function") {
         var gw = going.whisper();
         if (gw) return gw;
       }
     } catch (eGo) {}
+    try {
+      if (window.wane && typeof wane.whisper === "function") {
+        var ww = wane.whisper();
+        if (ww) return ww;
+      }
+    } catch (eWa) {}
+    try {
+      if (window.blood && typeof blood.whisper === "function") {
+        var bw = blood.whisper();
+        if (bw) return bw;
+      }
+    } catch (eBl) {}
     try {
       if (window.ill && typeof ill.whisper === "function") {
         var iw = ill.whisper();
