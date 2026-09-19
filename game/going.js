@@ -709,7 +709,7 @@
         sec: "The quarter",
         t: "The letter",
         tags: "letter hold road cut pair inland send answer",
-        w: "<p>When a road inland is cut, the inland town writes. A letter on the counter: a place, a pair, a fish. Someone walks in off that road and says the letter's words. Fill the pair. Bag that fish. The town is answered, and a road to the harbor can reopen. Leave it five days and the letter goes unanswered. The gold line stays late.</p><p><b>What to do about it:</b> keep two of what they asked for. The letter is not a tab. It is the unfinished thing.</p>",
+        w: "<p>When a road inland is cut, the inland town writes. A letter on the counter: a place, a pair, a fish. Someone walks in off that road and says the letter's words. Fill the pair. Bag that fish. The town is answered, and a road to the harbor can reopen. Leave it five days and the letter goes unanswered. The gold line stays late.</p><p>{letter}</p><p><b>What to do about it:</b> keep two of what they asked for. The letter is not a tab. It is the unfinished thing. Guide, This shop, names it if it is open.</p>",
       });
     } catch (e) {}
   }
