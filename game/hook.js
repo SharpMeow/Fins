@@ -192,6 +192,12 @@
       }
     } catch (eSp) {}
     try {
+      if (window.row && typeof row.whisper === "function") {
+        var rw2 = row.whisper();
+        if (rw2) return rw2;
+      }
+    } catch (eRo) {}
+    try {
       if (window.going && typeof going.whisper === "function") {
         var gw = going.whisper();
         if (gw) return gw;
@@ -203,6 +209,18 @@
         if (ww) return ww;
       }
     } catch (eWa) {}
+    try {
+      if (window.mask && typeof mask.whisper === "function") {
+        var maw = mask.whisper();
+        if (maw) return maw;
+      }
+    } catch (eMa) {}
+    try {
+      if (window.stray && typeof stray.whisper === "function") {
+        var stw = stray.whisper();
+        if (stw) return stw;
+      }
+    } catch (eSt) {}
     try {
       if (window.blood && typeof blood.whisper === "function") {
         var bw = blood.whisper();
