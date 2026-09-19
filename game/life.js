@@ -26,7 +26,7 @@
   var PANIC = ["What was that?", "I'm leaving.", "Did you hear that?", "Out. Now."];
   var POOR = ["Just looking.", "Not today.", "Maybe later.", "After payday."];
   var WORK = ["On my lunch.", "After the boats.", "Between jobs.", "Quick look."];
-  var PAY = ["I'll take it.", "Keep the change.", "And a bag?", "For the front tank."];
+  var PAY = ["I'll take it.", "Keep the change.", "And a fish bag?", "For the front tank."];
   var CHEER = ["You're good people.", "Come by the market.", "That was kind."];
   var DANCE = ["Alright!", "This place.", "Ha!"];
   var SICK = ["That one looks off.", "Is it sick?", "I'd skip that tank."];
@@ -189,7 +189,7 @@
         " came for a " +
         want +
         ". " +
-        (why === "clog" ? "The water put them off." : why === "stock" ? "We didn't have one." : "They left without a bag.");
+        (why === "clog" ? "The water put them off." : why === "stock" ? "We didn't have one." : "They left without a fish bag.");
       if (window.saga && typeof chronicle === "function") chronicle("town", "Year " + worldYear() + ". " + line, []);
       else if (typeof chronicle === "function") chronicle("town", "Year " + worldYear() + ". " + line, []);
     } catch (e) {}

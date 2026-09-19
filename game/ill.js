@@ -1,4 +1,4 @@
-/* ill.js — the bag carries the water.
+/* ill.js — the fish bag carries the water.
    A named sickness. A vector.
    You sold a slightly off tetra. Mae's window went white. Her child came
    in flashing. The fry she brought back put it in your glass. Salt, the
@@ -255,7 +255,7 @@
       var h = hs[i];
       if (!h || h.dead) continue;
       if (h.sick && !h._ill) {
-        if (!k) k = nameOutbreak("a bag went out carrying it");
+        if (!k) k = nameOutbreak("a fish bag went out carrying it");
         h._ill = k.id;
         h.syn = k.n;
         st.homes = (st.homes || 0) + 1;
@@ -415,7 +415,7 @@
               rec.phase = "leave";
               st.phase = "leave";
               st.bought = false;
-              hurtWho(who, 0.05, "walked. sick bag");
+              hurtWho(who, 0.05, "walked. sick fish bag");
             }
           } else if (state().tank > 0.34 && rec.kind === "collector") {
             line = "That's " + (k ? k.n : "off") + " in the glass. I'm not bagging it.";
@@ -505,9 +505,9 @@
       wiki.push({
         id: "k_ill",
         sec: "The shop floor",
-        t: "The bag carries the water",
+        t: "The fish bag carries the water",
         tags: "ill sick syndrome white-spot bag window fry salt vector",
-        w: "<p>A bag is a vector. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch — each one hates a different bottle.</p><p><b>What to do about it:</b> do not bag a sick one. Salt, the leaf, carbon, the vial. Life will name the window. The choir sours until the name breaks.</p>",
+        w: "<p>A fish bag is a vector. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch — each one hates a different bottle.</p><p><b>What to do about it:</b> do not bag a sick one. Salt, the leaf, carbon, the vial. Life will name the window. The choir sours until the name breaks.</p>",
       });
     } catch (e) {}
   }

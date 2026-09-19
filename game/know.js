@@ -92,14 +92,14 @@
       sec: "You and your people",
       t: "Secrets and records",
       tags: "secrets eggs achievements records legendary tillwalk necro year",
-      w: "<p>Secrets are hidden things: Konami, a name, midnight, the other book, a walk-out for a fish you did not have. Each one pays reputation and a pearl. Records on Level climb forever on numbers the shop already keeps: sales, years past the thousand, people who left without a bag, names called back.</p><p>Legendaries are six late things that survive a restart. None of them multiply income, because that would just make the game shorter. <b>What to do about it:</b> Secrets tab to see what you have. Level for the records. Do not hunt them with a list in another window. The shop tells you.</p>",
+      w: "<p>Secrets are hidden things: Konami, a name, midnight, the other book, a walk-out for a fish you did not have. Each one pays reputation and a pearl. Records on Level climb forever on numbers the shop already keeps: sales, years past the thousand, people who left without a fish bag, names called back.</p><p>Legendaries are six late things that survive a restart. None of them multiply income, because that would just make the game shorter. <b>What to do about it:</b> Secrets tab to see what you have. Level for the records. Do not hunt them with a list in another window. The shop tells you.</p>",
     },
     {
       id: "k_supply",
       sec: "Money",
       t: "Harbor Supply",
       tags: "stock conditioner bags gravel lots year shop tab",
-      w: "<p>Harbor Supply is the shop tab's top: lots dated to the millennial year. Conditioner, bags, pads, cubes. They empty. They pack. They thaw. Buying them writes the year into the chronicle.</p><p>Customers do not come in for conditioner. That is you. <b>What to do about it:</b> open Shop, read the lots, buy before a tank goes sour rather than after.</p>",
+      w: "<p>Harbor Supply is the shop tab's top: lots dated to the millennial year. Conditioner, fish bags, pads, cubes. They empty. They pack. They thaw. Buying them writes the year into the chronicle.</p><p>Customers do not come in for conditioner. That is you. <b>What to do about it:</b> open Shop, read the lots, buy before a tank goes sour rather than after.</p>",
     },
     {
       id: "k_name",
@@ -141,7 +141,7 @@
       sec: "The shop floor",
       t: "The hands",
       tags: "craft quality bag masterwork plaque combo till",
-      w: "<p>A bag has quality. A tank has a plaque in a tongue spoken inland. String sales and the hands remember. A masterwork is someone who pays and tells the hall.</p><p><b>What to do about it:</b> do not break the run. The gold line says when a bag was good.</p>",
+      w: "<p>A fish bag has quality. A tank has a plaque in a tongue spoken inland. String sales and the hands remember. A masterwork is someone who pays and tells the hall.</p><p><b>What to do about it:</b> do not break the run. The gold line says when a fish bag was good.</p>",
     },
   ];
 
@@ -257,7 +257,7 @@
     if (list.length && pellets <= 0) out.push({ id: "feed", title: "The tin is empty", body: "Click the water once you have pellets. Shop tab sells the tin.", go: "shop", golabel: "Shop", art: "k_hour" });
     if (!havePair() && (day.misses > 0 || (st.walked || 0) > 0)) out.push({ id: "pair", title: "They came for a fish you did not have", body: "Walk-ins look. They buy a pair. A unique fish is a display. Life has the till.", go: "life", golabel: "Your life", art: "k_nobuy" });
     if (coins < 80 && (st.sold || 0) === 0) out.push({ id: "thin", title: "The till is thin", body: "Do not sell the last of a kind. Fill an order or wait for lunch. Money tab is the levy, not a surprise.", go: "bank", golabel: "Money", art: "k_broke" });
-    if ((day.sales || 0) === 0 && (day.misses || 0) >= 2) out.push({ id: "walk", title: "The till is all walked", body: day.misses + " left without a bag. Water, stock, or both.", go: "life", golabel: "The till", art: "k_till" });
+    if ((day.sales || 0) === 0 && (day.misses || 0) >= 2) out.push({ id: "walk", title: "The till is all walked", body: day.misses + " left without a fish bag. Water, stock, or both.", go: "life", golabel: "The till", art: "k_till" });
     if (!out.length && named < 1 && list.length) out.push({ id: "name", title: "Nobody in the water has a name you gave them", body: "Click a fish. They already have a name. Read what they are thinking in Life.", go: "life", golabel: "Your life", art: "k_name" });
     if (!out.length) out.push({ id: "hold", title: "The water is holding", body: "Year " + year() + ". If you are bored, that is a different page. If you are curious, open the book.", go: "", golabel: "", art: "k_bored" });
     return out.slice(0, 3);
@@ -274,7 +274,7 @@
       { title: "The Chronicle", body: "Cause chains. Weather. The year turning. Who came back from the pages.", go: "chron", golabel: "Chronicle" },
       { title: "The book in the back", body: "Not the wiki. The other one. Names that should stay in it.", go: "back", golabel: "Back" },
       { title: "Secrets", body: (Object.keys((g.eggs || {})).length || 0) + " found. The rest are in the shop, not in a list.", go: "eggs", golabel: "Secrets" },
-      { title: "Harbor Supply", body: "Lots dated to Year " + year() + ". Conditioner, bags, pads.", go: "shop", golabel: "Shop" },
+      { title: "Harbor Supply", body: "Lots dated to Year " + year() + ". Conditioner, fish bags, pads.", go: "shop", golabel: "Shop" },
       { title: "The Calendar", body: "Season, holidays, millennial clock. It does not stop.", go: "cal", golabel: "Calendar" },
     ];
     if (list.length < 2) items.unshift({ title: "Stock a pair", body: "One of a kind is a display. Two is a shop.", go: "shop", golabel: "Shop" });

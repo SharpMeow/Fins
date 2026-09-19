@@ -1,4 +1,4 @@
-/* craft.js — the quality of a bag, a tank, a plaque.
+/* craft.js — the quality of a fish bag, a tank, a plaque.
    Masterwork is not a stat screen. It is someone who pays and says the word. */
 (function () {
   "use strict";
@@ -49,7 +49,7 @@
   function line() {
     var st = state();
     if (st.q > 0.78) return "Whoever bags here knows their hands.";
-    if (st.q < 0.28) return "The last bag was sloppy.";
+    if (st.q < 0.28) return "The last fish bag was sloppy.";
     if (st.plaque) return "The plaque says " + st.plaque.split("·")[0].trim() + ".";
     return "";
   }
@@ -75,9 +75,9 @@
     if (n >= 4) {
       st.q = clamp(st.q + 0.08);
       st.master++;
-      st.last = "A bag that will be talked about.";
+      st.last = "A fish bag that will be talked about.";
       try {
-        if (window.weave && weave.because) weave.because("A masterwork bag. Combo " + n + ".");
+        if (window.weave && weave.because) weave.because("A masterwork fish bag. Combo " + n + ".");
         if (window.rumor && rumor.add) rumor.add("craft", "They bag like a hall shop.", 0.55);
         if (typeof k === "function") k("That bag will be talked about.", "gold");
       } catch (e) {}
@@ -120,7 +120,7 @@
         sec: "The shop floor",
         t: "The hands",
         tags: "craft quality bag masterwork plaque combo till",
-        w: "<p>A bag has quality. A tank has a plaque in a tongue that was spoken inland. String sales and the hands remember. A masterwork is not a menu. Someone pays and tells the hall.</p><p><b>What to do about it:</b> do not break the run. The gold line will say when a bag was good. The till keeps the rest.</p>",
+        w: "<p>A fish bag has quality. A tank has a plaque in a tongue that was spoken inland. String sales and the hands remember. A masterwork is not a menu. Someone pays and tells the hall.</p><p><b>What to do about it:</b> do not break the run. The gold line will say when a fish bag was good. The till keeps the rest.</p>",
       });
     } catch (e) {}
   }

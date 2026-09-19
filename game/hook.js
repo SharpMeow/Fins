@@ -147,9 +147,9 @@
       if (crowd[i].pay) paying++;
     }
 
-    if (paying) return "They're waiting on a bag.";
+    if (paying) return "They're waiting on a fish bag.";
     if (h.combo >= 2 && t < comboUntil) {
-      if (h.combo >= 5) return h.combo + " bags. Don't miss.";
+      if (h.combo >= 5) return h.combo + " fish bags. Don't miss.";
       return h.combo + " in a row. The till is a run.";
     }
 
@@ -575,13 +575,13 @@
     if (h.combo > h.best) {
       h.best = h.combo;
       if (h.best >= 3) {
-        say(h.best + " bags. A run.", "gold");
-        markEgg("bagrun", h.best + " bags without a miss.");
+        say(h.best + " fish bags. A run.", "gold");
+        markEgg("bagrun", h.best + " fish bags without a miss.");
       }
     }
     if (h.combo === 3) {
       play("chime");
-      think("Three bags. The till is a run.");
+      think("Three fish bags. The till is a run.");
     } else if (h.combo === 5) {
       play("award");
       think("Five. Don't miss.");
@@ -690,7 +690,7 @@
         sec: "The shop floor",
         t: "The run",
         tags: "combo streak bags addictive one more till mornings whisper",
-        w: "<p>The line in the top bar is the unfinished thing. A customer at the glass. A pair one away. A fish in a mood. A run of bags. This shop calls it the till.</p><p>Miss and the run breaks. Open in the morning and the mornings count. <b>What to do about it:</b> read the gold line. Do not tab out in the last hour if someone is still looking.</p>",
+        w: "<p>The line in the top bar is the unfinished thing. A customer at the glass. A pair one away. A fish in a mood. A run of fish bags. This shop calls it the till.</p><p>Miss and the run breaks. Open in the morning and the mornings count. <b>What to do about it:</b> read the gold line. Do not tab out in the last hour if someone is still looking.</p>",
       };
       for (var i = 0; i < w.length; i++) if (w[i] && w[i].id === art.id) return;
       w.push(art);

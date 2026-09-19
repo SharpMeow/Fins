@@ -1,8 +1,8 @@
 /* bond.js — friend, rival, lover, nemesis.
    They are a person you
-   walk in with, or will not stand next to, or would undo a bag for.
+   walk in with, or will not stand next to, or would undo a fish bag for.
    Fin's kin had grudges. Now two names have a bond. Lovers want a
-   pair. Rivals walk. A nemesis comes to undo the last bag. A
+   pair. Rivals walk. A nemesis comes to undo the last fish bag. A
    soulmate will not bag alone. No second HUD. Odds, speech, the till. */
 (function () {
   "use strict";
@@ -251,7 +251,7 @@
         sec: "You and your people",
         t: "Friend, rival, lover, nemesis",
         tags: "friend rival lover soulmate nemesis relation bond pair",
-        w: "<p>They are a person you walk in with, or will not stand next to, or would undo a bag for. Fin's kin had grudges. Now two names have a bond. Lovers want a pair. Rivals walk. A nemesis comes to undo the last bag. A soulmate will not bag alone.</p><p><b>What to do about it:</b> listen for two names. Life writes the bond. A pair on the aisle is not always a wedding.</p>",
+        w: "<p>They are a person you walk in with, or will not stand next to, or would undo a fish bag for. Fin's kin had grudges. Now two names have a bond. Lovers want a pair. Rivals walk. A nemesis comes to undo the last fish bag. A soulmate will not bag alone.</p><p><b>What to do about it:</b> listen for two names. Life writes the bond. A pair on the aisle is not always a wedding.</p>",
       });
     } catch (e) {}
   }

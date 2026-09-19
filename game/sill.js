@@ -523,7 +523,7 @@
         sec: "The quarter",
         t: "Windows on Salem are tanks",
         tags: "map window salem baker home swim dark click block sold",
-        w: "<p>You sold a fish. Open Map. Their window is lit. A tiny one swims in it. Night, they glow. They die, the window goes dark. Click it. The gold line names the house. The baker's window is the first one you learn to look for. The choir already heard them. Now you can see them.</p><p><b>What to do about it:</b> open Map after a bag. Do not sell a sick fish to the baker. A dark window is a name in the book from the street, not the glass.</p>",
+        w: "<p>You sold a fish. Open Map. Their window is lit. A tiny one swims in it. Night, they glow. They die, the window goes dark. Click it. The gold line names the house. The baker's window is the first one you learn to look for. The choir already heard them. Now you can see them.</p><p><b>What to do about it:</b> open Map after a fish bag. Do not sell a sick fish to the baker. A dark window is a name in the book from the street, not the glass.</p>",
       });
     } catch (e) {}
   }
