@@ -98,22 +98,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._feast)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function siegeOn() {
@@ -295,10 +283,19 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var gs_ = state();
+    if (gs_.lost) return -0.1;
+    if (gs_.freed) return 0.05;
+    if (gs_.seen && !gs_.freed) return -0.05;
+    return 0;
+  }
+
   window.gyve = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (a, b) {
       var rec = { kind: "collector", phase: "look", line: "", name: a || "" };
       var st = { phase: "look", bought: false };

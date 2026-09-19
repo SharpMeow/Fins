@@ -73,24 +73,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._feast ||
-        st._gyve ||
-        st._claim)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function hallStanding() {
@@ -225,10 +211,18 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var fs = state();
+    if (fs.faction) return -0.1;
+    if (fs.tyrant) return 0.03;
+    return 0;
+  }
+
   window.fief = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function () {
       var st = state();
       st.opinion = 0.12;

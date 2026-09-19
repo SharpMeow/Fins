@@ -94,23 +94,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._feast ||
-        st._gyve)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function start(rec, st, force) {
@@ -288,10 +275,18 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var cs = state();
+    if (cs.refused) return -0.07;
+    if (cs.given) return 0.03;
+    return 0;
+  }
+
   window.claim = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (n) {
       var rec = { kind: "collector", phase: "look", line: "", name: n || "" };
       var st = { phase: "look", bought: false };

@@ -104,22 +104,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._gyve)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function pickWant(kind, who) {
@@ -316,10 +304,19 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var fs = state();
+    if (fs.missed) return -0.07;
+    if (fs.filled) return 0.06;
+    if (fs.seen && fs.day === shopDay()) return 0.03;
+    return 0;
+  }
+
   window.feast = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (n) {
       var rec = { kind: "collector", phase: "look", line: "", name: n || "" };
       var st = { phase: "look", bought: false };

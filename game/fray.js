@@ -96,24 +96,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._feast ||
-        st._gyve ||
-        st._claim)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function raise(fig, amt) {
@@ -162,9 +148,6 @@
     rec.name = fig.n;
     if (kind === "confess") {
       rec.line = "I have to say it. " + (fig.last || "Something is wrong.");
-      try {
-        if (window.hush && hush.seed) hush.seed(fig.n);
-      } catch (e) {}
     } else if (kind === "weep") {
       rec.line = "Anything. Just a fish. I can't go home empty.";
       rec.want = fig.want || "guppy";
@@ -290,10 +273,17 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var fs = state();
+    if (!fs.seen || fs.day !== shopDay()) return 0;
+    return fs.kind === "smash" ? -0.08 : -0.04;
+  }
+
   window.fray = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function (n) {
       var fig = null;
       try {

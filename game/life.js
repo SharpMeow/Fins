@@ -358,30 +358,38 @@
     try {
       if (window.craft && typeof craft.edge === "function") p += craft.edge();
     } catch (e13) {}
-    try {
-      if (window.age && typeof age.edge === "function") p += age.edge();
-    } catch (e14) {}
-    try {
-      if (window.hold && typeof hold.edge === "function") p += hold.edge();
-    } catch (e15) {}
-    try {
-      if (window.wonder && typeof wonder.edge === "function") p += wonder.edge();
-    } catch (e16) {}
-    try {
-      if (window.envoy && typeof envoy.edge === "function") p += envoy.edge();
-    } catch (e17) {}
-    try {
-      if (window.vow && typeof vow.edge === "function") p += vow.edge();
-    } catch (e18) {}
-    try {
-      if (window.siege && typeof siege.edge === "function") p += siege.edge();
-    } catch (e19) {}
-    try {
-      if (window.pact && typeof pact.edge === "function") p += pact.edge();
-    } catch (e20) {}
-    try {
-      if (window.lux && typeof lux.edge === "function") p += lux.edge();
-    } catch (e21) {}
+    var EDGES = [
+      "age",
+      "hold",
+      "wonder",
+      "envoy",
+      "vow",
+      "siege",
+      "pact",
+      "lux",
+      "lord",
+      "great",
+      "spy",
+      "seat",
+      "house",
+      "wed",
+      "heir",
+      "plot",
+      "hush",
+      "bond",
+      "claim",
+      "fray",
+      "feast",
+      "ward",
+      "gyve",
+      "fief",
+    ];
+    for (var ei = 0; ei < EDGES.length; ei++) {
+      try {
+        var mod = window[EDGES[ei]];
+        if (mod && typeof mod.edge === "function") p += mod.edge();
+      } catch (eEd) {}
+    }
     if (clogged()) p -= 0.16;
     if (aisleWet() && !(st && st.coming)) return 0;
     if (st && st.coming) p = Math.max(p, 0.85);
@@ -1347,6 +1355,34 @@
       try { watchWalkins(); } catch (e) {}
     }
   }
+
+  window.keepGuest = function (st) {
+    if (!st) return false;
+    return !!(
+      st._lateMae ||
+      st._goingHold ||
+      st._lateKid ||
+      st._mask ||
+      st._hold ||
+      st._lord ||
+      st._great ||
+      st._envoy ||
+      st._vow ||
+      st._wonder ||
+      st._spy ||
+      st._seat ||
+      st._siege ||
+      st._houseAsk ||
+      st._wed ||
+      st._heir ||
+      st._plot ||
+      st._hush ||
+      st._feast ||
+      st._gyve ||
+      st._claim ||
+      st._fray
+    );
+  };
 
   window.shopLife = {
     browse: function () {

@@ -1062,7 +1062,7 @@
     } catch (eO) {}
 
     html += '<div class="sec">The daybook</div>';
-    var start = Math.max(0, entries.length - 12);
+    var start = Math.max(0, entries.length - 16);
     for (var e = start; e < entries.length; e++) {
       html +=
         '<div class="row book-line"><div>' +

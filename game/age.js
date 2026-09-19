@@ -146,7 +146,7 @@
       try {
         if (!rec) return rec;
         var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
-        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
+        var keep = typeof keepGuest === "function" ? keepGuest(st) : !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
         if (keep || !st || rec.phase !== "look" || st._ageSaid) return rec;
         st._ageSaid = 1;
         if (shopDay() < 1) return rec;
@@ -198,9 +198,7 @@
   function line() {
     var st = state();
     if (st.last) return st.last;
-    if (st.mood === "gold") return "A golden age. The street is staying.";
-    if (st.mood === "dark") return "A dark age. They're walking.";
-    return st.era || "";
+    return whisper();
   }
 
   function seedWiki() {

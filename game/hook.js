@@ -155,15 +155,10 @@
 
     try {
       if (window.desk && typeof desk.coming === "function") {
-        var c = desk.coming();
-        if (c && !c.done && hour() < c.hour) {
-          var have = window.shopLife && shopLife.stock ? shopLife.stock() : [];
-          if (have && have.indexOf(c.want) >= 0) return "We have the " + c.want + ". " + callName(c.name) + " is coming.";
-          return callName(c.name) + " is coming, for " + c.want + ".";
-        }
-        if (c && c.done && c.arrived && now() - c.arrived < 22) {
-          if (c.had) return callName(c.name) + " took the " + c.want + ".";
-          return callName(c.name) + " walked. No " + c.want + ".";
+        var c0 = desk.coming();
+        if (c0 && c0.done && c0.arrived && now() - c0.arrived < 22) {
+          if (c0.had) return callName(c0.name) + " took the " + c0.want + ".";
+          return callName(c0.name) + " walked. No " + c0.want + ".";
         }
       }
     } catch (eC) {}
@@ -246,6 +241,12 @@
       }
     } catch (eFe) {}
     try {
+      if (window.house && typeof house.whisper === "function") {
+        var houw = house.whisper();
+        if (houw) return houw;
+      }
+    } catch (eHu) {}
+    try {
       if (window.heir && typeof heir.whisper === "function") {
         var hrw = heir.whisper();
         if (hrw) return hrw;
@@ -269,6 +270,16 @@
         if (gw) return gw;
       }
     } catch (eGo) {}
+    try {
+      if (window.desk && typeof desk.coming === "function") {
+        var c = desk.coming();
+        if (c && !c.done && hour() < c.hour) {
+          var have = window.shopLife && shopLife.stock ? shopLife.stock() : [];
+          if (have && have.indexOf(c.want) >= 0) return "We have the " + c.want + ". " + callName(c.name) + " is coming.";
+          return callName(c.name) + " is coming, for " + c.want + ".";
+        }
+      }
+    } catch (eC2) {}
     try {
       if (window.wane && typeof wane.whisper === "function") {
         var ww = wane.whisper();
@@ -389,12 +400,6 @@
         if (stw2) return stw2;
       }
     } catch (eSe) {}
-    try {
-      if (window.house && typeof house.whisper === "function") {
-        var houw = house.whisper();
-        if (houw) return houw;
-      }
-    } catch (eHu) {}
     try {
       if (window.bent && typeof bent.whisper === "function") {
         var bnw = bent.whisper();

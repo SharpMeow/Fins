@@ -100,24 +100,10 @@
   }
 
   function keepOf(st) {
-    return !!(
-      st &&
-      (st._lateMae ||
-        st._goingHold ||
-        st._lateKid ||
-        st._mask ||
-        st._hold ||
-        st._lord ||
-        st._great ||
-        st._envoy ||
-        st._wed ||
-        st._heir ||
-        st._plot ||
-        st._hush ||
-        st._feast ||
-        st._gyve ||
-        st._claim)
-    );
+    try {
+      if (typeof keepGuest === "function") return keepGuest(st);
+    } catch (e) {}
+    return !!(st && (st._lateMae || st._goingHold || st._lateKid || st._mask));
   }
 
   function guardianOf(kid) {
@@ -268,10 +254,16 @@
     } catch (e) {}
   }
 
+  function edge() {
+    var ws = state();
+    return ws.no && ws.day === shopDay() ? -0.03 : 0;
+  }
+
   window.ward = {
     whisper: whisper,
     line: line,
     of: state,
+    edge: edge,
     seed: function () {
       var kids = folk().filter(function (f) {
         return f && !f.dead && (f.kind === "kid" || f.job === "still in school");
