@@ -798,6 +798,39 @@
       }
     } catch (eSi) {}
     try {
+      if (window.kin && kin.line) {
+        var kl = kin.line();
+        if (kl) add("kin", kl);
+      }
+      if (window.kin && kin.folk) {
+        var fk = kin.folk();
+        var shownK = 0;
+        for (var ki = 0; ki < fk.length && shownK < 3; ki++) {
+          if (!fk[ki] || fk[ki].dead) continue;
+          add("kin", fk[ki].n + " · " + fk[ki].job + (fk[ki].last ? " · " + fk[ki].last : "."));
+          shownK++;
+        }
+      }
+    } catch (eKi) {}
+    try {
+      if (window.relic && relic.line) {
+        var rl = relic.line();
+        if (rl) add("relic", rl);
+      }
+    } catch (eRe) {}
+    try {
+      if (window.ill && ill.line) {
+        var il = ill.line();
+        if (il) add("ill", il);
+      }
+    } catch (eIl) {}
+    try {
+      if (window.mark && mark.line) {
+        var ml = mark.line();
+        if (ml) add("mark", ml);
+      }
+    } catch (eMk) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {

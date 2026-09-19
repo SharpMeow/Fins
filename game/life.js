@@ -38,6 +38,7 @@
   var ASK_MISS = ["Got a $?", "You don't keep $?", "I wanted a $.", "Maybe a $."];
   var misses = [];
   var dayBook = { y: 1000, sales: 0, misses: 0, opened: 0, closed: 0, lastHour: -1, lastLock: -1, dayN: -1 };
+  var didFish = false;
 
   function now() {
     return typeof performance !== "undefined" ? performance.now() / 1000 : Date.now() / 1000;
@@ -939,7 +940,8 @@
   }
 
   function wrapFish() {
-    if (typeof window.drawFishSprite !== "function" || window.drawFishSprite.__life) return;
+    if (didFish || typeof window.drawFishSprite !== "function") return;
+    didFish = true;
     var orig = window.drawFishSprite;
     window.drawFishSprite = function (args) {
       try {
@@ -948,7 +950,6 @@
         return orig(args);
       }
     };
-    window.drawFishSprite.__life = 1;
   }
 
   function afterStir(opts, r) {

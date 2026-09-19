@@ -44,6 +44,16 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **Windows on Salem are tanks.** You sold a fish. Open Map. Their window is lit. A tiny one swims in it. Night, they glow. They die, the window goes dark. Click it. The gold line names the house. The baker's window is the first one you learn to look for. Fin's own window is there too: from the street, they can see in. The choir already heard the ones that left. Now you can see them.
 
+**People have names.** Dwarf Fortress does not spawn "a miner." It has Urist, child of someone, who likes steel and still holds a grudge. Fin's was spawning kinds: a kid, a collector, lunch. Not anymore. The street is a civ. Mae bakes. Her child is on this block. The previous keeper left cousins. A miss walks to the family. A dead fish in a window is a grudge. A collector wants a named line, not a SKU. Life lists the people. They come back.
+
+**The artifact is in the window.** A strange mood leaves an object. Other games put it in a stockpile. Fin's puts it in the glass. The previous keeper left a key. A named fish leaves a Wake, a Filigree, a Salt-Mark, the memory that was in them cut into it. Collectors come to see it. The choir sweetens while it sits. The gold line names it. Nobody else has a shop whose window is a legends screen.
+
+**The bag carries the water.** Dwarf Fortress lets dust walk a fortress. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch: each one hates a different bottle. A bag is a vector. Treat it, or the choir sours until the name breaks.
+
+**The dead want a plate.** Dwarf Fortress will not let a name stay in the book. A slab, or a ghost. Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet. You inherited the unburied.
+
+**The street ages.** Mae's child is on this block. In a few days someone else is born. An unused cousin dies and the family keeps the name. The people on Salem are not a spawn table. They are a civ that keeps going after you hang the sign.
+
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
 **The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The hold is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
@@ -62,13 +72,15 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 |---|---|---|
 | The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches |
 | The shop | upgrade tree, staff bars | a wet aisle, a baker, a till that is a run, a block that keeps what you sold, a building that etches and rots |
+| The people | a spawn, a job label | a civ: names, kin, grudges, births, the unplated dead |
+| The bag | a deletion | a window, a vector, fry, a death on the block |
 | The world | a multiplier, flavor text | a thousand-year atlas that still acts, a letter you can answer, windows on Salem that keep what you sold |
 | The idle | a number in another tab | a room you can fail in while you are gone |
 | The sound | a loop | the water, singing what it has seen — and the windows on Salem |
 | The line | a toast | one gold sentence of unfinished work |
-| The window | a backdrop | a shopfront the street can see into |
+| The window | a backdrop | a shopfront the street can see into, and a legends screen for the object in it |
 
-Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, and windows on Salem that are still tanks.
+Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, windows on Salem that are still tanks, a bag that can carry a named sickness, and the unburied still waiting for chalk.
 
 ---
 

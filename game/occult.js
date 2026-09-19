@@ -6,6 +6,8 @@
   var lastScene = "";
   var open = false;
   var seededDead = false;
+  var didBrowse = false;
+  var didGo = false;
 
   function say(msg, kind) {
     try {
@@ -343,7 +345,8 @@
   }
 
   function wrapGo() {
-    if (!window.__finsGo || window.__finsGo.__occ) return;
+    if (didGo || !window.__finsGo) return;
+    didGo = true;
     var orig = window.__finsGo;
     window.__finsGo = function (e) {
       lastScene = String(e || "");
@@ -351,11 +354,11 @@
       syncHot();
       return r;
     };
-    window.__finsGo.__occ = 1;
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__occ) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function () {
       var rec = orig.apply(this, arguments);
@@ -369,7 +372,6 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__occ = 1;
   }
 
   function isCmd(t) {
