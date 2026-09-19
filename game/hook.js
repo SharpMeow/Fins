@@ -148,6 +148,12 @@
     }
 
     if (paying) return "They're waiting on a fish bag.";
+    try {
+      if (window.going && typeof going.whisper === "function") {
+        var gw0 = going.whisper();
+        if (gw0 && /letter from/i.test(gw0)) return gw0;
+      }
+    } catch (eLet) {}
     if (h.combo >= 2 && t < comboUntil) {
       if (h.combo >= 5) return h.combo + " fish bags. Don't miss.";
       return h.combo + " in a row. The till is a run.";
