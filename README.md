@@ -334,12 +334,6 @@ Boston is one port. Four more engines keep the rest of the continent. The choir 
   <img src="docs/biomes.png" alt="What the continent is made of, seed 256." width="38%">
 </p>
 
-<p align="center">
-  <img src="docs/plate.jpg" alt="An atlas plate of the same idea: rivers downhill, ruins marked, the harbor as @." width="900">
-</p>
-
-A war inland is not flavor. Word drops. Odds drop. The till feels it. The water sings it.
-
 ---
 
 ## Three ways to play
