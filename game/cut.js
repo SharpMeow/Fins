@@ -96,7 +96,7 @@
 
   function loud(s) {
     s = String(s || "");
-    return /died|stole|took |is on the board|white-spot|gold-dust|fin-rot|the still|salt-itch|was born|walked|strange mood|artifact|pinched|made it right|never brought/i.test(
+    return /died|stole|took |is on the board|white-spot|gold-dust|fin-rot|the still|salt-itch|was born|walked|strange mood|artifact|pinched|made it right|never brought|in the glass|walking the glass|died in a fight|little one is in|brought fry/i.test(
       s
     );
   }

@@ -62,6 +62,12 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The glass keeps the morning.** Dwarf Fortress engraves a specific death. Fin's glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street.
 
+**The unplated walk the glass.** Dwarf Fortress ghosts appear. Fin's haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. Chalk writes the name. She rests. The choir keeps a wronger note until you do.
+
+**A fight can kill.** Dwarf Fortress does not stop at stress. A tantrum breaks a workshop, then a skull. Fin's fights wrote the book and raised the pulse. They did not empty a slot. Two of a kind, proud, a foe already named, the pulse over the line: one dies on the gravel. The remaining holds still. The name goes in the book. Chalk is due.
+
+**The little one comes home.** Dwarf Fortress names a child of a line. Fin's fry was speech. Mae said she brought the little one. Nothing entered the water. The bag that went home can send a child back: same kind, a mother already in the book, a collector who can tell. They will ask if that one is of Glimia's. It is.
+
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
 **The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The hold is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
@@ -78,10 +84,9 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 | | What everyone else ships | What Fin's ships |
 |---|---|---|
-| The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches |
-| The shop | upgrade tree, staff bars | a wet aisle, a baker, a till that is a run, a block that keeps what you sold, a building that etches and rots |
-| The people | a spawn, a job label | a civ: names, kin, grudges, births, inner lives, the unplated dead |
-| The bag | a deletion | a window, a vector, fry, a death on the block, sometimes a theft |
+| The people | a spawn, a job label | a civ: names, kin, grudges, births, inner lives, the unplated dead who walk the glass |
+| The bag | a deletion | a window, a vector, fry that come home as a named line, a death on the block, sometimes a theft |
+| The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches, a fight that can kill |
 | The hands | a stat that only goes up | a knot that rusts if you stop bagging |
 | The world | a multiplier, flavor text | a thousand-year atlas that still acts, a letter you can answer, windows on Salem that keep what you sold |
 | The idle | a number in another tab | a room you can fail in while you are gone |
@@ -89,7 +94,7 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 | The line | a toast | one gold sentence of unfinished work |
 | The window | a backdrop | a shopfront the street can see into, and a legends screen for the object in it |
 
-Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, windows on Salem that are still tanks, a bag that can carry a named sickness, the unburied still waiting for chalk, a theft that is not a deletion, hands that forget the knot, and glass that keeps the morning.
+Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, windows on Salem that are still tanks, a bag that can carry a named sickness, the unburied still walking the glass at night, a fight that can kill, fry of a named line that actually enter the water, a theft that is not a deletion, hands that forget the knot, and glass that keeps the morning.
 
 ---
 
