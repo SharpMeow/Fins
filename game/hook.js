@@ -168,11 +168,29 @@
       }
     } catch (eC) {}
     try {
+      if (window.late && typeof late.whisper === "function") {
+        var lw = late.whisper();
+        if (lw) return lw;
+      }
+    } catch (eLa) {}
+    try {
+      if (window.pane && typeof pane.whisper === "function") {
+        var pw = pane.whisper();
+        if (pw) return pw;
+      }
+    } catch (ePa) {}
+    try {
       if (window.going && typeof going.whisper === "function") {
         var gw = going.whisper();
         if (gw) return gw;
       }
     } catch (eGo) {}
+    try {
+      if (window.sill && typeof sill.whisper === "function") {
+        var sw = sill.whisper();
+        if (sw) return sw;
+      }
+    } catch (eSi) {}
     try {
       if (window.shopSite && shopSite.wet() > 0.36) return "The aisle is wet. They're turning around.";
     } catch (eW2) {}

@@ -12,6 +12,7 @@
   var lastRaised = 0;
   var lastMissKey = "";
   var wired = false;
+  var didBrowse = false;
   var nextLine = "";
   var nextUntil = 0;
 
@@ -175,7 +176,8 @@
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__weave) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function (idx, slot, W, floorY, personS, simT) {
       var rec = orig.apply(this, arguments);
@@ -220,7 +222,6 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__weave = 1;
     wired = true;
   }
 

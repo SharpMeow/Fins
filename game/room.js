@@ -16,6 +16,8 @@
   var octx = null;
   var drops = [];
   var stillIds = Object.create(null);
+  var didBrowse = false;
+  var didFish = false;
 
   function now() {
     return typeof performance !== "undefined" ? performance.now() / 1000 : Date.now() / 1000;
@@ -158,7 +160,8 @@
   }
 
   function wrapBrowse() {
-    if (!window.shopBrowse || window.shopBrowse.__room) return;
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
     var orig = window.shopBrowse;
     window.shopBrowse = function (idx, slot, W, floorY, personS, simT) {
       var rec = orig.apply(this, arguments);
@@ -213,11 +216,11 @@
       } catch (e) {}
       return rec;
     };
-    window.shopBrowse.__room = 1;
   }
 
   function wrapFish() {
-    if (typeof window.drawFishSprite !== "function" || window.drawFishSprite.__still) return;
+    if (didFish || typeof window.drawFishSprite !== "function") return;
+    didFish = true;
     var orig = window.drawFishSprite;
     window.drawFishSprite = function (a) {
       try {
@@ -234,7 +237,6 @@
       } catch (e) {}
       return orig.apply(this, arguments);
     };
-    window.drawFishSprite.__still = 1;
   }
 
   function ensureOverlay() {
