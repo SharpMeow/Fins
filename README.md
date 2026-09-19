@@ -54,6 +54,14 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The street ages.** Mae's child is on this block. In a few days someone else is born. An unused cousin dies and the family keeps the name. The people on Salem are not a spawn table. They are a civ that keeps going after you hang the sign.
 
+**Someone took it.** Dwarf Fortress does not delete a missing sock. A kid on a wet aisle, a lunch while you are in the tank: a named one gone, no bag, no sale. It is in their window. The family hears. They come to make it right, or they never bag here again. Three days and the story goes cold. The choir keeps it.
+
+**People have inner lives.** The tanks already remember. The street did not. A walk-in has a like, a hate, a short memory, a morning they dwell on. Mae hates the wet, or she likes the key. A person who saw a death hardens. They will not stand in the puddle they already named. That is why they walked.
+
+**The hands rust.** A day without a bag and the knot is sloppy. People say so. They walk. Treat with rusty water-hands and the still comes back. String a run and the hands remember. Tab out for a week and the first bag of the morning does not hold.
+
+**The glass keeps the morning.** Dwarf Fortress engraves a specific death. Fin's glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street.
+
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
 **The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The hold is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
@@ -72,15 +80,16 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 |---|---|---|
 | The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches |
 | The shop | upgrade tree, staff bars | a wet aisle, a baker, a till that is a run, a block that keeps what you sold, a building that etches and rots |
-| The people | a spawn, a job label | a civ: names, kin, grudges, births, the unplated dead |
-| The bag | a deletion | a window, a vector, fry, a death on the block |
+| The people | a spawn, a job label | a civ: names, kin, grudges, births, inner lives, the unplated dead |
+| The bag | a deletion | a window, a vector, fry, a death on the block, sometimes a theft |
+| The hands | a stat that only goes up | a knot that rusts if you stop bagging |
 | The world | a multiplier, flavor text | a thousand-year atlas that still acts, a letter you can answer, windows on Salem that keep what you sold |
 | The idle | a number in another tab | a room you can fail in while you are gone |
 | The sound | a loop | the water, singing what it has seen — and the windows on Salem |
 | The line | a toast | one gold sentence of unfinished work |
 | The window | a backdrop | a shopfront the street can see into, and a legends screen for the object in it |
 
-Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, windows on Salem that are still tanks, a bag that can carry a named sickness, and the unburied still waiting for chalk.
+Nobody else has done this object. A shop you can keep, on a street that notices, with water that has opinions, a record that is still writing, a tank that is the score, a door the harbor has a key to, a window the street can see into, windows on Salem that are still tanks, a bag that can carry a named sickness, the unburied still waiting for chalk, a theft that is not a deletion, hands that forget the knot, and glass that keeps the morning.
 
 ---
 
