@@ -963,6 +963,84 @@
       }
     } catch (eSe) {}
     try {
+      if (window.house && house.line) {
+        var hul = house.line();
+        if (hul) add("house", hul);
+      }
+    } catch (eHu) {}
+    try {
+      if (window.wed && wed.line) {
+        var wel = wed.line();
+        if (wel) add("wed", wel);
+      }
+    } catch (eWe) {}
+    try {
+      if (window.heir && heir.line) {
+        var hil = heir.line();
+        if (hil) add("heir", hil);
+      }
+    } catch (eHi) {}
+    try {
+      if (window.bent && bent.line) {
+        var bel = bent.line();
+        if (bel) add("bent", bel);
+      }
+    } catch (eBe) {}
+    try {
+      if (window.plot && plot.line) {
+        var ptl = plot.line();
+        if (ptl) add("plot", ptl);
+      }
+    } catch (ePt) {}
+    try {
+      if (window.hush && hush.line) {
+        var hsl = hush.line();
+        if (hsl) add("hush", hsl);
+      }
+    } catch (eHs) {}
+    try {
+      if (window.bond && bond.line) {
+        var bol = bond.line();
+        if (bol) add("bond", bol);
+      }
+    } catch (eBo) {}
+    try {
+      if (window.claim && claim.line) {
+        var cml = claim.line();
+        if (cml) add("claim", cml);
+      }
+    } catch (eCm) {}
+    try {
+      if (window.fray && fray.line) {
+        var fll = fray.line();
+        if (fll) add("fray", fll);
+      }
+    } catch (eFl) {}
+    try {
+      if (window.feast && feast.line) {
+        var fsl = feast.line();
+        if (fsl) add("feast", fsl);
+      }
+    } catch (eFs) {}
+    try {
+      if (window.ward && ward.line) {
+        var wdl2 = ward.line();
+        if (wdl2) add("ward", wdl2);
+      }
+    } catch (eWr) {}
+    try {
+      if (window.gyve && gyve.line) {
+        var gyl = gyve.line();
+        if (gyl) add("gyve", gyl);
+      }
+    } catch (eGy) {}
+    try {
+      if (window.fief && fief.line) {
+        var fil = fief.line();
+        if (fil) add("fief", fil);
+      }
+    } catch (eFi) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {

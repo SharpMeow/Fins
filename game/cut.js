@@ -96,7 +96,7 @@
 
   function loud(s) {
     s = String(s || "");
-    return /died|stole|took |is on the board|white-spot|gold-dust|fin-rot|the still|salt-itch|was born|walked|strange mood|artifact|pinched|made it right|never brought|in the glass|walking the glass|died in a fight|little one is in|brought fry|had a row|is on the aisle|left the till|left a cat|golden age|dark age|was founded|raising a shop|envoy|Haymarket|the .* is on the aisle|is raised|took the |under a keel|on the glass|the pact|denounced|without |writing the names|the others follow|brought an edict/i.test(
+    return /died|stole|took |is on the board|white-spot|gold-dust|fin-rot|the still|salt-itch|was born|walked|strange mood|artifact|pinched|made it right|never brought|in the glass|walking the glass|died in a fight|little one is in|brought fry|had a row|is on the aisle|left the till|left a cat|golden age|dark age|was founded|raising a shop|envoy|Haymarket|the .* is on the aisle|is raised|took the |under a keel|on the glass|the pact|denounced|without |writing the names|the others follow|brought an edict|taking vows|are here for a pair|houses bind|is .* now|waiting for |has a hook|claims |broke on the aisle|laying a table|said no|did not come back|harbor is cruel|faction emptied/i.test(
       s
     );
   }
