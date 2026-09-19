@@ -1,7 +1,7 @@
 /* cut.js — the glass keeps the morning.
 
    Fin's glass was etching as weather. Now it cuts a sentence: who
-   died, who took it, who was born, who was plated. Vinegar cleans
+   died, who took it, who was born, who was written on the wall. Vinegar cleans
    the haze. It does not clean the morning. People on Salem read it
    from the street. They come in because of what it says, or they
    walk. No second HUD. Odds, speech, a faint line in the pane. */
@@ -96,7 +96,7 @@
 
   function loud(s) {
     s = String(s || "");
-    return /died|stole|took |is on the board|white-spot|gold-dust|fin-rot|the still|salt-itch|was born|walked|strange mood|artifact|pinched|made it right|never brought|in the glass|walking the glass|died in a fight|little one is in|brought fry|had a row|is on the aisle|left the till|left a cat|golden age|dark age|was founded|raising a shop|envoy|Haymarket|the .* is on the aisle|is raised|took the |under a keel|on the glass|the pact|denounced|without |writing the names|the others follow|brought an edict|taking vows|are here for a pair|houses bind|is .* now|waiting for |has a hook|claims |broke on the aisle|laying a table|said no|did not come back|harbor is cruel|faction emptied/i.test(
+    return /died|stole|took |is on the board|name on the wall|white-spot|gold-dust|fin-rot|still-sickness|salt-itch|was born|walked|strange mood|artifact|pinched|made it right|never brought|in the glass|walking the glass|died in a fight|little one is in|brought fry|had a row|is on the aisle|left the till|left a cat|golden age|dark age|was founded|raising a shop|envoy|Haymarket|the .* is on the aisle|is raised|took the |under a keel|harbor is shut|inland town|on the glass|the pact|denounced|without |writing the names|the others follow|brought an edict|taking vows|are here for a pair|houses bind|is .* now|waiting for |has a hook|claims |broke on the aisle|laying a table|said no|did not come back|harbor is cruel|faction emptied|filter clogged/i.test(
       s
     );
   }
@@ -302,7 +302,7 @@
         sec: "The chronicle",
         t: "The glass keeps the morning",
         tags: "etch engraving glass morning history pane",
-        w: "<p>Fin's glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street. They come in because of what it says, or they walk.</p><p><b>What to do about it:</b> wash the window if you want them to read it. Leave the haze if you do not. The cut stays either way. Life lists the mornings.</p>",
+        w: "<p>Fin's glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was written on the wall. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street. They come in because of what it says, or they walk.</p><p><b>What to do about it:</b> wash the window if you want them to read it. Leave the haze if you do not. The cut stays either way. Life lists the mornings.</p>",
       });
     } catch (e) {}
   }

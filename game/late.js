@@ -277,7 +277,7 @@
         var g0 = gs();
         if (g0) g0.filterClog = true;
       } catch (eC) {}
-      missed.push("The filter packed while you were gone.");
+      missed.push("The filter clogged while you were gone.");
     }
 
     try {
@@ -287,7 +287,7 @@
       if (n && hours >= 2) {
         var call = n.known && n.name ? n.name : "The baker";
         var ok = have && have.indexOf(n.want || "goldfish") >= 0 && wet < 0.36;
-        if (ok && missed[0] !== "The filter packed while you were gone.") {
+        if (ok && missed[0] !== "The filter clogged while you were gone.") {
           missed.push(call + " came for " + (n.want || "goldfish") + ". The fish bag landed. You weren't at the counter.");
           n.bags = (n.bags || 0) + 1;
           n.known = true;
@@ -534,7 +534,7 @@
         sec: "The shop floor",
         t: "While you were gone",
         tags: "away hidden tab idle missed baker filter tide daybook",
-        w: "<p>Idle games pay you for looking away. Fin's writes what you missed. The baker came, or she walked. The filter packed. The harbor came in. A named fish held still. A window on Salem went dark. The gold line is the first thing that happened without you. Life has the rest.</p><p><b>What to do about it:</b> read the line. Mop. Keep the pair. You were not at the counter. The shop was.</p>",
+        w: "<p>Idle games pay you for looking away. Fin's writes what you missed. The baker came, or she walked. The filter clogged. The harbor came in. A named fish held still. A window on Salem went dark. The gold line is the first thing that happened without you. Life has the rest.</p><p><b>What to do about it:</b> read the line. Mop. Keep the pair. You were not at the counter. The shop was.</p>",
       });
     } catch (e) {}
   }

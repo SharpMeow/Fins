@@ -1,4 +1,4 @@
-/* wane.js — the unplated walk the glass.
+/* wane.js — the unwritten walk the glass.
    Fin's haunt was a count, a sour note, an
    empty nail. Ingum has been dead since Year 412. At night she is in the
    shop window. People leave. Named fish hold still. Chalk writes the name
@@ -289,7 +289,7 @@
   function line() {
     var rec = oldest();
     if (standing() && rec) return rec.n + " is in the glass. Chalk would rest them.";
-    if (rec) return rec.n + " has no plate. Night will bring them to the glass.";
+    if (rec) return rec.n + " has no name on the wall. Night will bring them to the glass.";
     return state().last || whisper();
   }
 
@@ -304,7 +304,7 @@
       wiki.push({
         id: "k_wane",
         sec: "The chronicle",
-        t: "The unplated walk the glass",
+        t: "The unwritten walk the glass",
         tags: "ghost haunt slab plate night ingum glass unburied",
         w: "<p>Fin's haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. The choir keeps a wronger note. Chalk writes the name. She rests.</p><p><b>What to do about it:</b> Harbor Supply, counter chalk. Write the oldest name before last hour. Life lists who is still walking. Do not raise them instead. That is a different wrong note.</p>",
       });
@@ -340,7 +340,7 @@
       var rec = oldest();
       if (!rec) {
         try {
-          if (window.mark && mark.want) mark.want("Ingum", "has no plate", "the shop", 412, true);
+          if (window.mark && mark.want) mark.want("Ingum", "has no name on the wall", "the shop", 412, true);
         } catch (e) {}
         rec = oldest();
       }

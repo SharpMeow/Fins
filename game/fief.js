@@ -126,7 +126,7 @@
         if (rec.phase === "look" && !st._fiefSaid) {
           st._fiefSaid = 1;
           if (fs.faction && rec.kind !== "kid" && rec.kind !== "neighbor") {
-            rec.line = "The faction said stay away. The harbor is the liege.";
+            rec.line = "The faction said stay away. They pay the harbor.";
             rec.phase = "leave";
             st.phase = "leave";
             st.bought = false;
@@ -192,9 +192,9 @@
       wiki.push({
         id: "k_fief",
         sec: "The quarter",
-        t: "The harbor is a liege",
+        t: "The harbor is the one they pay",
         tags: "vassal liege tyranny faction opinion dues harbor hall",
-        w: "<p>Fin's hall already collected dues. Now the harbor master is a mouth. People pay a liege. If the hall is cruel they bag here as refuge, or they stop because the faction said so. Tyranny is an empty aisle with a reason.</p><p><b>What to do about it:</b> the hall's standing is the liege's opinion. A boycott was empty. A faction is empty and they say why. Life names the harbor.</p>",
+        w: "<p>The hall already collected dues. Now the harbor master is a mouth. People pay the harbor. If the hall is cruel they bag here as refuge, or they stop because the faction said so. Tyranny is an empty aisle with a reason.</p><p><b>What to do about it:</b> the hall's standing is how the harbor feels about you. A boycott was empty. A faction is empty and they say why. Life names the harbor.</p>",
       });
     } catch (e) {}
   }

@@ -365,7 +365,7 @@
         if (typeof clogged === "function") clog = !!clogged();
       } catch (e) {}
       if (clog && !lastClog && seeded) {
-        write("illness", "The filter packed. The column went sour.");
+        write("illness", "The filter clogged. The column went sour.");
         rememberAll("water", "the dirty filter");
       }
       lastClog = clog;
@@ -766,7 +766,7 @@
           why: n + " of them in the shop at once.",
           from: typeof _ === "function" ? _() : 0,
         });
-        write("era", name + ". " + n + " of that kind were in the tanks together.");
+        write("era", name + ". " + n + " of that fish were in the tanks together.");
       }
     } catch (e) {}
   }

@@ -264,9 +264,9 @@
       wiki.push({
         id: "k_gyve",
         sec: "The quarter",
-        t: "They held me under the keel",
+        t: "They held me. Let them walk.",
         tags: "prisoner ransom hostage keel war pair walk free",
-        w: "<p>Fin's war already put a keel on the glass. Someone walks in with a mark. They were promised a fish. Bag a pair and they let a name walk. Miss it and that name does not come back. A guard may speak for them.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names who is held. Life writes whether they walked.</p>",
+        w: "<p>The war already shut the harbor. Someone walks in with a mark. They were promised a fish. Bag a pair and they let a name walk. Miss it and that name does not come back. A guard may speak for them.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names who is held. Life writes whether they walked.</p>",
       });
     } catch (e) {}
   }

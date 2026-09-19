@@ -1,6 +1,6 @@
 /* spiral.js — a fight can kill.
    Fin's fights wrote the book and raised the pulse. They did not empty
-   a slot. Two of a kind, proud, a foe, the pulse over the line: one
+   a slot. Two of the same fish, proud, a foe, the pulse over the line: one
    dies on the gravel. The name goes in the book. The remaining holds
    still. No second HUD. Odds, speech, the choir, a plate due. */
 (function () {
@@ -336,7 +336,7 @@
         sec: "The tanks",
         t: "A fight can kill",
         tags: "tantrum spiral fight stress proud foe death gravel",
-        w: "<p>Fin's fights wrote the book and raised the pulse. They did not empty a slot. Two of a kind, proud, a foe already named, the pulse over the line: one dies on the gravel. The name goes in the book. The remaining holds still. Walk-ins see it. The choir drops a voice.</p><p><b>What to do about it:</b> split a pair that is already fighting. Feed. Do not leave two proud ones in a corner overnight. Life names who died. Chalk is due. The gold line does not cheer you.</p>",
+        w: "<p>Fin's fights wrote the book and raised the pulse. They did not empty a slot. Two of the same fish, proud, a foe already named, the pulse over the line: one dies on the gravel. The name goes in the book. The remaining holds still. Walk-ins see it. The choir drops a voice.</p><p><b>What to do about it:</b> split a pair that is already fighting. Feed. Do not leave two proud ones in a corner overnight. Life names who died. Chalk is due. The gold line does not cheer you.</p>",
       });
     } catch (e) {}
   }

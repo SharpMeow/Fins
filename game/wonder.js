@@ -1,5 +1,5 @@
 /* wonder.js — a wonder is a pilgrimage, not a production queue.
-   Fin's inland hold is raising one.
+   Fin's inland town is raising one.
    They need a pair. Fill it and pilgrims come to look, not always to
    bag. The object sits in the glass next to the keeper's key.
    No second HUD. Odds, speech, the chord. */
@@ -327,7 +327,7 @@
         sec: "The chronicle",
         t: "They are raising a wonder",
         tags: "wonder pilgrimage pair glass site",
-        w: "<p>An inland hold is raising a work. They need a pair. Fill it and pilgrims come to look. They do not always bag. The object sits in the glass next to the keeper's key. The choir sweetens. The street came because of it.</p><p><b>What to do about it:</b> keep two of what they asked for. Life will say if it is raised.</p>",
+        w: "<p>An inland town is raising a work. They need a pair. Fill it and pilgrims come to look. They do not always bag. The object sits in the glass next to the keeper's key. The choir sweetens. The street came because of it.</p><p><b>What to do about it:</b> keep two of what they asked for. Life will say if it is raised.</p>",
       });
     } catch (e) {}
   }

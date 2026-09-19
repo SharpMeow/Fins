@@ -553,7 +553,7 @@
         sec: "The chronicle",
         t: "The world beyond the harbor",
         tags: "world realm continent biome war atlas beyond boston",
-        w: "<p>The shop is one port on a generated continent. Elevation, rainfall, heat, drainage, volcanism, and savagery decide the biome. Rivers run downhill. Civilizations found sites and keep a tongue and an ethic. Gods take seats. Wars sack towns. Artifacts outlast hands. A thousand years of that, and then you hang a sign. @ on the map is you.</p><p>A war inland is not flavor. Holds come late. Word on the street drops. Someone will walk in off a longer road and name a town you have never stood in.</p><p><b>What to do about it:</b> Atlas. The map under The living year. Same seed as the shop.</p>",
+        w: "<p>The shop is one port on a generated continent. Elevation, rainfall, heat, drainage, volcanism, and savagery decide the biome. Rivers run downhill. Civilizations found sites and keep a tongue and an ethic. Gods take seats. Wars sack towns. Artifacts outlast hands. A thousand years of that, and then you hang a sign. @ on the map is you.</p><p>A war inland is not flavor. Towns come late. Word on the street drops. Someone will walk in off a longer road and name a town you have never stood in.</p><p><b>What to do about it:</b> Atlas. The map under The living year. Same seed as the shop.</p>",
       };
       for (var i = 0; i < w.length; i++) if (w[i] && w[i].id === extra.id) return;
       w.push(extra);

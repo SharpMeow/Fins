@@ -218,7 +218,7 @@
     if (s.wetMax > 0.25) bits.push("the aisle is wet");
     if (s.leak > 0.3) bits.push("the filter is leaking");
     try {
-      if (window.clogged) bits.push("flow is packed");
+      if (window.clogged) bits.push("the filter is clogged");
     } catch (e) {}
     return bits.join(" · ");
   }

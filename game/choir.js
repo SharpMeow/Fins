@@ -202,7 +202,7 @@
     if (w.beastLine) w.line = w.beastLine;
     else if (w.fever > 0.4 && w.feverName) w.line = w.feverName;
     else if (w.boycott) w.line = "The hall put the word out.";
-    else if (w.cut) w.line = "The inland hold is late.";
+    else if (w.cut) w.line = "The inland town is late.";
     else if (w.scarce) w.line = "I heard the river is empty of " + w.scarce + ".";
     else if (w.wet > 0.36) w.line = "The aisle is wet.";
     else if (w.raised && w.watching) w.line = "That one watched me. It shouldn't be here.";

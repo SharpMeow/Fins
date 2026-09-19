@@ -245,7 +245,7 @@
         sec: "The shop floor",
         t: "The luxury is a kind",
         tags: "luxury resource strategic scarce tetra",
-        w: "<p>Fin's luxury is a fish. This year the inland wants whatever the river made scarce. Keep a pair and collectors stay. Don't, and the street says it is without. Strategic is the same mouth, louder. The till feels a missing kind the way a city feels a missing luxury.</p><p><b>What to do about it:</b> keep two of that kind. The gold line will name the without.</p>",
+        w: "<p>Fin's luxury is a fish. This year the inland wants whatever the river made scarce. Keep a pair and collectors stay. Don't, and the street says it is without. Strategic is the same mouth, louder. The till feels a missing kind the way a city feels a missing luxury.</p><p><b>What to do about it:</b> keep two of that fish. The gold line will name the without.</p>",
       });
     } catch (e) {}
   }

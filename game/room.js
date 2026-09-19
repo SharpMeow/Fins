@@ -125,7 +125,7 @@
     try {
       if (window.road && road.cut && road.cut()) {
         bite.cut = true;
-        bite.line = "The inland hold is late.";
+        bite.line = "The inland town is late.";
       }
     } catch (e) {}
     try {
@@ -442,7 +442,7 @@
         sec: "The shop floor",
         t: "The room",
         tags: "puddle night rain still fish aisle baker pair bag door",
-        w: "<p>The aisle is wet or it isn't. Night cools the glass. A fish that is holding still will not bag. Rain on the street comes in at the door. None of that is a meter.</p><p><b>What to do about it:</b> mop (floss on the counter). Heat if the street is cold. Keep two of a kind before lunch. The baker remembers the last fish bag.</p>",
+        w: "<p>The aisle is wet or it isn't. Night cools the glass. A fish that is holding still will not bag. Rain on the street comes in at the door. None of that is a meter.</p><p><b>What to do about it:</b> swap a filter pad — the boards dry with it. Heat if the street is cold. Keep two of the same fish before lunch. The baker remembers the last fish bag.</p>",
       });
       w.push({
         id: "k_ear",

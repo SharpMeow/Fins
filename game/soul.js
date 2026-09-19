@@ -153,7 +153,7 @@
       var kind = "note";
       if (/died|dead|plate/.test(rec.s)) kind = "death";
       else if (/took |stole|pinch/.test(rec.s)) kind = "pinch";
-      else if (/white-spot|gold-dust|fin-rot|the still|salt-itch/.test(rec.s)) kind = "ill";
+      else if (/white-spot|gold-dust|fin-rot|still-sickness|salt-itch/.test(rec.s)) kind = "ill";
       else if (/bag|took a fish bag|made it right/.test(rec.s)) kind = "bag";
       var all = folk();
       for (var i = 0; i < all.length; i++) {
@@ -226,7 +226,7 @@
             rec.phase = "leave";
             st.phase = "leave";
             st.bought = false;
-            file(fig, "ill", "saw the still in the glass");
+            file(fig, "ill", "saw still-sickness in the glass");
           } else if (so.hate === "something risen") {
             try {
               var list = typeof allFish === "function" ? allFish() || [] : [];
@@ -245,7 +245,7 @@
               if (window.mark && mark.line && /no plate/.test(mark.line() || "")) {
                 var ml = mark.line() || "";
                 var whoP = ml.split(" ")[0] || "Someone";
-                line = whoP + " still has no plate. I can hear it.";
+                line = whoP + " still has no name on the wall. I can hear it.";
               }
             } catch (eM) {}
           } else if (so.like === "the key in the window" && key) {

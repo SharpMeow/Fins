@@ -296,7 +296,7 @@
       }
     } catch (e) {}
     try {
-      if (window.clogged) rumor("clog", "the filter is packing", 0.7);
+      if (window.clogged) rumor("clog", "the filter is clogging", 0.7);
     } catch (e2) {}
   }
 
@@ -373,7 +373,7 @@
           sec: "The chronicle",
           t: "Because",
           tags: "because cause weave rumor pedigree bloodline atlas depth",
-          w: "<p>This person hates that person because they saw a death, so they started a fight, so a fish bag went wrong. The shop keeps that kind of sentence.</p><p>A collector asks if that tetra is of Idel because the pedigree says so. Someone walks because there is no pair. The street says the water is off because the filter packed. A name read aloud in the back room becomes a rumor with heat, and the heat changes who comes in the door. <b>What to do about it:</b> Life, Because. Chronicle, Cause. The gold line will sometimes carry the loudest rumor.</p>",
+          w: "<p>This person hates that person because they saw a death, so they started a fight, so a fish bag went wrong. The shop keeps that kind of sentence.</p><p>A collector asks if that tetra is of Idel because the pedigree says so. Someone walks because there is no pair. The street says the water is off because the filter clogged. A name read aloud in the back room becomes a rumor with heat, and the heat changes who comes in the door. <b>What to do about it:</b> Life, Because. Chronicle, Cause. The gold line will sometimes carry the loudest rumor.</p>",
         },
         {
           id: "k_blood",
