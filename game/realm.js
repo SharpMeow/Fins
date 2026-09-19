@@ -10,6 +10,7 @@
   var lastTick = 0;
   var lastUi = 0;
   var cached = null;
+  var selected = -1;
 
   var BIOME = [
     { id: "ocean", ch: "~", name: "ocean", fish: "marine" },
@@ -894,29 +895,177 @@
     ctx.drawImage(src, 0, 0);
   }
 
+  function dossier(w, site) {
+    if (!w || !site) return "";
+    var html = '<div class="sec">' + esc(site.n) + (site.i === 0 ? ' <span class="pill">here</span>' : "") + "</div>";
+    html +=
+      '<div class="note">' +
+      esc(site.kind) +
+      (site.ruin ? " · ruin" : "") +
+      " · pop " +
+      site.pop +
+      " · " +
+      esc(site.fish) +
+      " water. Click another keep on the plate, or a name below.</div>";
+    var civ = null;
+    if (w.civs) {
+      for (var i = 0; i < w.civs.length; i++) {
+        if (w.civs[i] && (w.civs[i].seat === site.i || w.civs[i].x === site.x)) civ = w.civs[i];
+      }
+      if (!civ) {
+        var bd = 1e9;
+        for (var c = 0; c < w.civs.length; c++) {
+          var d = (w.civs[c].x - site.x) * (w.civs[c].x - site.x) + (w.civs[c].y - site.y) * (w.civs[c].y - site.y);
+          if (d < bd) {
+            bd = d;
+            civ = w.civs[c];
+          }
+        }
+      }
+    }
+    if (civ) {
+      html +=
+        '<div class="row"><div></div><div><div class="n">' +
+        esc(civ.n) +
+        '</div><div class="d">' +
+        esc(civ.kind) +
+        " · " +
+        esc(civ.ethic) +
+        " · " +
+        esc(civ.faith) +
+        " · " +
+        esc(civ.tongue) +
+        " · founded " +
+        civ.found +
+        "</div></div><div></div></div>";
+    }
+    var evs = [];
+    if (w.events) {
+      for (var e = w.events.length - 1; e >= 0 && evs.length < 6; e--) {
+        var ev = w.events[e];
+        if (!ev || !ev.s) continue;
+        if (ev.s.indexOf(site.n) >= 0 || (civ && ev.s.indexOf(civ.n) >= 0)) evs.push(ev);
+      }
+    }
+    if (evs.length) {
+      html += '<div class="sec">What happened here</div>';
+      for (var k = 0; k < evs.length; k++) {
+        html += '<div class="row"><div></div><div><div class="d">' + evs[k].y + " · " + esc(evs[k].s) + "</div></div><div></div></div>";
+      }
+    }
+    try {
+      var L = window.going && going.letter && going.letter();
+      if (L && L.open && L.from === site.n) {
+        html +=
+          '<div class="note">The letter on the counter is from here. They asked for a pair of ' +
+          esc(L.want) +
+          ". Fill it and a road can reopen.</div>";
+      }
+    } catch (eL) {}
+    var figs = [];
+    if (w.figs) {
+      for (var f = 0; f < w.figs.length && figs.length < 4; f++) {
+        if (w.figs[f] && w.figs[f].site === site.i) figs.push(w.figs[f]);
+      }
+    }
+    if (figs.length) {
+      html += '<div class="sec">People of ' + esc(site.n) + "</div>";
+      for (var p = 0; p < figs.length; p++) {
+        html +=
+          '<div class="row"><div></div><div><div class="d">' +
+          esc(figs[p].n) +
+          (figs[p].fame > 0.4 ? " · known inland" : "") +
+          "</div></div><div></div></div>";
+      }
+    }
+    return html;
+  }
+
+  function nearestSite(w, gx, gy) {
+    if (!w || !w.sites) return -1;
+    var best = -1;
+    var bd = 2.8;
+    for (var i = 0; i < w.sites.length; i++) {
+      var s = w.sites[i];
+      if (!s) continue;
+      var d = (s.x + 0.5 - gx) * (s.x + 0.5 - gx) + (s.y + 0.5 - gy) * (s.y + 0.5 - gy);
+      if (d < bd) {
+        bd = d;
+        best = i;
+      }
+    }
+    return best;
+  }
+
   function panelHtml() {
     var w = worldState();
     tickYear();
     var html = '<div class="sec">' + esc(w.name) + ' <span>' + esc(w.age) + " · seed " + w.seed + "</span></div>";
-    html += '<div class="note">Boston is one harbor. The rest was generated: elevation, rain, heat, drainage, volcanism, savagery. Civilizations found sites. Gods take seats. Wars sack towns. The gold mark is the shop.</div>';
-    html += '<div class="realm-map-wrap"><canvas class="realm-map" width="960" height="640" aria-label="The continent. The gold mark is Boston."></canvas></div>';
-    html += '<div class="d">Watercolor land. Rivers run downhill. Gold is Boston.</div>';
+    html += '<div class="note">Boston is one harbor. Click a keep. The plate is the same seed as the shop: elevation, rain, heat, drainage, a tongue, a war, a fish. Gold is here.</div>';
+    html += '<div class="realm-map-wrap"><canvas class="realm-map" width="960" height="640" aria-label="The continent. Click a keep. The gold mark is Boston."></canvas></div>';
+    var site = selected >= 0 && w.sites[selected] ? w.sites[selected] : w.sites[0];
+    if (site) html += '<div class="realm-dossier">' + dossier(w, site) + "</div>";
     html += '<div class="sec">Civilizations <span>' + w.civs.length + "</span></div>";
-    for (var i = 0; i < w.civs.length && i < 8; i++) {
+    for (var i = 0; i < w.civs.length && i < 12; i++) {
       var c = w.civs[i];
       html += '<div class="row"><div></div><div><div class="n">' + esc(c.n) + '</div><div class="d">' + esc(c.kind) + " · " + esc(c.ethic) + " · " + esc(c.faith) + " · " + esc(c.tongue) + " · founded " + c.found + "</div></div><div></div></div>";
     }
     html += '<div class="sec">Sites <span>' + w.sites.length + "</span></div>";
-    for (var s = 0; s < w.sites.length && s < 8; s++) {
-      var site = w.sites[s];
-      html += '<div class="row"><div></div><div><div class="n">' + esc(site.n) + (site.i === 0 ? ' <span class="pill">here</span>' : "") + '</div><div class="d">' + esc(site.kind) + (site.ruin ? " · ruin" : "") + " · pop " + site.pop + " · " + esc(site.fish) + " water</div></div><div></div></div>";
+    for (var s = 0; s < w.sites.length && s < 16; s++) {
+      var st = w.sites[s];
+      html +=
+        '<div class="row" data-realm-site="' +
+        s +
+        '"><div></div><div><div class="n">' +
+        esc(st.n) +
+        (st.i === 0 ? ' <span class="pill">here</span>' : "") +
+        '</div><div class="d">' +
+        esc(st.kind) +
+        (st.ruin ? " · ruin" : "") +
+        " · pop " +
+        st.pop +
+        " · " +
+        esc(st.fish) +
+        " water</div></div><div></div></div>";
     }
     html += '<div class="sec">The years inland</div>';
-    for (var e = w.events.length - 1, n = 0; e >= 0 && n < 8; e--, n++) {
+    for (var e = w.events.length - 1, n = 0; e >= 0 && n < 10; e--, n++) {
       html += '<div class="row"><div></div><div><div class="d">' + w.events[e].y + " · " + esc(w.events[e].s) + "</div></div><div></div></div>";
     }
     if (embargo()) html += '<div class="note">A war is still warm. Holds come in late. The till will feel it.</div>';
     return html;
+  }
+
+  function bindMap(wrap) {
+    if (!wrap) return;
+    var cv = wrap.querySelector("canvas.realm-map");
+    if (cv && !cv.__realmClick) {
+      cv.__realmClick = 1;
+      cv.style.cursor = "pointer";
+      cv.addEventListener("click", function (e) {
+        var r = cv.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        var gx = ((e.clientX - r.left) / r.width) * GW;
+        var gy = ((e.clientY - r.top) / r.height) * GH;
+        var hit = nearestSite(worldState(), gx, gy);
+        if (hit < 0) return;
+        selected = hit;
+        wrap.removeAttribute("data-h");
+        enhance();
+      });
+    }
+    if (!wrap.__realmRows) {
+      wrap.__realmRows = 1;
+      wrap.addEventListener("click", function (e) {
+        var row = e.target.closest("[data-realm-site]");
+        if (!row) return;
+        var i = +row.getAttribute("data-realm-site");
+        if (!isFinite(i)) return;
+        selected = i;
+        wrap.removeAttribute("data-h");
+        enhance();
+      });
+    }
   }
 
   function enhance() {
@@ -926,6 +1075,7 @@
     if (!/atlas/i.test(title.textContent || "")) return;
     var wrap = body.querySelector(".realm-atlas");
     var html = panelHtml();
+    var key = String(html.length) + ":" + selected;
     if (!wrap) {
       wrap = document.createElement("div");
       wrap.className = "realm-atlas";
@@ -933,10 +1083,12 @@
       if (live && live.nextSibling) body.insertBefore(wrap, live.nextSibling);
       else body.appendChild(wrap);
     }
-    if (wrap.getAttribute("data-h") !== String(html.length)) {
+    if (wrap.getAttribute("data-h") !== key) {
       wrap.innerHTML = html;
-      wrap.setAttribute("data-h", String(html.length));
+      wrap.setAttribute("data-h", key);
+      wrap.__realmRows = 0;
     }
+    bindMap(wrap);
     try {
       paintRealmMap(wrap.querySelector("canvas.realm-map"), worldState());
     } catch (eP) {}
