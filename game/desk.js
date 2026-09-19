@@ -873,6 +873,24 @@
       }
     } catch (eBl) {}
     try {
+      if (window.stray && stray.line) {
+        var srl = stray.line();
+        if (srl) add("stray", srl);
+      }
+    } catch (eSr) {}
+    try {
+      if (window.row && row.line) {
+        var rwl = row.line();
+        if (rwl) add("row", rwl);
+      }
+    } catch (eRw) {}
+    try {
+      if (window.mask && mask.line) {
+        var msl = mask.line();
+        if (msl) add("mask", msl);
+      }
+    } catch (eMs) {}
+    try {
       if (window.mind && mind.dwell && typeof allFish === "function") {
         var fish = allFish() || [];
         for (var fi = 0; fi < fish.length; fi++) {

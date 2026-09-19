@@ -6,6 +6,7 @@
   var lastTick = 0;
   var lastDues = -1;
   var lastToast = "";
+  var didBrowse = false;
 
   function gs() {
     try {
@@ -145,6 +146,45 @@
     try {
       if (typeof k === "function") k(msg, "bad");
     } catch (e) {}
+    try {
+      var el = document.getElementById("hookWhisper");
+      if (el) {
+        el.textContent = msg;
+        el.classList.add("on", "pop");
+      }
+    } catch (e2) {}
+  }
+
+  function wrapBrowse() {
+    if (didBrowse || !window.shopBrowse) return;
+    didBrowse = true;
+    var orig = window.shopBrowse;
+    window.shopBrowse = function (idx, slot, W, floorY, personS, simT) {
+      var rec = orig.apply(this, arguments);
+      try {
+        if (!rec) return rec;
+        var st = window.shopLife && shopLife.browse ? shopLife.browse()[idx] : null;
+        var keep = !!(st && (st._lateMae || st._goingHold || st._lateKid));
+        if (keep) return rec;
+        if (boycott() && rec.phase === "look" && st && !st._guildSaid) {
+          st._guildSaid = 1;
+          rec.line = rec.kind === "kid" ? "We're not supposed to come in." : "The hall said stay away. I'm just looking through the glass.";
+          rec.phase = "leave";
+          st.phase = "leave";
+          st.bought = false;
+          st.line = rec.line;
+        } else if (!boycott() && rec.phase === "look" && st && !st._guildSaid && state().mandate) {
+          st._guildSaid = 1;
+          if (rec.kind === "collector" || Math.random() < 0.22) {
+            rec.line = "The hall wants a pair of " + state().mandate + " on the rack.";
+            rec.want = rec.want || state().mandate;
+            st.want = st.want || state().mandate;
+            st.line = rec.line;
+          }
+        }
+      } catch (e) {}
+      return rec;
+    };
   }
 
   function panelHtml() {
@@ -182,6 +222,7 @@
 
   function tick() {
     try {
+      wrapBrowse();
       seedWiki();
       if (now() - lastTick > 1.8) {
         lastTick = now();
