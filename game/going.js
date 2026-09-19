@@ -413,7 +413,7 @@
     if (L.want && sp && String(sp).toLowerCase() === String(L.want).toLowerCase()) {
       L.filled = true;
       L.open = false;
-      var line = "The hold was answered. A pair of " + L.want + " is on the water.";
+      var line = "The town was answered. A pair of " + L.want + " is on the water.";
       note(line);
       because(line);
       say(line, "gold");
@@ -459,7 +459,7 @@
         }
       } catch (e2) {}
     }
-    if (!from) from = "the inland hold";
+    if (!from) from = "the inland town";
 
     var want = "";
     try {
@@ -495,7 +495,7 @@
     }
     if (L.open && !L.filled && shopDay() - (L.day || 0) > 5) {
       L.open = false;
-      var late = "The letter went unanswered. The hold is still late.";
+      var late = "The letter went unanswered. The town is still late.";
       note(late);
       because(late);
       try {
@@ -702,14 +702,14 @@
         sec: "The shop floor",
         t: "The harbor comes in",
         tags: "tide moon harbor boards night spring sea wet door",
-        w: "<p>Rain at the door is weather. The harbor at night is the sea. Spring tide, new moon or full, the water comes in under the boards by the door — not from the filter. Named fish lean with it. Floss dries the aisle. The tide does not care. It will be back at the next high.</p><p><b>What to do about it:</b> mop. Heat if the boards run cold. The gold line will say if it is the harbor, not the filter.</p>",
+        w: "<p>Rain at the door is weather. The harbor at night is the sea. Spring tide, new moon or full, the water comes in under the boards by the door — not from the filter. Named fish lean with it. The aisle dries. The tide does not care. It will be back at the next high.</p><p><b>What to do about it:</b> mop. Heat if the boards run cold. The gold line will say if it is the harbor, not the filter.</p>",
       });
       wiki.push({
         id: "k_letter",
         sec: "The quarter",
         t: "The letter",
         tags: "letter hold road cut pair inland send answer",
-        w: "<p>When a road inland is cut, the hold writes. A letter on the counter: a place, a pair, a kind. Someone walks in off that road and says the letter's words. Fill the pair. Bag that kind. The hold is answered, and a road to the harbor can reopen. Leave it five days and the letter goes unanswered. The gold line stays late.</p><p><b>What to do about it:</b> keep two of what they asked for. The letter is not a tab. It is the unfinished thing.</p>",
+        w: "<p>When a road inland is cut, the inland town writes. A letter on the counter: a place, a pair, a fish. Someone walks in off that road and says the letter's words. Fill the pair. Bag that fish. The town is answered, and a road to the harbor can reopen. Leave it five days and the letter goes unanswered. The gold line stays late.</p><p><b>What to do about it:</b> keep two of what they asked for. The letter is not a tab. It is the unfinished thing.</p>",
       });
     } catch (e) {}
   }

@@ -412,7 +412,7 @@
         sec: "The shop floor",
         t: "Someone took it",
         tags: "theft steal pinch justice aisle kid bag missing",
-        w: "<p>Someone took it. A kid on a wet aisle. A lunch when you are in the tank. A named one gone, no sale, no fish bag. It is in their window. The family hears. They come to make it right — a pair of that kind, paid — or they never bag here again. Three days and the story goes cold, and the choir keeps it.</p><p><b>What to do about it:</b> stay on the aisle when the boards are wet. Keep a pair of what walked. Life names who took it. The gold line does not cheer you.</p>",
+        w: "<p>Someone took it. A kid on a wet aisle. A lunch when you are in the tank. A named one gone, no sale, no fish bag. It is in their window. The family hears. They come to make it right — a pair of that fish, paid — or they never bag here again. Three days and the story goes cold, and the choir keeps it.</p><p><b>What to do about it:</b> stay on the aisle when the boards are wet. Keep a pair of what walked. Life names who took it. The gold line does not cheer you.</p>",
       });
     } catch (e) {}
   }

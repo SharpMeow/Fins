@@ -320,7 +320,7 @@
         sec: "You and your people",
         t: "A surname is a house",
         tags: "dynasty house prestige cadet rival surname head pair",
-        w: "<p>Fin's street already had names. A Costa is a house. A head. Prestige. A kind they bag. A rival they will not stand next to. Fill the pair the head asked for and the house stays. Miss it and they bag at Haymarket. A cadet says they are of the name, not the head.</p><p><b>What to do about it:</b> keep two of what the head asked for. Do not put rivals on the aisle together. Life names the house.</p>",
+        w: "<p>Fin's street already had names. A Costa is a house. A head. Prestige. A fish they bag. A rival they will not stand next to. Fill the pair the head asked for and the house stays. Miss it and they bag at Haymarket. Someone of the name, not the head, says they are of the name.</p><p><b>What to do about it:</b> keep two of what the head asked for. Do not put rivals on the aisle together. Life names the house.</p>",
       });
     } catch (e) {}
   }

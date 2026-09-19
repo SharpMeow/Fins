@@ -21,7 +21,7 @@
       pack: 3,
       cost: 22,
       unit: "pad",
-      blurb: "Spare pads. When the filter packs, you pull one and the flow comes back.",
+      blurb: "Spare pads. When the filter clogs, you pull one and the flow comes back. The boards dry a bit while you walk the aisle.",
       lot: "Chelsea mill, lot",
     },
     {
@@ -132,7 +132,7 @@
       pack: 4,
       cost: 6,
       unit: "stick",
-      blurb: "Prices on the board in a hand people can read from the door.",
+      blurb: "Names on the wall. The unburied go quiet when you write them. The board also reads from the door.",
       lot: "soft white, lot",
     },
   ];
@@ -315,7 +315,7 @@
         if (typeof cleanFilter === "function") cleanFilter(true);
       } catch (e2) {}
       say("Pad swapped. The outflow is a column again.");
-      write("note", "The filter was packed. A spare pad brought the flow back.");
+      write("note", "The filter was clogged. A spare pad brought the flow back.");
       rememberFish("the filter running again");
       try {
         if (window.shopSite && shopSite.dry) shopSite.dry(0.55);

@@ -107,7 +107,7 @@
       st.note = "Roads inland are cut. The baker is still next door. The rest is late.";
       try {
         if (window.weave && weave.bumpWord) weave.bumpWord(-0.08);
-        if (window.weave && weave.because) weave.because("A road was cut. Holds come late.");
+        if (window.weave && weave.because) weave.because("A road was cut. Towns come late.");
       } catch (e2) {}
     } else {
       for (var r = 0; r < st.routes.length; r++) {
@@ -164,7 +164,7 @@
           rec.line = "I heard the river is empty of " + rec.want + ".";
         }
         if (cut() && rec.phase === "look" && Math.random() < 0.2) {
-          rec.line = "The inland hold is late.";
+          rec.line = "The inland town is late.";
         }
       } catch (e) {}
       return rec;
@@ -178,7 +178,7 @@
     if (!/atlas/i.test(title.textContent || "")) return;
     var st = state();
     var html = '<div class="sec">The roads</div>';
-    html += '<div class="note">Every site keeps a nearest road. A war cuts the ones that touch the harbor. Then the hold is late, and a person walks in who did not start on this block.</div>';
+    html += '<div class="note">Every site keeps a nearest road. A war cuts the ones that touch the harbor. Then the inland town is late, and a person walks in who did not start on this block.</div>';
     var shown = 0;
     for (var i = 0; i < st.routes.length && shown < 8; i++) {
       var r = st.routes[i];
@@ -208,7 +208,7 @@
         sec: "The street",
         t: "The roads",
         tags: "road caravan traveler war embargo trade route",
-        w: "<p>Salem Street is one block. The map has roads. A war inland cuts the ones that touch the harbor. Holds come late. Word drops. Someone walks in who started in a town you have only read. They will say the name.</p><p><b>What to do about it:</b> Atlas, The roads. If they say the inland hold is late, that is not a random line.</p>",
+        w: "<p>Salem Street is one block. The map has roads. A war inland cuts the ones that touch the harbor. Towns come late. Word drops. Someone walks in who started in a town you have only read. They will say the name.</p><p><b>What to do about it:</b> Atlas, The roads. If they say the inland town is late, that is not a random line.</p>",
       };
       for (var i = 0; i < w.length; i++) if (w[i] && w[i].id === extra.id) return;
       w.push(extra);

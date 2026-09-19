@@ -1,7 +1,7 @@
 /* hand.js — skills rust.
    Fish bags, water, glass: three hands. A week without a fish bag and the next
    one is sloppy. People say so. They walk. Treat with rusty water-hands
-   and the still comes back. No second HUD. Odds, speech, the till. */
+   and still-sickness comes back. No second HUD. Odds, speech, the till. */
 (function () {
   "use strict";
 
@@ -278,7 +278,7 @@
         sec: "The shop floor",
         t: "The hands rust",
         tags: "skill rust bag knot hands craft idle",
-        w: "<p>The knot goes. Fish bags, water, glass: three hands. A day without a fish bag and the next one is sloppy. People say so. They walk. Treat with rusty water-hands and the still comes back. String a run and the hands remember.</p><p><b>What to do about it:</b> bag. Treat. Wash. Do not tab out for a week and expect the first knot to hold. The gold line will say when the hands forgot.</p>",
+        w: "<p>The knot goes. Fish bags, water, glass: three hands. A day without a fish bag and the next one is sloppy. People say so. They walk. Treat with rusty water-hands and still-sickness comes back. String a run and the hands remember.</p><p><b>What to do about it:</b> bag. Treat. Wash. Do not tab out for a week and expect the first knot to hold. The gold line will say when the hands forgot.</p>",
       });
     } catch (e) {}
   }

@@ -169,7 +169,7 @@
     rec.name = ss.gov;
     rec.phase = "look";
     rec.want = ss.edict;
-    rec.line = "The hall voted. A pair of " + ss.edict + ". No last of a kind.";
+    rec.line = "The hall voted. A pair of " + ss.edict + ". Not the last of that fish.";
     if (st) {
       st._seat = 1;
       st.name = ss.gov;

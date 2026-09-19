@@ -118,7 +118,7 @@
     state().due.push(rec);
     if (state().due.length > 16) state().due.shift();
     if (!quiet) {
-      var line = n + " has no plate.";
+      var line = n + " has no name on the wall.";
       because(line);
       gold(line, true);
       egg("markdue", line);
@@ -137,7 +137,7 @@
     seeded = true;
     if (state().due.length) {
       because(state().due[0].n + " has been in the book. Nobody put them on the wall.");
-      egg("markinherit", state().due[0].n + " has no plate.");
+      egg("markinherit", state().due[0].n + " has no name on the wall.");
     }
   }
 
@@ -286,7 +286,7 @@
         var n = haunt();
         if (n) {
           w.sour = Math.min(1, (w.sour || 0) + Math.min(0.22, n * 0.06));
-          if (!w.line) w.line = state().due[0].n + " has no plate.";
+          if (!w.line) w.line = state().due[0].n + " has no name on the wall.";
         } else if (state().plates.length && !w.line) {
           w.sweet = Math.min(1, (w.sweet || 0) + 0.05);
         }
@@ -318,7 +318,7 @@
     if (st.due.length) {
       var bits = [];
       for (var i = 0; i < st.due.length && bits.length < 3; i++) {
-        bits.push(st.due[i].n + " has no plate");
+        bits.push(st.due[i].n + " has no name on the wall");
       }
       return bits.join(". ") + ".";
     }
@@ -336,7 +336,7 @@
       wiki.push({
         id: "k_mark",
         sec: "The chronicle",
-        t: "The dead want a plate",
+        t: "The dead want a name on the wall",
         tags: "slab memorial plate chalk ghost unburied ingum dead",
         w: "<p>Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet.</p><p><b>What to do about it:</b> Harbor Supply, counter chalk. Write the oldest name. Life lists who is still waiting. Do not raise them instead. That is a different wrong note.</p>",
       });

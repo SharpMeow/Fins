@@ -140,7 +140,7 @@
     st.day = shopDay();
     st.kind = kind;
     st.who = kind === "beast" ? beastName() : "the inland war";
-    var line = kind === "beast" ? st.who + " is on the glass." : "The harbor is under a keel.";
+    var line = kind === "beast" ? st.who + " is on the glass." : "The harbor is shut.";
     st.last = line;
     because(line);
     gold(line, true);
@@ -184,7 +184,7 @@
         if (rec.phase === "look" && !st._siegeSaid && !keep) {
           st._siegeSaid = 1;
           if (rec.kind === "kid") rec.line = "We're not supposed to be out.";
-          else rec.line = sg.kind === "beast" ? "That is in the glass. I'm leaving." : "The hold is under the keel.";
+          else rec.line = sg.kind === "beast" ? "That is in the glass. I'm leaving." : "The inland town is shut.";
           rec.phase = "leave";
           st.phase = "leave";
           st.bought = false;
@@ -206,7 +206,7 @@
         if (sg.on) {
           w.sour = Math.min(1, (w.sour || 0) + 0.18);
           w.beast = Math.max(w.beast || 0, 0.2);
-          if (!w.line) w.line = sg.last || "The harbor is under a keel.";
+          if (!w.line) w.line = sg.last || "The harbor is shut.";
         }
       } catch (e) {}
       return w;
@@ -312,9 +312,9 @@
       wiki.push({
         id: "k_siege",
         sec: "The chronicle",
-        t: "The harbor is under a keel",
+        t: "The harbor is shut",
         tags: "war siege beast barbarian militia glass embargo",
-        w: "<p>Fin's embargo and forgotten beast were numbers. Now militia walk the aisle. Named fish hold still. At night the thing in the harbor is in the shop window. People leave. The till feels a war that is not a combat screen.</p><p><b>What to do about it:</b> wait it out. Keep the pair. The gold line will say if the keel lifted.</p>",
+        w: "<p>Fin's embargo and forgotten beast were numbers. Now militia walk the aisle. Named fish hold still. At night the thing in the harbor is in the shop window. People leave. The till feels a war that is not a combat screen.</p><p><b>What to do about it:</b> wait it out. Keep the pair. The gold line will say if the harbor opened.</p>",
       });
     } catch (e) {}
   }

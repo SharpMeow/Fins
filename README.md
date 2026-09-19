@@ -34,13 +34,13 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The tank is a choir.** Every living fish is a voice. The shop's music is not a playlist — it is the water, singing what it has seen. A named fish carries the melody. Sell the last of a line and a voice drops; the gold line under the name says so. Raise a name from the pages and the whole chord comes back a half-step off. Fever, a beast off the harbor, a boycott, a wet aisle: they detune it. People at the glass can hear it. They say "that one watched me." Work mode turns it into the fluorescent hum, and the hum still sours when the water is off. No aquarium game, no shop sim, no idle, uses its inventory as the score.
 
-**The shop is porous.** Every other shop sim deletes what you sell. Fin's does not. A fish bag is not a deletion. They go home with someone on Salem. The baker's window is a tank. If they live, she will say so. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left. At night the harbor comes in under the boards — not rain, the sea, on the spring tide. Named fish lean with it. Floss dries the aisle. The tide does not care. When a road inland is cut, the hold writes. A letter on the counter: a place, a pair, a kind. Fill it. A road to the harbor can reopen. Leave it five days and the gold line stays late. Nobody else has done this: the street keeps your stock, the sea keeps a key to the door, and the unfinished thing on the counter is a letter from a town you have only read.
+**The shop is porous.** Every other shop sim deletes what you sell. Fin's does not. A fish bag is not a deletion. They go home with someone on Salem. The baker's window is a tank. If they live, she will say so. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left. At night the harbor comes in under the boards — not rain, the sea, on the spring tide. Named fish lean with it. The aisle dries. The tide does not care. When a road inland is cut, the inland town writes. A letter on the counter: a place, a pair, a fish. Fill it. A road to the harbor can reopen. Leave it five days and the gold line stays late. Nobody else has done this: the street keeps your stock, the sea keeps a key to the door, and the unfinished thing on the counter is a letter from a town you have only read.
 
 **You are late.** You hung the sign in Year 1000. Someone kept this shop before you — Rook, Nedda, Asa, Wren, Pim, once Mae's aunt. The street still uses their names. A fish in the tank is theirs. The baker will say you're not them. Sell that fish and a kid asks where it went. The remaining of a pair holds still, because the other one is in a window on Salem.
 
-**While you were gone.** Idle games pay you for looking away. Fin's writes what you missed. The baker came, or she walked. The filter packed. The harbor came in. A named fish held still. A window on Salem went dark. The gold line is the first thing that happened without you. Life has the rest. The shop kept going. That was the promise on the first line.
+**While you were gone.** Idle games pay you for looking away. Fin's writes what you missed. The baker came, or she walked. The filter clogged. The harbor came in. A named fish held still. A window on Salem went dark. The gold line is the first thing that happened without you. Life has the rest. The shop kept going. That was the promise on the first line.
 
-**The glass is two-way.** The shop window is a shopfront. People on Salem see the tank. Rain, night, etch, a risen name, a fish holding still: they see that from the street. They come in because of what they saw, or they walk. The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. Floss dries the aisle. It does not clean the glass. Window wash does — vinegar and newsprint, Harbor Supply. Then they can see in. Nobody else has a shop whose window is an optical system and whose building is a chemistry problem.
+**The glass is two-way.** The shop window is a shopfront. People on Salem see the tank. Rain, night, etch, a risen name, a fish holding still: they see that from the street. They come in because of what they saw, or they walk. The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. The aisle is drier. It does not clean the glass. Window wash does — vinegar and newsprint, Harbor Supply. Then they can see in. Nobody else has a shop whose window is an optical system and whose building is a chemistry problem.
 
 **Windows on Salem are tanks.** You sold a fish. Open Map. Their window is lit. A tiny one swims in it. Night, they glow. They die, the window goes dark. Click it. The gold line names the house. The baker's window is the first one you learn to look for. Fin's own window is there too: from the street, they can see in. The choir already heard the ones that left. Now you can see them.
 
@@ -48,9 +48,9 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The artifact is in the window.** A strange mood leaves an object. Other games put it in a box. Fin's puts it in the glass. The previous keeper left a key. A named fish leaves a Wake, a Filigree, a Salt-Mark, the memory that was in them cut into it. Collectors come to see it. The choir sweetens while it sits. The gold line names it. Nobody else has a shop whose window is a shopfront and a named object at once.
 
-**The fish bag carries the water.** A fish bag is not a receipt. It is a vector. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch: each one hates a different bottle. Treat it, or the choir sours until the name breaks.
+**The fish bag carries the water.** A fish bag is not a receipt. It is a vector. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, still-sickness, salt-itch: each one hates a different bottle. Treat it, or the choir sours until the name breaks.
 
-**The dead want a plate.** A name cannot stay in the book without a plate. Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet. You inherited the unburied.
+**The dead want a name on the wall.** A name cannot stay in the book without writing. Ingum has been dead since Year 412. The previous keeper never put her on the wall. The choir keeps a wrong note. Walk-ins ask who she is. Chalk writes the name. The water goes quiet. You inherited the unburied.
 
 **The street ages.** Mae's child is on this block. In a few days someone else is born. An unused cousin dies and the family keeps the name. The people on Salem are not a spawn table. They are a civ that keeps going after you hang the sign.
 
@@ -58,13 +58,13 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **People have inner lives.** The tanks already remember. The street did not. A walk-in has a like, a hate, a short memory, a morning they dwell on. Mae hates the wet, or she likes the key. A person who saw a death hardens. They will not stand in the puddle they already named. That is why they walked.
 
-**The hands rust.** A day without a fish bag and the knot is sloppy. People say so. They walk. Treat with rusty water-hands and the still comes back. String a run and the hands remember. Tab out for a week and the first fish bag of the morning does not hold.
+**The hands rust.** A day without a fish bag and the knot is sloppy. People say so. They walk. Treat with rusty water-hands and still-sickness comes back. String a run and the hands remember. Tab out for a week and the first fish bag of the morning does not hold.
 
-**The glass keeps the morning.** The glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was plated. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street.
+**The glass keeps the morning.** The glass was etching as weather. Now it cuts a sentence: who died, who took it, who was born, who was written on the wall. Vinegar cleans the haze. It does not clean the morning. People on Salem read it from the street.
 
-**The unplated walk the glass.** The haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. Chalk writes the name. She rests. The choir keeps a wronger note until you do.
+**The unwritten walk the glass.** The haunt was a count, a sour note, an empty nail. Ingum has been dead since Year 412. At night she is in the shop window. People leave. Named fish hold still. Chalk writes the name. She rests. The choir keeps a wronger note until you do.
 
-**A fight can kill.** A fight used to write the book and raise the pulse. It did not empty a slot. Two of a kind, proud, a foe already named, the pulse over the line: one dies on the gravel. The remaining holds still. The name goes in the book. Chalk is due.
+**A fight can kill.** A fight used to write the book and raise the pulse. It did not empty a slot. Two of the same fish, proud, a foe already named, the pulse over the line: one dies on the gravel. The remaining holds still. The name goes in the book. Chalk is due.
 
 **The little one comes home.** Fry used to be speech. Mae said she brought the little one. Nothing entered the water. The fish bag that went home can send a child back: same kind, a mother already in the book, a collector who can tell. They will ask if that one is of Glimia's. It is.
 
@@ -76,17 +76,17 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 **The hall means the empty aisle.** Dues and a mandate were numbers. A boycott was a sour note. Now the hall says stay away and they do. A collector still asks for the pair the hall wanted. Miss the week and the aisle is actually empty.
 
-**The atlas walks in.** Other games put cities, leaders, wonders, and wars on a map you leave the shop to look at. Fin's does not. A settler wants a pair for a shop that is not this one. A person of an inland civ comes with an agenda. A great merchant pays double; a prophet founds a belief; an admiral wants a pair for a flagship. A hold is raising a wonder and pilgrims come to look. A hamlet sends an envoy and who still bags here is who they still walk for. A vow makes a kind holy and the last of it taboo. A war is a keel on the glass and a beast in the window. A pact is a caravan. A denunciation empties a mouth. A luxury is a fish the street is unhappy without. Someone is writing the names down. A governor brings an edict. One named fish is the one the others follow. The Age of Quiet Water is not a banner. It is whether they stay.
+**The atlas walks in.** Other games put cities, leaders, wonders, and wars on a map you leave the shop to look at. Fin's does not. A settler wants a pair for a shop that is not this one. A person of an inland civ comes with an agenda. A great merchant pays double; a prophet founds a belief; an admiral wants a pair for a flagship. An inland town is raising a wonder and pilgrims come to look. A hamlet sends an envoy and who still bags here is who they still walk for. A vow makes a kind holy and the last of it taboo. A war is a keel on the glass and a beast in the window. A pact is a caravan. A denunciation empties a mouth. A luxury is a fish the street is unhappy without. Someone is writing the names down. A governor brings an edict. One named fish is the one the others follow. The Age of Quiet Water is not a banner. It is whether they stay.
 
-**The street is a court.** Other games put houses, marriages, schemes, and succession on a map you play as a person. Fin's does not open a character sheet. A surname is a house: a head, prestige, a kind they bag, a rival they will not stand next to. Two people come for a pair because they are taking vows. Fill it and the houses bind. A child inherits the window, not a title; someone of the same house says it is not theirs. A trait is why they walked — paranoid of the crowd, kind of the wet boards, greedy for a named line, honest about who took it. Someone on the aisle is waiting for someone else. A secret is a hook at the till. Friend, rival, lover, nemesis: two names, not a like. Someone claims a named fish by blood, and will not pay. One person breaks: they confess, they weep, they smash, the boards go wet. A house is laying a table, or a funeral, or a hunt. A child wanted the guppy. The aunt said no. They held someone under the keel; a pair lets them walk. The harbor is a liege. Tyranny is who still bags here.
+**The street is a court.** Other games put houses, marriages, schemes, and succession on a map you play as a person. Fin's does not open a character sheet. A surname is a house: a head, prestige, a kind they bag, a rival they will not stand next to. Two people come for a pair because they are taking vows. Fill it and the houses bind. A child inherits the window, not a title; someone of the same house says it is not theirs. A trait is why they walked — paranoid of the crowd, kind of the wet boards, greedy for a named line, honest about who took it. Someone on the aisle is waiting for someone else. A secret is a hook at the till. Friend, rival, lover, nemesis: two names, not a like. Someone claims a named fish by blood, and will not pay. One person breaks: they confess, they weep, they smash, the boards go wet. A house is laying a table, or a funeral, or a hunt. A child wanted the guppy. The aunt said no. They held someone under the keel; a pair lets them walk. The harbor is the one they pay. Tyranny is who still bags here.
 
 **The glass looks back.** Stand over the tank and they lean toward the hand. A customer on the aisle is a witness. A risen name watches harder, and wrong. That is not a meter. That is the shop looking at you.
 
-**The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The hold is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
+**The continent still runs.** Present day is Year 1000. Boston is one port on a living atlas: elevation, rain, biomes, civilizations with a tongue, roads, wars, beasts that wake, a fever that walks. A war inland cuts a road. The inland town is late. Word drops. Someone still asks. They just do not buy. Close the tab. The year does not.
 
 **Cause has a chain.** Idle games add systems as tabs. Fin's adds systems as reasons. If it does not change odds, speech, or the till, it does not ship. Weather cools the room. The room stresses the named fish. A stressed fish will not bag. A miss becomes a rumor. The rumor walks back in after lunch. That loop is the product.
 
-**The pair is the first hour.** Keep two adults of a kind. A unique fish is a display. A pair is stock. Sell the last one and the walk-in who asked for that kind walks. Life writes it. The gold line does not cheer you.
+**The pair is the first hour.** Keep two adults of the same fish. A unique fish is a display. A pair is stock. Sell the last one and the walk-in who asked for that fish walks. Life writes it. The gold line does not cheer you.
 
 **A puddle is a closed sign.** Sixteen by ten cells of heat, standing water, glass, oak. A leak is not a toast. People will not step in it. The sale will not close. Night cools the lamps. Rain on the street comes in at the door.
 
@@ -96,7 +96,7 @@ Aquarium games give you a tank. Shop games give you a till. Idle games give you 
 
 | | What everyone else ships | What Fin's ships |
 |---|---|---|
-| The people | a spawn, a job label | a civ, and a court: names, houses, vows, an heir to a window, a bent that is why they walked, a plot waiting on the aisle, a hook at the till, a row, a keeper who walks back in, the unplated dead, an envoy, a governor, a spy writing the names |
+| The people | a spawn, a job label | a civ, and a court: names, houses, vows, an heir to a window, a bent that is why they walked, a plot waiting on the aisle, a hook at the till, a row, a keeper who walks back in, the unwritten dead, an envoy, a governor, a spy writing the names |
 | The fish bag | a deletion | a window, a vector, fry that come home as a named line, a death on the block, sometimes a theft, a pair that founds a hold |
 | The tank | a meter, a skin, a stack of SKUs | named minds that learn, a choir, a glass that watches, a fight that can kill, a till-cat that hunts the flashing, a mayor the others follow |
 | The hands | a stat that only goes up | a knot that rusts if you stop bagging |
@@ -116,11 +116,11 @@ You open. Year 1000, after a thousand years of record. The tanks are already run
 
 **The first hour is three things.** Click the water to feed. If the filter pill goes sour, click it. Do not sell the last of a pair. The rest of the shop is waiting on that.
 
-People come in off Salem Street. They look. They ask for a fish by name. They only buy if you keep two adults of that kind and the water is not off. Otherwise they look and leave, and Life writes it: walked, not sold.
+People come in off Salem Street. They look. They ask for a fish by name. They only buy if you keep two adults of that fish and the water is not off. Otherwise they look and leave, and Life writes it: walked, not sold.
 
 Lunch is twelve minutes. The baker is coming, for goldfish. Have two. Keep the aisle dry. The fish bag lands. The run ticks. The gold line moves.
 
-Or: the filter packed overnight, the aisle is a dark ellipse on the boards, and they look and leave. The whisper does not cheer you. It tells you what is still unfinished.
+Or: the filter clogged overnight, the aisle is a dark ellipse on the boards, and they look and leave. The whisper does not cheer you. It tells you what is still unfinished.
 
 ### The three rooms
 
@@ -189,9 +189,9 @@ Stand still over the tank. They will come to the glass.
 
 ### The building is a site
 
-Sixteen by ten cells of heat, standing water, glass, oak, pressure. A leak is not a toast. It is a puddle on the wettest board, not a fixed spot. People will not step in it. The sale will not close. Floss dries the aisle. The filter packing is how the room turns people around at the door.
+Sixteen by ten cells of heat, standing water, glass, oak, pressure. A leak is not a toast. It is a puddle on the wettest board, not a fixed spot. People will not step in it. The sale will not close. The aisle dries. The filter packing is how the room turns people around at the door.
 
-The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. A rusty housing packs faster. Floss does not clean the glass. Life's little map goes the color of the damage.
+The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. A rusty housing clogs faster. Window wash cleans the glass. Life's little map goes the color of the damage.
 
 Outside the window the weather is doing something. Rain, fog, a hard sky, night. That air comes in. The room cools. Named fish notice. Odds change. A gale empties Salem Street. A cold snap is a heater. A heatwave is a tank you cannot cool.
 
@@ -217,9 +217,9 @@ You can type `/act` and do a thing in the street. The street heard it. Mood move
 
 A fish bag is not a deletion. They go home with someone on Salem. The baker already said it — *the last one is still in the bakery window* — and now it is true. If they live, she asks for another. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left.
 
-Rain at the door is weather. The harbor at night is the sea. Spring tide, new moon or full, the water comes in under the boards by the door. Named fish lean with it. Floss dries the aisle. The tide will be back at the next high.
+Rain at the door is weather. The harbor at night is the sea. Spring tide, new moon or full, the water comes in under the boards by the door. Named fish lean with it. The aisle dries. The tide will be back at the next high.
 
-When a road inland is cut, the hold writes. A letter on the counter: a place, a pair, a kind. Someone walks in off that road and says the letter's words. Fill the pair. The hold is answered, and a road to the harbor can reopen. Leave it five days and the letter goes unanswered.
+When a road inland is cut, the inland town writes. A letter on the counter: a place, a pair, a kind. Someone walks in off that road and says the letter's words. Fill the pair. The town is answered, and a road to the harbor can reopen. Leave it five days and the letter goes unanswered.
 
 ### The till, the money, the counter
 
@@ -265,9 +265,9 @@ Weather cools the room. The room stresses the named fish. A stressed fish will n
 
 ## A morning
 
-You open. Year 1000, a clear spring. Eighteen fish. Three of them have names. One of them was named by the person who kept this shop before you. The baker will say you're not them. The glass already has their etch on it. The gold line says the inland hold is late — a war cut a road, and word has not arrived.
+You open. Year 1000, a clear spring. Eighteen fish. Three of them have names. One of them was named by the person who kept this shop before you. The baker will say you're not them. The glass already has their etch on it. The gold line says the inland town is late — a war cut a road, and word has not arrived.
 
-You click the water. You do not sell the last of a kind. The filter is packing; you click it before the boards go dark. Someone comes in, asks for a tetra. You have two. The aisle is dry. Paper, then the register. The run is 1.
+You click the water. You do not sell the last of a fish. The filter is clogging; you click it before the boards go dark. Someone comes in, asks for a tetra. You have two. The aisle is dry. Paper, then the register. The run is 1.
 
 Lunch. The baker is coming, for goldfish. You have two. She takes one. The run is 2. The gold line moves: *2 in a row. The till is a run.*
 
@@ -315,7 +315,7 @@ Boston is one port. Four more engines keep the rest of the continent. The choir 
 - **The realm.** Elevation, rain, heat, drainage, volcanism, savagery. Biomes, rivers, civilizations with a tongue and an ethic, sites, gods, wars, a thousand years of figures. @ on the map is the shop.
 - **The ground.** Soil, stone, three caverns, magma. Veins that dry when a mine is sacked. If the boards run warm, that is not the weather.
 - **The living water.** Populations inland, not in your glass. A failed run makes a kind scarce on the counter. People still ask. They just do not buy.
-- **The roads.** Every site keeps a nearest road. A war cuts the ones that touch the harbor. Holds come late. Someone walks in who started in a town you have only read. The gold line: *The inland hold is late.*
+- **The roads.** Every site keeps a nearest road. A war cuts the ones that touch the harbor. Towns come late. Someone walks in who started in a town you have only read. The gold line: *The inland town is late.*
 - **The tongue.** Each people has a phonology. Names in the Atlas were said that way. A traveler on Salem still speaks English, and then a word that is not.
 - **The beasts.** Unique bodies, a hunger, a year they wake. When one circles the harbor, the till feels it. The name goes in the book. The choir drops. Someone says they saw the wake.
 - **The old names.** Seven gods, a day in the twenty-eight, a fish that is holy that week. Sell it and the street is easier. The chord sweetens.
@@ -325,7 +325,7 @@ Boston is one port. Four more engines keep the rest of the continent. The choir 
 - **The hands.** Fish bags have quality. A plaque in a tongue. String the sales and someone will say the word.
 
 <p align="center">
-  <img src="docs/because.png" alt="War inland cuts a road, the hold is late, word drops, the fish bag misses. A failed run makes a kind scarce; they still ask." width="900">
+  <img src="docs/because.png" alt="War inland cuts a road, the inland town is late, word drops, the fish bag misses. A failed run makes a kind scarce; they still ask." width="900">
 </p>
 
 <p align="center">
@@ -365,7 +365,7 @@ npm start
 
 The shop inside is the same `game/` folder the tab uses. A window spends more pixels and will not put the tab to sleep. WebGL2 water, ridged caustics, Schlick glass, bloom on the hood lamps. The room is the renderer.
 
-Click the water to feed. Click the filter when it sours. Keep two of a kind if you mean to sell. Listen. The rest of the shop is waiting on that.
+Click the water to feed. Click the filter when it sours. Keep two of the same fish if you mean to sell. Listen. The rest of the shop is waiting on that.
 
 ---
 

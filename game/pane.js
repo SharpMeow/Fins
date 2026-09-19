@@ -3,7 +3,7 @@
    Rain, night, etch, a risen name, a fish holding still: they see that
    from the street. They come in because of what they saw, or they walk.
    The glass etches from the harbor. Oak rots where the puddle sat.
-   Iron rusts at the filter. Floss dries the aisle. It does not clean
+   Iron rusts at the filter. The aisle dries. It does not clean
    the glass. No second HUD. Odds, speech, the gold line, a stain. */
 (function () {
   "use strict";
@@ -287,7 +287,7 @@
     }
     if (st.rust > 0.55 && !st._rustSaid) {
       st._rustSaid = 1;
-      var uline = "The housing is rusting. The filter packs faster.";
+      var uline = "The housing is rusting. The filter clogs faster.";
       because(uline);
       gold(uline, true);
     }
@@ -395,7 +395,7 @@
       applyCells();
       if (st.etch > 0.32 && now() - lastMopSaid > 18) {
         lastMopSaid = now();
-        var line = "Floss dries the aisle. It does not clean the glass.";
+        var line = "The aisle is drier. It does not clean the glass.";
         because(line);
         gold(line, true);
         say(line, "");
@@ -665,7 +665,7 @@
         sec: "The shop floor",
         t: "The building remembers water",
         tags: "oak rot rust etch iron filter floss mop tide salt boards",
-        w: "<p>The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. A rusty housing packs faster. Floss dries the aisle. It does not clean the glass. Window wash does — vinegar and newsprint, Harbor Supply, a dollar nine. Then they can see in.</p><p><b>What to do about it:</b> mop. Unclog the filter. Wash the glass when the gold line says they can't see in. The little map in Life goes the color of the damage. That is the shop as a body, not a menu.</p>",
+        w: "<p>The glass etches from the harbor. Oak rots where the puddle sat. Iron rusts at the filter. Rotten boards hold the wet. A rusty housing packs faster. The aisle is drier. It does not clean the glass. Window wash does — vinegar and newsprint, Harbor Supply, a dollar nine. Then they can see in.</p><p><b>What to do about it:</b> mop. Unclog the filter. Wash the glass when the gold line says they can't see in. The little map in Life goes the color of the damage. That is the shop as a body, not a menu.</p>",
       });
     } catch (e) {}
   }

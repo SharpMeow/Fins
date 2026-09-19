@@ -21,7 +21,7 @@
     { id: "spot", n: "white-spot", looks: "went white", treat: { salt: 1, almond: 1 }, spread: 0.38 },
     { id: "gold", n: "gold-dust", looks: "dusted gold", treat: { salt: 1, carbon: 1 }, spread: 0.3 },
     { id: "rot", n: "fin-rot", looks: "the fins went", treat: { almond: 1, starter: 1 }, spread: 0.24 },
-    { id: "still", n: "the still", looks: "holding too still", treat: { starter: 1, cond: 1 }, spread: 0.2 },
+    { id: "still", n: "still-sickness", looks: "holding too still", treat: { starter: 1, cond: 1 }, spread: 0.2 },
     { id: "itch", n: "salt-itch", looks: "flashing on the glass", treat: { carbon: 1, almond: 1 }, spread: 0.42 },
   ];
 
@@ -507,7 +507,7 @@
         sec: "The shop floor",
         t: "The fish bag carries the water",
         tags: "ill sick syndrome white-spot bag window fry salt vector",
-        w: "<p>A fish bag is a vector. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch — each one hates a different bottle.</p><p><b>What to do about it:</b> do not bag a sick one. Salt, the leaf, carbon, the vial. Life will name the window. The choir sours until the name breaks.</p>",
+        w: "<p>A fish bag is a vector. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, still-sickness, salt-itch — each one hates a different bottle.</p><p><b>What to do about it:</b> do not bag a sick one. Salt, the leaf, carbon, the vial. Life will name the window. The choir sours until the name breaks.</p>",
       });
     } catch (e) {}
   }
