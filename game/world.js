@@ -1552,7 +1552,7 @@
               {
                 id: "map:" + i,
                 seed: (H.who && H.who[i]) >>> 0,
-                fem: ((H.who && H.who[i]) >>> 18 & 1) === 1,
+                fem: (((H.who && H.who[i]) >>> 18) & 1) === 1,
                 kit: kit,
                 stoop: st === 0 && !run && (i % 17 === 0),
               }

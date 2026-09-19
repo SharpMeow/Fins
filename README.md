@@ -227,6 +227,35 @@ If you are an agent:
 4. A toast that fires on continue without a bag is a bug. The run starts this session.
 5. Keep the name Fin's. The shopkeeper is not the sign.
 6. The source is BSL. Do not relicense it as MIT. Do not publish the art as a starter kit.
+7. Run `npm run check` before you push. Nothing else will.
+
+### What has to be true before you push
+
+Nothing builds this game. `game/` is loaded as plain `<script>` tags in the order `index.html` lists them, so whatever is in a layer is what runs. A stray bracket is not a build error, it is a black page and one line in a console nobody has open.
+
+```bash
+npm run check:install   # once: eslint, and a headless chromium
+npm run check
+```
+
+That is the same thing GitHub Actions runs on every pull request and every push to `main`.
+
+| | What it catches |
+|---|---|
+| `check:syntax` | a file that does not parse, anywhere in `game/`, `desktop/` or `tools/` |
+| `check:wiring` | a layer nothing loads, a tag pointing at a file that is not there, and a layer that changed without its `?v=` moving |
+| `check:lint` | the mistakes that are wrong rather than untidy. One rule per bug that has actually happened in here |
+| `check:boot` | the shop failing to open. It serves `game/`, starts a run in a real browser, walks past the opening cards, and fails on anything the page threw on the way |
+
+Three things worth knowing about that list.
+
+The `?v=` on each script tag is the only cache-busting there is. Change a layer, leave its number alone, and everyone still holding the old copy keeps it. That is why it is a check and not a convention.
+
+The module order in `index.html` is the only record of what is in the build. A layer that is not in that list is a file nobody runs, so the wiring check treats it as an error rather than a spare part.
+
+The lint is not a style sheet. Every rule in `eslint.config.mjs` is there because that class of mistake has shipped here, and each one carries the reason. `no-mixed-operators` is the clearest case: `overlay.width !== (w * dpr) | 0` reads as `(overlay.width !== w * dpr) | 0`, because `!==` binds tighter than `|`, and two different overlays were tearing down and rebuilding their canvas on every frame because of it.
+
+Every check was proved by planting the bug it is meant to catch and watching the build stop. A guard nobody has seen fail is a guard you do not have.
 
 ---
 

@@ -547,7 +547,6 @@
   CATALOG.open = CATALOG.modal;
   CATALOG.shut = CATALOG.lid;
   CATALOG.foot = CATALOG.wood;
-  CATALOG.whistle = CATALOG.whistle;
   CATALOG.tune = CATALOG.whistle;
 
   function playNamed(name, x) {
