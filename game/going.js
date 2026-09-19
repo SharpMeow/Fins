@@ -664,7 +664,7 @@
   function whisper() {
     var st = state();
     var L = st.letter;
-    if (L.open && !L.filled) {
+    if (L && L.open && !L.filled) {
       return "A letter from " + L.from + ". They asked for a pair of " + L.want + ".";
     }
     if (lastDeath && now() - lastDeathAt < 18) return lastDeath;
@@ -732,7 +732,7 @@
           if (el && L && L.open && !L.filled && L.from) {
             var letter = "A letter from " + L.from + ". They asked for a pair of " + L.want + ".";
             var cur = el.textContent || "";
-            if (!cur || cur === letter || /in a row|Paper\. Water|The till is a run|Don't miss|waiting on a fish bag/.test(cur)) {
+            if (!cur || cur === letter || /in a row|Paper\. Water|The till is a run|Don't miss|waiting on a (fish )?bag|inland town is late/.test(cur)) {
               if (cur !== letter) {
                 el.textContent = letter;
                 el.classList.add("on", "pop");

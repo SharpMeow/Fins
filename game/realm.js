@@ -197,6 +197,7 @@
     birthRels(w, rng);
     history(w, rng);
     w.now = yearNow();
+    w.lastSim = w.now;
     return w;
   }
 
@@ -872,11 +873,11 @@
 
 
   function mapCanvas(w) {
-    var key = "v4:" + String(w.seed) + ":" + (w.rivers && w.rivers.length) + ":" + (w.sites && w.sites.length);
+    var key = "v5:" + String(w.seed) + ":" + (w.rivers && w.rivers.length) + ":" + (w.sites && w.sites.length);
     if (w._mapKey === key && w._mapCv) return w._mapCv;
     var cv = document.createElement("canvas");
-    cv.width = 1440;
-    cv.height = 960;
+    cv.width = 960;
+    cv.height = 640;
     paintTerrain(cv, w);
     w._mapCv = cv;
     w._mapKey = key;
@@ -898,7 +899,7 @@
     tickYear();
     var html = '<div class="sec">' + esc(w.name) + ' <span>' + esc(w.age) + " · seed " + w.seed + "</span></div>";
     html += '<div class="note">Boston is one harbor. The rest was generated: elevation, rain, heat, drainage, volcanism, savagery. Civilizations found sites. Gods take seats. Wars sack towns. The gold mark is the shop.</div>';
-    html += '<div class="realm-map-wrap"><canvas class="realm-map" width="1440" height="960" aria-label="The continent. The gold mark is Boston."></canvas></div>';
+    html += '<div class="realm-map-wrap"><canvas class="realm-map" width="960" height="640" aria-label="The continent. The gold mark is Boston."></canvas></div>';
     html += '<div class="d">Watercolor land. Rivers run downhill. Gold is Boston.</div>';
     html += '<div class="sec">Civilizations <span>' + w.civs.length + "</span></div>";
     for (var i = 0; i < w.civs.length && i < 8; i++) {
