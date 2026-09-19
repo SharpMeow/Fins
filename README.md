@@ -307,12 +307,12 @@ Fin's is the other object.
 Boston is one port. Four more engines keep the rest of the continent. The choir is where they land.
 
 <p align="center">
-  <img src="docs/continent.jpg" alt="The Glass and Ash. Seed 256. @ is the shop." width="900">
+  <img src="docs/continent.jpg" alt="The Glass and Ash. Seed 256. Gold is Boston." width="900">
 </p>
 
-<p align="center"><sub>Seed 256. The Glass and Ash, Age of the Long Freeze. Gold ring is the harbor. The rest of the map does not pause when you hang the sign.</sub></p>
+<p align="center"><sub>Seed 256. The Glass and Ash, Age of the Long Freeze. Gold is Boston. Rivers run downhill. The rest of the map does not pause when you hang the sign.</sub></p>
 
-- **The realm.** Elevation, rain, heat, drainage, volcanism, savagery. Biomes, rivers, civilizations with a tongue and an ethic, sites, gods, wars, a thousand years of figures. @ on the map is the shop.
+- **The realm.** Elevation, rain, heat, drainage, volcanism, savagery. Biomes, rivers, civilizations with a tongue and an ethic, sites, gods, wars, a thousand years of figures. Gold on the map is the shop.
 - **The ground.** Soil, stone, three caverns, magma. Veins that dry when a mine is sacked. If the boards run warm, that is not the weather.
 - **The living water.** Populations inland, not in your glass. A failed run makes a kind scarce on the counter. People still ask. They just do not buy.
 - **The roads.** Every site keeps a nearest road. A war cuts the ones that touch the harbor. Towns come late. Someone walks in who started in a town you have only read. The gold line: *The inland town is late.*
