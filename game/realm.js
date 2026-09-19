@@ -620,22 +620,13 @@
   }
 
   function landColor(w, x, y) {
-    var ux = x + (fbm(x * 0.9, y * 0.9, 5) - 0.5) * 2.1;
-    var uy = y + (fbm(x * 0.9 + 11, y * 0.9, 6) - 0.5) * 2.1;
-    var x0 = ux | 0;
-    var y0 = uy | 0;
-    var x1 = x0 + 1 < GW ? x0 + 1 : GW - 1;
-    var y1 = y0 + 1 < GH ? y0 + 1 : GH - 1;
-    if (x0 < 0) x0 = 0;
-    if (y0 < 0) y0 = 0;
-    var tx = smooth(ux - x0);
-    var ty = smooth(uy - y0);
-    var c00 = rgbOf(biomeAt(w, x0, y0));
-    var c10 = rgbOf(biomeAt(w, x1, y0));
-    var c01 = rgbOf(biomeAt(w, x0, y1));
-    var c11 = rgbOf(biomeAt(w, x1, y1));
-    var col = mixRgb(mixRgb(c00, c10, tx), mixRgb(c01, c11, tx), ty);
-    return mixRgb(col, PAPER, 0.18);
+    var ux = x + (fbm(x * 0.85, y * 0.85, 5) - 0.5) * 1.7;
+    var uy = y + (fbm(x * 0.85 + 11, y * 0.85, 6) - 0.5) * 1.7;
+    var col = rgbOf(biomeAt(w, Math.round(ux), Math.round(uy)));
+    var speckle = hash2(x * 18.3, y * 18.3, 9);
+    if (speckle > 0.74) col = mixRgb(col, INK, 0.08);
+    else if (speckle < 0.08) col = mixRgb(col, PAPER, 0.14);
+    return mixRgb(col, PAPER, 0.1);
   }
 
   function civWash(w, x, y) {
@@ -764,19 +755,18 @@
       for (var px = 0; px < W; px++) {
         var gx = px / sx;
         var e = sampleElev(w, gx, gy);
-        var grain = 0.93 + hash2(px * 0.37, py * 0.37, 1) * 0.12;
+        var grain = 0.94 + hash2(px, py, 1) * 0.1;
         var col;
-        if (e < 0.255) {
-          var depth = smooth((0.255 - e) / 0.2);
+        if (e < 0.278) {
+          var depth = smooth((0.278 - e) / 0.12);
           col = mixRgb(WATER_SHAL, WATER_DEEP, depth);
-          col = mixRgb(col, PAPER, 0.22);
-        } else if (e < 0.355) {
-          var t = smooth((e - 0.255) / 0.1);
+          col = mixRgb(col, PAPER, 0.16);
+        } else if (e < 0.302) {
+          var t = smooth((e - 0.278) / 0.024);
           var land = landColor(w, gx, gy);
-          var wet = mixRgb(WATER_SHAL, [210, 200, 168], 0.45);
+          var wet = mixRgb(WATER_SHAL, [214, 202, 168], 0.4);
           col = mixRgb(wet, land, t);
-          var rim = Math.sin(t * 3.14);
-          col = mixRgb(col, INK, rim * 0.08 * (0.5 + fbm(gx * 2.2, gy * 2.2, 2)));
+          col = mixRgb(col, INK, (1 - Math.abs(t - 0.5) * 2) * 0.1);
         } else {
           col = landColor(w, gx, gy);
           var wash = civWash(w, gx, gy);
@@ -880,238 +870,13 @@
     }
   }
 
-  function clamp01(v) {
-    return v < 0 ? 0 : v > 1 ? 1 : v;
-  }
-
-  function smooth(t) {
-    t = clamp01(t);
-    return t * t * (3 - 2 * t);
-  }
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-
-  function hash2(x, y, s) {
-    var n = Math.sin(x * 127.1 + y * 311.7 + (s || 0) * 0.013) * 43758.5453;
-    return n - Math.floor(n);
-  }
-
-  function fbm(x, y, s) {
-    return hash2(x, y, s) * 0.5 + hash2(x * 2.13, y * 2.13, s + 1) * 0.27 + hash2(x * 4.27, y * 4.27, s + 2) * 0.14;
-  }
-
-  function sampleGrid(arr, x, y) {
-    if (!arr || !arr.length) return 0.4;
-    x = x < 0 ? 0 : x > GW - 1.001 ? GW - 1.001 : x;
-    y = y < 0 ? 0 : y > GH - 1.001 ? GH - 1.001 : y;
-    var x0 = x | 0;
-    var y0 = y | 0;
-    var x1 = x0 + 1 < GW ? x0 + 1 : GW - 1;
-    var y1 = y0 + 1 < GH ? y0 + 1 : GH - 1;
-    var tx = smooth(x - x0);
-    var ty = smooth(y - y0);
-    var a = arr[idx(x0, y0)] || 0;
-    var b = arr[idx(x1, y0)] || 0;
-    var c = arr[idx(x0, y1)] || 0;
-    var d = arr[idx(x1, y1)] || 0;
-    return a + (b - a) * tx + (c - a) * ty + (a - b - c + d) * tx * ty;
-  }
-
-  function harborBias(x, y) {
-    var dx = x - HARBOR.x;
-    var dy = y - HARBOR.y;
-    var n = fbm(x * 0.85, y * 0.85, 91) - 0.5;
-    var n2 = fbm(x * 1.6, y * 1.6, 44) - 0.5;
-    var sea = Math.max(0, dx - 0.35 + n * 0.9) * 0.085;
-    var east = dx - 1.35 + n * 0.55;
-    var bay = Math.exp(-(east * east * 0.42 + (dy + n2 * 0.55) * (dy + n2 * 0.55) * 0.95) / 6.4) * 0.2;
-    if (dx < 0.15) bay *= 0.22;
-    var spit = Math.exp(-(dx * dx * (2.05 + n * 0.4) + dy * dy * (0.62 - n * 0.15)) / 1.55) * 0.15;
-    var charles = 0;
-    if (dx < 1.35) {
-      var ch = Math.abs(dy + 0.28 + n2 * 0.45);
-      charles = Math.exp(-ch * ch * 5.4) * 0.085 * (1 - Math.max(0, dx) * 0.28);
-    }
-    return spit - sea - bay - charles;
-  }
-
-  function sampleElev(w, x, y) {
-    var e = sampleGrid(w.elev, x, y);
-    e += harborBias(x, y);
-    e += (fbm(x * 0.55, y * 0.55, w.seed) - 0.5) * 0.055;
-    return e;
-  }
-
-  function biomeAt(w, x, y) {
-    var x0 = x | 0;
-    var y0 = y | 0;
-    if (x0 < 0 || y0 < 0 || x0 >= GW || y0 >= GH) return "ocean";
-    return w.biome[idx(x0, y0)] || "ocean";
-  }
-
-  function rgbOf(id) {
-    return BIOME_RGB[id] || BIOME_RGB.plain;
-  }
-
-  function mixRgb(a, b, t) {
-    t = clamp01(t);
-    return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
-  }
-
-  function landColor(w, x, y) {
-    var x0 = x | 0;
-    var y0 = y | 0;
-    var x1 = x0 + 1 < GW ? x0 + 1 : GW - 1;
-    var y1 = y0 + 1 < GH ? y0 + 1 : GH - 1;
-    var tx = smooth(x - x0);
-    var ty = smooth(y - y0);
-    var c00 = rgbOf(biomeAt(w, x0, y0));
-    var c10 = rgbOf(biomeAt(w, x1, y0));
-    var c01 = rgbOf(biomeAt(w, x0, y1));
-    var c11 = rgbOf(biomeAt(w, x1, y1));
-    return mixRgb(mixRgb(c00, c10, tx), mixRgb(c01, c11, tx), ty);
-  }
-
-  function chaikin(pts, rounds) {
-    var p = pts;
-    for (var r = 0; r < rounds; r++) {
-      if (p.length < 2) break;
-      var n = [p[0]];
-      for (var i = 0; i < p.length - 1; i++) {
-        var a = p[i];
-        var b = p[i + 1];
-        n.push([a[0] * 0.75 + b[0] * 0.25, a[1] * 0.75 + b[1] * 0.25]);
-        n.push([a[0] * 0.25 + b[0] * 0.75, a[1] * 0.25 + b[1] * 0.75]);
-      }
-      n.push(p[p.length - 1]);
-      p = n;
-    }
-    return p;
-  }
-
-  function riverPts(path, seed) {
-    if (!path || path.length < 2) return [];
-    var pts = [];
-    var last = null;
-    for (var i = 0; i < path.length; i++) {
-      var x = path[i][0] + 0.5;
-      var y = path[i][1] + 0.5;
-      if (last && last[0] === x && last[1] === y) continue;
-      pts.push([x, y]);
-      last = pts[pts.length - 1];
-    }
-    if (pts.length < 2) return pts;
-    var sm = chaikin(pts, 3);
-    for (var k = 1; k < sm.length - 1; k++) {
-      var dx = sm[k + 1][0] - sm[k - 1][0];
-      var dy = sm[k + 1][1] - sm[k - 1][1];
-      var len = Math.sqrt(dx * dx + dy * dy) || 1;
-      var mag = (hash2(sm[k][0], sm[k][1], seed) - 0.5) * 0.42;
-      sm[k][0] += (-dy / len) * mag;
-      sm[k][1] += (dx / len) * mag;
-    }
-    return chaikin(sm, 2);
-  }
-
-  function paintTerrain(cv, w) {
-    var W = cv.width;
-    var H = cv.height;
-    var ctx = cv.getContext("2d");
-    var img = ctx.createImageData(W, H);
-    var data = img.data;
-    var oceanDeep = [10, 28, 48];
-    var oceanShal = [42, 92, 118];
-    var foam = [210, 224, 228];
-    var sx = W / GW;
-    var sy = H / GH;
-    var i = 0;
-    for (var py = 0; py < H; py++) {
-      var gy = py / sy;
-      for (var px = 0; px < W; px++) {
-        var gx = px / sx;
-        var e = sampleElev(w, gx, gy);
-        var eR = sampleElev(w, gx + 0.55, gy);
-        var eD = sampleElev(w, gx, gy + 0.55);
-        var shade = 1 + (e - eR) * 1.35 + (e - eD) * 0.85;
-        shade = shade < 0.62 ? 0.62 : shade > 1.28 ? 1.28 : shade;
-        var col;
-        if (e < 0.265) {
-          var depth = smooth((0.265 - e) / 0.22);
-          col = mixRgb(oceanShal, oceanDeep, depth);
-        } else if (e < 0.34) {
-          var t = smooth((e - 0.265) / 0.075);
-          var land = landColor(w, gx, gy);
-          var beach = mixRgb(oceanShal, rgbOf("coast"), 0.55);
-          col = mixRgb(mixRgb(oceanShal, foam, 0.25), mixRgb(beach, land, t), t);
-        } else {
-          col = landColor(w, gx, gy);
-          if (e > 0.72) col = mixRgb(col, rgbOf("mount"), smooth((e - 0.72) / 0.2));
-        }
-        data[i++] = Math.min(255, col[0] * shade);
-        data[i++] = Math.min(255, col[1] * shade);
-        data[i++] = Math.min(255, col[2] * shade);
-        data[i++] = 255;
-      }
-    }
-    ctx.putImageData(img, 0, 0);
-
-    ctx.save();
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    var rivers = w.rivers || [];
-    for (var r = 0; r < rivers.length; r++) {
-      var rp = riverPts(rivers[r].path, (w.seed || 0) + r * 17);
-      if (rp.length < 2) continue;
-      ctx.beginPath();
-      ctx.moveTo(rp[0][0] * sx, rp[0][1] * sy);
-      for (var p = 1; p < rp.length; p++) ctx.lineTo(rp[p][0] * sx, rp[p][1] * sy);
-      ctx.strokeStyle = "rgba(18, 48, 42, 0.32)";
-      ctx.lineWidth = 4.2;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(rp[0][0] * sx, rp[0][1] * sy);
-      for (var p2 = 1; p2 < rp.length; p2++) ctx.lineTo(rp[p2][0] * sx, rp[p2][1] * sy);
-      var g = ctx.createLinearGradient(rp[0][0] * sx, rp[0][1] * sy, rp[rp.length - 1][0] * sx, rp[rp.length - 1][1] * sy);
-      g.addColorStop(0, "rgba(78, 140, 158, 0.5)");
-      g.addColorStop(1, "rgba(52, 118, 158, 0.98)");
-      ctx.strokeStyle = g;
-      ctx.lineWidth = 2.05;
-      ctx.stroke();
-    }
-    ctx.restore();
-
-    var sites = w.sites || [];
-    for (var s = 0; s < sites.length; s++) {
-      var site = sites[s];
-      if (!site) continue;
-      var ax = (site.x + 0.5) * sx;
-      var ay = (site.y + 0.5) * sy;
-      var here = site.x === HARBOR.x && site.y === HARBOR.y;
-      ctx.beginPath();
-      ctx.arc(ax, ay, here ? 4.2 : site.kind === "city" ? 2.6 : 1.8, 0, 7);
-      ctx.fillStyle = here ? "#f4c453" : site.ruin ? "rgba(160,140,120,.75)" : "rgba(248,244,230,.82)";
-      ctx.fill();
-      if (here) {
-        ctx.strokeStyle = "rgba(244,196,83,.95)";
-        ctx.lineWidth = 1.4;
-        ctx.stroke();
-        ctx.font = "700 13px Nunito, sans-serif";
-        ctx.fillStyle = "rgba(8,14,22,.55)";
-        ctx.fillText("Boston", ax + 8, ay - 7);
-        ctx.fillStyle = "#f4c453";
-        ctx.fillText("Boston", ax + 7, ay - 8);
-      }
-    }
-  }
 
   function mapCanvas(w) {
-    var key = "v3:" + String(w.seed) + ":" + (w.rivers && w.rivers.length) + ":" + (w.sites && w.sites.length);
+    var key = "v4:" + String(w.seed) + ":" + (w.rivers && w.rivers.length) + ":" + (w.sites && w.sites.length);
     if (w._mapKey === key && w._mapCv) return w._mapCv;
     var cv = document.createElement("canvas");
-    cv.width = 960;
-    cv.height = 640;
+    cv.width = 1440;
+    cv.height = 960;
     paintTerrain(cv, w);
     w._mapCv = cv;
     w._mapKey = key;
@@ -1133,7 +898,7 @@
     tickYear();
     var html = '<div class="sec">' + esc(w.name) + ' <span>' + esc(w.age) + " · seed " + w.seed + "</span></div>";
     html += '<div class="note">Boston is one harbor. The rest was generated: elevation, rain, heat, drainage, volcanism, savagery. Civilizations found sites. Gods take seats. Wars sack towns. The gold mark is the shop.</div>';
-    html += '<div class="realm-map-wrap"><canvas class="realm-map" width="960" height="640" aria-label="The continent. The gold mark is Boston."></canvas></div>';
+    html += '<div class="realm-map-wrap"><canvas class="realm-map" width="1440" height="960" aria-label="The continent. The gold mark is Boston."></canvas></div>';
     html += '<div class="d">Watercolor land. Rivers run downhill. Gold is Boston.</div>';
     html += '<div class="sec">Civilizations <span>' + w.civs.length + "</span></div>";
     for (var i = 0; i < w.civs.length && i < 8; i++) {
