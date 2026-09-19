@@ -216,6 +216,54 @@
       }
     } catch (eEv) {}
     try {
+      if (window.wed && typeof wed.whisper === "function") {
+        var wdw2 = wed.whisper();
+        if (wdw2) return wdw2;
+      }
+    } catch (eWd2) {}
+    try {
+      if (window.plot && typeof plot.whisper === "function") {
+        var plw = plot.whisper();
+        if (plw) return plw;
+      }
+    } catch (ePl) {}
+    try {
+      if (window.hush && typeof hush.whisper === "function") {
+        var hsw = hush.whisper();
+        if (hsw) return hsw;
+      }
+    } catch (eHs) {}
+    try {
+      if (window.claim && typeof claim.whisper === "function") {
+        var clw = claim.whisper();
+        if (clw) return clw;
+      }
+    } catch (eCl) {}
+    try {
+      if (window.feast && typeof feast.whisper === "function") {
+        var few = feast.whisper();
+        if (few) return few;
+      }
+    } catch (eFe) {}
+    try {
+      if (window.heir && typeof heir.whisper === "function") {
+        var hrw = heir.whisper();
+        if (hrw) return hrw;
+      }
+    } catch (eHr) {}
+    try {
+      if (window.gyve && typeof gyve.whisper === "function") {
+        var gyw = gyve.whisper();
+        if (gyw) return gyw;
+      }
+    } catch (eGy) {}
+    try {
+      if (window.fray && typeof fray.whisper === "function") {
+        var frw = fray.whisper();
+        if (frw) return frw;
+      }
+    } catch (eFr) {}
+    try {
       if (window.going && typeof going.whisper === "function") {
         var gw = going.whisper();
         if (gw) return gw;
@@ -341,6 +389,36 @@
         if (stw2) return stw2;
       }
     } catch (eSe) {}
+    try {
+      if (window.house && typeof house.whisper === "function") {
+        var houw = house.whisper();
+        if (houw) return houw;
+      }
+    } catch (eHu) {}
+    try {
+      if (window.bent && typeof bent.whisper === "function") {
+        var bnw = bent.whisper();
+        if (bnw) return bnw;
+      }
+    } catch (eBn) {}
+    try {
+      if (window.bond && typeof bond.whisper === "function") {
+        var bdw = bond.whisper();
+        if (bdw) return bdw;
+      }
+    } catch (eBd) {}
+    try {
+      if (window.ward && typeof ward.whisper === "function") {
+        var waw = ward.whisper();
+        if (waw) return waw;
+      }
+    } catch (eWa2) {}
+    try {
+      if (window.fief && typeof fief.whisper === "function") {
+        var fiw = fief.whisper();
+        if (fiw) return fiw;
+      }
+    } catch (eFi) {}
     try {
       if (window.sill && typeof sill.whisper === "function") {
         var sw = sill.whisper();
