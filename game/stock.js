@@ -61,7 +61,7 @@
       pack: 2,
       cost: 18,
       unit: "tin",
-      blurb: "White-spot hates it. The street notices if you treated after a bag went out sick.",
+      blurb: "White-spot hates it. The street notices if you treated after a fish bag went out sick.",
       lot: "evaporated in Revere, lot",
     },
     {
@@ -100,7 +100,7 @@
       name: "Paper fish bags",
       pack: 25,
       cost: 14,
-      unit: "bag",
+      unit: "fish bag",
       blurb: "What a fish goes home in. People notice when you still use a grocery sack.",
       lot: "twisted necks, lot",
     },
@@ -349,7 +349,7 @@
       say("Wafers on the sand. The ones who live down there found them.");
     } else if (id === "bags") {
       c.bags = (c.bags || 0) + 8;
-      say("A stack of bags under the counter.");
+      say("A stack of fish bags under the counter.");
     } else if (id === "glass") {
       c.glass = Date.now() + 18 * 60 * 1000;
       say("The storefront is a mirror. Give it an hour of street dust.");
@@ -436,7 +436,7 @@
     var c = counter();
     var diary = [];
     if (c.wet) diary.push("conditioner waiting on the next change");
-    if (c.bags) diary.push(c.bags + " bags under the till");
+    if (c.bags) diary.push(c.bags + " fish bags under the till");
     if (c.glass && Date.now() < c.glass) diary.push("the storefront still catching the light");
     if (c.used.almond) diary.push("tannin in the column");
     if (c.used.starter) diary.push("seeded water");

@@ -100,7 +100,7 @@
     try {
       if (window.pinch && pinch.of) {
         var p = pinch.of();
-        if (p && p.who) return { secret: first(p.who) + " took one. No bag.", want: p.sp || "goldfish" };
+        if (p && p.who) return { secret: first(p.who) + " took one. No fish bag.", want: p.sp || "goldfish" };
       }
     } catch (e) {}
     try {

@@ -1,5 +1,5 @@
 /* going.js — the shop is porous.
-   A bag is not a deletion. They live on the block. The baker's window
+   A fish bag is not a deletion. They live on the block. The baker's window
    is a tank. The harbor comes in under the boards at night. The inland
    hold writes; filling a pair is how you answer, and a road can reopen.
    No second HUD. Odds, speech, the gold line, a puddle that is the sea. */
@@ -695,7 +695,7 @@
         sec: "The shop floor",
         t: "The block keeps them",
         tags: "sold bag street window baker fry die going home block",
-        w: "<p>A bag is not a deletion. They go home with someone on Salem. The baker's window is a tank. If they live, she will say so. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left — a voice in a window.</p><p><b>What to do about it:</b> do not sell a sick fish to the baker. Read Life. The gold line will name the window.</p>",
+        w: "<p>A fish bag is not a deletion. They go home with someone on Salem. The baker's window is a tank. If they live, she will say so. If they breed, she brings the fry. If they die on the block, the name goes in the book from the street, not the glass. The choir can still hear a named one that left — a voice in a window.</p><p><b>What to do about it:</b> do not sell a sick fish to the baker. Read Life. The gold line will name the window.</p>",
       });
       wiki.push({
         id: "k_tide",
@@ -732,7 +732,7 @@
           if (el && L && L.open && !L.filled && L.from) {
             var letter = "A letter from " + L.from + ". They asked for a pair of " + L.want + ".";
             var cur = el.textContent || "";
-            if (!cur || cur === letter || /in a row|Paper\. Water|The till is a run|Don't miss|waiting on a bag/.test(cur)) {
+            if (!cur || cur === letter || /in a row|Paper\. Water|The till is a run|Don't miss|waiting on a fish bag/.test(cur)) {
               if (cur !== letter) {
                 el.textContent = letter;
                 el.classList.add("on", "pop");

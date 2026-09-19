@@ -1,7 +1,7 @@
 /* kin.js — the street is a civ.
    Walk-ins are not kinds.
    They are people: a name, a job, kin, a god, a preference, a memory of
-   a bag. A miss walks to the cousin. A dead fish in a window is a grudge.
+   a fish bag. A miss walks to the cousin. A dead fish in a window is a grudge.
    No second HUD. Odds, speech, the gold line, a family that notices. */
 (function () {
   "use strict";
@@ -493,7 +493,7 @@
     fig.bags = (fig.bags || 0) + 1;
     fig.visits = (fig.visits || 0) + 1;
     fig.known = true;
-    fig.last = why || "took a bag";
+    fig.last = why || "took a fish bag";
     fig.nextD = shopDay() + 1 + ((hash32(fig.id + shopDay()) % 3) | 0);
     if (fig.id === "mae") {
       try {
@@ -603,7 +603,7 @@
             because(fig.n + " walked. A unique fish is a display.");
           } else {
             gift(fig, 0.08, "took the " + (st.want || fig.want || "fish"));
-            because(fig.n + " took a bag. " + (k && !k.dead ? k.n.split(" ")[0] + " will hear." : "The block will hear."));
+            because(fig.n + " took a fish bag. " + (k && !k.dead ? k.n.split(" ")[0] + " will hear." : "The block will hear."));
           }
         }
 
@@ -734,7 +734,7 @@
         sec: "You and your people",
         t: "The street is a civ",
         tags: "kin family regular cousin grudge name baker mae people",
-        w: "<p>Walk-ins are not kinds. They are people. A name, a job, kin, a god, a preference, a memory of a bag. Mae has a child on this block. The previous keeper left cousins. A miss walks to the family. A dead fish in a window is a grudge. A collector wants a named line, not a SKU.</p><p><b>What to do about it:</b> read Life. The names repeat. Keep the pair the cousin asked for. Do not sell a sick one to a family that talks.</p>",
+        w: "<p>Walk-ins are not kinds. They are people. A name, a job, kin, a god, a preference, a memory of a fish bag. Mae has a child on this block. The previous keeper left cousins. A miss walks to the family. A dead fish in a window is a grudge. A collector wants a named line, not a SKU.</p><p><b>What to do about it:</b> read Life. The names repeat. Keep the pair the cousin asked for. Do not sell a sick one to a family that talks.</p>",
       });
     } catch (e) {}
   }

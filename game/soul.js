@@ -23,7 +23,7 @@
   ];
   var HATES = [
     "the wet boards",
-    "a sick bag",
+    "a sick fish bag",
     "something risen",
     "a sloppy knot",
     "an empty plate",
@@ -154,7 +154,7 @@
       if (/died|dead|plate/.test(rec.s)) kind = "death";
       else if (/took |stole|pinch/.test(rec.s)) kind = "pinch";
       else if (/white-spot|gold-dust|fin-rot|the still|salt-itch/.test(rec.s)) kind = "ill";
-      else if (/bag|took a bag|made it right/.test(rec.s)) kind = "bag";
+      else if (/bag|took a fish bag|made it right/.test(rec.s)) kind = "bag";
       var all = folk();
       for (var i = 0; i < all.length; i++) {
         if (!all[i] || all[i].dead) continue;
@@ -221,7 +221,7 @@
             try {
               if (window.kin && kin.hurt) kin.hurt(fig.n, 0.03, "hates the wet");
             } catch (eH) {}
-          } else if (so.hate === "a sick bag" && illn) {
+          } else if (so.hate === "a sick fish bag" && illn) {
             line = "That tank is off. I can see it.";
             rec.phase = "leave";
             st.phase = "leave";
@@ -249,7 +249,7 @@
               }
             } catch (eM) {}
           } else if (so.like === "the key in the window" && key) {
-            line = "That's " + key + ". I came for that, not a bag.";
+            line = "That's " + key + ". I came for that, not a fish bag.";
             st.until = Math.max(st.until || 0, now() + 5);
           } else if (so.like === "named lines" && rec.kind === "collector") {
             line = rec.line;
@@ -272,7 +272,7 @@
         }
         if (rec.phase === "pay" && st && !st._soulPay && fig) {
           st._soulPay = 1;
-          file(fig, "bag", "took a bag");
+          file(fig, "bag", "took a fish bag");
           if (so.like === "a dry aisle" && aisleWet()) {
             rec.phase = "leave";
             st.phase = "leave";

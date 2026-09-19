@@ -1,7 +1,7 @@
 /* pinch.js — theft and justice.
    Someone took it.
    A kid on a wet aisle. A lunch when you are in the tank. A named
-   one gone, no sale, no bag. The family hears. They come to make it
+   one gone, no sale, no fish bag. The family hears. They come to make it
    right, or they never bag here again. No second HUD. Odds, speech,
    the choir, a window that was not a sale. */
 (function () {
@@ -247,8 +247,8 @@
     fig.last = "took " + call;
     fig.known = true;
     hurtKin(who, 0.12, "took " + call);
-    because(who + " took " + call + ". No bag. No sale.");
-    gold(who.split(" ")[0] + " took " + call + ". No bag.", true);
+    because(who + " took " + call + ". No fish bag. No sale.");
+    gold(who.split(" ")[0] + " took " + call + ". No fish bag.", true);
     egg("pinch", state().last);
     rec.line = fig.kind === "kid" ? "I didn't." : "I was just looking.";
     rec.phase = "leave";
@@ -330,7 +330,7 @@
             rec.want = open.sp;
             st._pinchPay = 1;
           } else if (rec.kind === "collector" || rec.kind === "neighbor") {
-            rec.line = call + " walked out without a bag. I'm looking.";
+            rec.line = call + " walked out without a fish bag. I'm looking.";
             if (Math.random() < 0.4) {
               rec.phase = "leave";
               st.phase = "leave";
@@ -371,7 +371,7 @@
       try {
         if (state().open) {
           w.sour = Math.min(1, (w.sour || 0) + 0.16);
-          if (!w.line) w.line = (state().open.nick || "One") + " walked out without a bag.";
+          if (!w.line) w.line = (state().open.nick || "One") + " walked out without a fish bag.";
         }
       } catch (e) {}
       return w;
@@ -390,7 +390,7 @@
         (st.open.nick || "A " + st.open.sp) +
         " walked out with " +
         st.open.who.split(" ")[0] +
-        ". No bag. Day " +
+        ". No fish bag. Day " +
         (shopDay() - st.open.day) +
         " of it."
       );
@@ -412,7 +412,7 @@
         sec: "The shop floor",
         t: "Someone took it",
         tags: "theft steal pinch justice aisle kid bag missing",
-        w: "<p>Someone took it. A kid on a wet aisle. A lunch when you are in the tank. A named one gone, no sale, no bag. It is in their window. The family hears. They come to make it right — a pair of that kind, paid — or they never bag here again. Three days and the story goes cold, and the choir keeps it.</p><p><b>What to do about it:</b> stay on the aisle when the boards are wet. Keep a pair of what walked. Life names who took it. The gold line does not cheer you.</p>",
+        w: "<p>Someone took it. A kid on a wet aisle. A lunch when you are in the tank. A named one gone, no sale, no fish bag. It is in their window. The family hears. They come to make it right — a pair of that kind, paid — or they never bag here again. Three days and the story goes cold, and the choir keeps it.</p><p><b>What to do about it:</b> stay on the aisle when the boards are wet. Keep a pair of what walked. Life names who took it. The gold line does not cheer you.</p>",
       });
     } catch (e) {}
   }

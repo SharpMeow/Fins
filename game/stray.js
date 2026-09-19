@@ -1,7 +1,7 @@
 /* stray.js — Nedda left a cat.
    Aquarium shops have a till-cat. Fin's has the one the previous keeper
    left. It sits in the window. Regulars ask. It takes the flashing off
-   the glass. Days without a bag and it leaves. Mae will not bag if it
+   the glass. Days without a fish bag and it leaves. Mae will not bag if it
    is gone. No second HUD. Odds, speech, the choir, a shape on the sill. */
 (function () {
   "use strict";
@@ -395,7 +395,7 @@
   function line() {
     var st = state();
     if (!st.alive) return (st.n || "The cat") + " left. The till was quiet.";
-    if (st.hunger > 0.6) return st.n + " looks thin. A bag feeds the till-cat.";
+    if (st.hunger > 0.6) return st.n + " looks thin. A fish bag feeds the till-cat.";
     if (st.last) return st.last;
     return st.n + " is on the till. " + keeperFirst() + " left them.";
   }
@@ -413,7 +413,7 @@
         sec: "The shop floor",
         t: "The till-cat",
         tags: "cat stray pet till moth nedda vermin hunt bag",
-        w: "<p>Aquarium shops have a till-cat. The previous keeper left one. It sits in the window. Regulars ask. It takes the flashing off the glass. Days without a bag and it leaves. Mae will not bag if it is gone.</p><p><b>What to do about it:</b> string a bag. The cat eats when the till does. Life names them. The gold line will say if they left.</p>",
+        w: "<p>Aquarium shops have a till-cat. The previous keeper left one. It sits in the window. Regulars ask. It takes the flashing off the glass. Days without a fish bag and it leaves. Mae will not bag if it is gone.</p><p><b>What to do about it:</b> string a fish bag. The cat eats when the till does. Life names them. The gold line will say if they left.</p>",
       });
     } catch (e) {}
   }

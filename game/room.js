@@ -442,14 +442,14 @@
         sec: "The shop floor",
         t: "The room",
         tags: "puddle night rain still fish aisle baker pair bag door",
-        w: "<p>The aisle is wet or it isn't. Night cools the glass. A fish that is holding still will not bag. Rain on the street comes in at the door. None of that is a meter.</p><p><b>What to do about it:</b> mop (floss on the counter). Heat if the street is cold. Keep two of a kind before lunch. The baker remembers the last bag.</p>",
+        w: "<p>The aisle is wet or it isn't. Night cools the glass. A fish that is holding still will not bag. Rain on the street comes in at the door. None of that is a meter.</p><p><b>What to do about it:</b> mop (floss on the counter). Heat if the street is cold. Keep two of a kind before lunch. The baker remembers the last fish bag.</p>",
       });
       w.push({
         id: "k_ear",
         sec: "The shop floor",
         t: "The ear",
         tags: "door bag filter rain murmur quiet packed",
-        w: "<p>A quiet shop drips. A packed one murmurs. The door has a weight. A bag is paper, then the register. The filter, when it packs, is a pump that is working too hard.</p><p><b>What to do about it:</b> listen. If you cannot hear the room, the mute is on.</p>",
+        w: "<p>A quiet shop drips. A packed one murmurs. The door has a weight. A fish bag is paper, then the register. The filter, when it packs, is a pump that is working too hard.</p><p><b>What to do about it:</b> listen. If you cannot hear the room, the mute is on.</p>",
       });
     } catch (e) {}
   }

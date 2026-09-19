@@ -312,7 +312,7 @@
           } else if (ms.why === "clog") {
             think("miss", "They looked at the water and thought twice. I would have too.");
           } else {
-            think("miss", (ms.name || "Someone") + " left without a bag.");
+            think("miss", (ms.name || "Someone") + " left without a fish bag.");
           }
         }
       }
@@ -732,7 +732,7 @@
     } catch (eL) {}
     try {
       var bags = window.__bagsThisOpen || 0;
-      add("run", bags ? bags + (bags === 1 ? " bag since the door opened." : " bags since the door opened.") : "The till is quiet.");
+      add("run", bags ? bags + (bags === 1 ? " fish bag since the door opened." : " fish bags since the door opened.") : "The till is quiet.");
     } catch (eH) {}
     try {
       if (window.weave && weave.of) {

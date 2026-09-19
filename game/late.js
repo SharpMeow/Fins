@@ -288,7 +288,7 @@
         var call = n.known && n.name ? n.name : "The baker";
         var ok = have && have.indexOf(n.want || "goldfish") >= 0 && wet < 0.36;
         if (ok && missed[0] !== "The filter packed while you were gone.") {
-          missed.push(call + " came for " + (n.want || "goldfish") + ". The bag landed. You weren't at the counter.");
+          missed.push(call + " came for " + (n.want || "goldfish") + ". The fish bag landed. You weren't at the counter.");
           n.bags = (n.bags || 0) + 1;
           n.known = true;
           n.trust = Math.min(1, (n.trust || 0.4) + 0.08);
@@ -486,7 +486,7 @@
     if (!keptFish() && fishList().length) {
       st.soldKept = true;
       var first = st.keeper.n.split(" ")[0];
-      var line = (st.nick || "The one " + first + " kept") + " went in a bag. The street will say so.";
+      var line = (st.nick || "The one " + first + " kept") + " went in a fish bag. The street will say so.";
       because(line);
       gold(line, true);
       say(line, "bad");

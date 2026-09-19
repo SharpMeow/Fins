@@ -879,7 +879,7 @@
       }
     }
     if (b.sold && b.sold.length) {
-      html += '<div class="sec">Those who left in a bag <span>' + b.sold.length + "</span></div>";
+      html += '<div class="sec">Those who left in a fish bag <span>' + b.sold.length + "</span></div>";
       for (var s = b.sold.length - 1; s >= 0 && s >= b.sold.length - 5; s--) {
         var sl = b.sold[s];
         html +=

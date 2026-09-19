@@ -280,7 +280,7 @@
       if (day && lastSales >= 0 && day.sales > lastSales) {
         var n = day.sales - lastSales;
         w.craft = clamp01(w.craft + 0.012 * n);
-        if (n && w.craft > 0.7) because("The bags are coming easier. That is craft, not luck.");
+        if (n && w.craft > 0.7) because("The fish bags are coming easier. That is craft, not luck.");
       }
       if (day) lastSales = day.sales;
       var miss = shopLife.misses ? shopLife.misses() : [];
@@ -318,7 +318,7 @@
       return p.b.of ? p.b.nick + " is of " + p.b.of + "." : p.b.nick + " has a line.";
     }
     var w = state();
-    if (w.craft > 0.65 && Math.random() < 0.3) return "The bags are coming easier.";
+    if (w.craft > 0.65 && Math.random() < 0.3) return "The fish bags are coming easier.";
     return "";
   }
 
@@ -373,7 +373,7 @@
           sec: "The chronicle",
           t: "Because",
           tags: "because cause weave rumor pedigree bloodline atlas depth",
-          w: "<p>This person hates that person because they saw a death, so they started a fight, so a bag went wrong. The shop keeps that kind of sentence.</p><p>A collector asks if that tetra is of Idel because the pedigree says so. Someone walks because there is no pair. The street says the water is off because the filter packed. A name read aloud in the back room becomes a rumor with heat, and the heat changes who comes in the door. <b>What to do about it:</b> Life, Because. Chronicle, Cause. The gold line will sometimes carry the loudest rumor.</p>",
+          w: "<p>This person hates that person because they saw a death, so they started a fight, so a fish bag went wrong. The shop keeps that kind of sentence.</p><p>A collector asks if that tetra is of Idel because the pedigree says so. Someone walks because there is no pair. The street says the water is off because the filter packed. A name read aloud in the back room becomes a rumor with heat, and the heat changes who comes in the door. <b>What to do about it:</b> Life, Because. Chronicle, Cause. The gold line will sometimes carry the loudest rumor.</p>",
         },
         {
           id: "k_blood",

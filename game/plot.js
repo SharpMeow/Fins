@@ -161,7 +161,7 @@
     ps.done = true;
     var line = "";
     if (ps.kind === "murder") {
-      line = first(ps.who) + " sent a bag to " + first(ps.target) + ".";
+      line = first(ps.who) + " sent a fish bag to " + first(ps.target) + ".";
       try {
         if (window.ill && ill.seed) ill.seed();
       } catch (e) {}
@@ -174,7 +174,7 @@
         }
       } catch (e2) {}
     } else if (ps.kind === "abduct") {
-      line = first(ps.target) + " left with " + first(ps.who) + ". Not a bag.";
+      line = first(ps.target) + " left with " + first(ps.who) + ". Not a fish bag.";
       if (targetSt) {
         targetSt.phase = "leave";
         targetSt.bought = false;
