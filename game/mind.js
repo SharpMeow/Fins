@@ -1,4 +1,4 @@
-/* mind.js — Dwarf Fortress's missing loop, for the tanks.
+/* mind.js — the tanks remember.
    Short memory, long memory, core memory that changes who they are.
    Needs. A strange mood. Artifacts with a history. Memorials. */
 (function () {
@@ -515,7 +515,7 @@
           id: "k_mem",
           sec: "The animals",
           t: "Memory",
-          tags: "memory short long core dwell thought stress dwarf",
+          tags: "memory short long core dwell thought stress",
           w: "<p>A fish keeps eight short memories and a handful of long ones. The strongest of those, if they are of a death, a birth, a year turning, a fight, or a return from the pages, can settle as core memory. Core memory changes who they are: they harden, or they soften, or they claim a corner faster.</p><p>They relive the long ones. That is not flavor. It is why a fish who watched a tankmate die is still not right a week later. <b>What to do about it:</b> read Life. What they dwell on is the list. A strange mood is a memory with nowhere to go but out.</p>",
         },
         {

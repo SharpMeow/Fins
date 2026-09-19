@@ -1,5 +1,5 @@
 /* claim.js — that one is of my house.
-   Crusader Kings pressed claims. A title that was someone's. Fin's
+   A title that was someone's. Fin's
    named fish already had a line. Someone walks in and will not pay.
    They say the one in the water is theirs by blood. Bag it as a gift
    and the house stays. Refuse and they walk, and the street hears
@@ -259,8 +259,8 @@
         id: "k_claim",
         sec: "The shop floor",
         t: "That one is of my house",
-        tags: "claim pressed title named fish house crusader counter slight",
-        w: "<p>Crusader Kings pressed claims. A title that was someone's. Fin's named fish already had a line. Someone walks in and will not pay. They say the one in the water is theirs by blood. Bag it as a gift and the house stays. Refuse and they walk, and the street hears it as a slight. Once, someone claims the counter.</p><p><b>What to do about it:</b> the named one holds still. Life names the claim. A slight is a family that will not bag.</p>",
+        tags: "claim pressed title named fish house counter slight",
+        w: "<p>The named fish already had a line. Someone walks in and will not pay. They say the one in the water is theirs by blood. Bag it as a gift and the house stays. Refuse and they walk, and the street hears it as a slight. Once, someone claims the counter.</p><p><b>What to do about it:</b> the named one holds still. Life names the claim. A slight is a family that will not bag.</p>",
       });
     } catch (e) {}
   }

@@ -1,8 +1,8 @@
 /* lord.js — a civilization has a mouth, and it walks in.
-   Civilization leaders have agendas. Fin's inland kingdom does not
-   send a diplomacy screen. A person of that civ comes to the glass
+   Fin's inland kingdom does not
+   send a screen. A person of that civ comes to the glass
    with a like, a hate, a kind they will not skip. Unique is how they
-   bag, not a unit card. No second HUD. Odds, speech, the till. */
+   bag, not a card. No second HUD. Odds, speech, the till. */
 (function () {
   "use strict";
 
@@ -265,8 +265,8 @@
         id: "k_lord",
         sec: "The chronicle",
         t: "A civilization has a mouth",
-        tags: "leader agenda civ unique civilization inland kingdom",
-        w: "<p>Civilization leaders have agendas. Fin's inland kingdom does not send a diplomacy screen. A person of that civ comes to the glass with a like, a hate, a kind they will not skip. Unique is how they bag, not a unit card.</p><p><b>What to do about it:</b> listen. A wet aisle will lose the ones who hate wet. A named line will keep the ones who came for names.</p>",
+        tags: "leader agenda civ unique inland kingdom",
+        w: "<p>Fin's inland kingdom does not send a screen. A person of that civ comes to the glass with a like, a hate, a kind they will not skip. Unique is how they bag, not a card.</p><p><b>What to do about it:</b> listen. A wet aisle will lose the ones who hate wet. A named line will keep the ones who came for names.</p>",
       });
     } catch (e) {}
   }

@@ -1,5 +1,5 @@
 /* ill.js — the bag carries the water.
-   Dwarf Fortress's syndrome, for the aisle. A named sickness. A vector.
+   A named sickness. A vector.
    You sold a slightly off tetra. Mae's window went white. Her child came
    in flashing. The fry she brought back put it in your glass. Salt, the
    leaf, carbon, the vial: each one hates a different name. No second HUD.
@@ -506,8 +506,8 @@
         id: "k_ill",
         sec: "The shop floor",
         t: "The bag carries the water",
-        tags: "ill sick syndrome white-spot bag window fry salt vector dwarf",
-        w: "<p>A bag is a vector. Dwarf Fortress lets dust walk a fortress. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch — each one hates a different bottle.</p><p><b>What to do about it:</b> do not bag a sick one. Salt, the leaf, carbon, the vial. Life will name the window. The choir sours until the name breaks.</p>",
+        tags: "ill sick syndrome white-spot bag window fry salt vector",
+        w: "<p>A bag is a vector. Fin's lets a named sickness walk a block. You sold a slightly off tetra. Mae's window went white. Her child came in flashing. The fry she brought back put it in your glass. White-spot, gold-dust, fin-rot, the still, salt-itch — each one hates a different bottle.</p><p><b>What to do about it:</b> do not bag a sick one. Salt, the leaf, carbon, the vial. Life will name the window. The choir sours until the name breaks.</p>",
       });
     } catch (e) {}
   }

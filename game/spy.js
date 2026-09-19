@@ -1,5 +1,5 @@
 /* spy.js — someone on the aisle is writing the names down.
-   Civilization spies steal a tech. Fin's spy copies the cards, the
+   Fin's spy copies the cards, the
    relic, the pair that is unique. They do not bag. A kid sees them.
    Three looks and a rival hold knows what you keep. No second HUD.
    Odds, speech, the till. */
@@ -214,8 +214,8 @@
         id: "k_spy",
         sec: "The shop floor",
         t: "Someone is writing the names down",
-        tags: "spy espionage cards rival haymarket civilization leak",
-        w: "<p>Civilization spies steal a tech. Fin's spy copies the cards, the relic, the pair that is unique. They do not bag. A kid sees them. Two looks and a rival hold knows what you keep. A theft still takes a fish. This takes the list.</p><p><b>What to do about it:</b> you cannot stop the look. You can keep a pair so the list is not a unique. Life will name them.</p>",
+        tags: "spy espionage cards rival haymarket leak",
+        w: "<p>Fin's spy copies the cards, the relic, the pair that is unique. They do not bag. A kid sees them. Two looks and a rival hold knows what you keep. A theft still takes a fish. This takes the list.</p><p><b>What to do about it:</b> you cannot stop the look. You can keep a pair so the list is not a unique. Life will name them.</p>",
       });
     } catch (e) {}
   }

@@ -1,6 +1,6 @@
 /* beast.js — forgotten things that still move.
    Unique bodies, a hunger, a year they wake. If they come to the harbor
-   the till feels it. DF's megabeasts are not a bestiary screen. */
+   the till feels it. Not a bestiary screen. */
 (function () {
   "use strict";
 
@@ -166,7 +166,7 @@
         id: "k_beast",
         sec: "The world before you",
         t: "Forgotten beasts",
-        tags: "beast megabeast harbor scare till atlas unique",
+        tags: "beast harbor scare till atlas unique",
         w: "<p>The continent still has things that were never stocked. They have a body, a material, a hunger, and a year they wake. When one circles the harbor, people on Salem do not buy. They talk. The till feels it.</p><p><b>What to do about it:</b> read Life. If the gold line says the harbor, wait. The Atlas keeps the name.</p>",
       });
     } catch (e) {}

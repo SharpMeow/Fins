@@ -1,10 +1,8 @@
 /* soul.js — people have inner lives.
-   The tanks already remember. The street did not. Dwarf Fortress does
-   not spawn a miner who likes steel. It has Urist, who saw a death,
-   hardened, and still will not sit by that dwarf. Walk-ins now keep
-   a like, a hate, a short memory, a thing they dwell on. Wet boards
-   are not a modifier. They are why this person walked. No second HUD.
-   Odds, speech, the till, a family that noticed a morning. */
+   The tanks already remember. The street did not. Walk-ins keep a like,
+   a hate, a short memory, a thing they dwell on. Wet boards are not a
+   modifier. They are why this person walked. No second HUD. Odds,
+   speech, the till, a family that noticed a morning. */
 (function () {
   "use strict";
 
@@ -345,7 +343,7 @@
         id: "k_soul",
         sec: "You and your people",
         t: "People have inner lives",
-        tags: "soul memory like hate dwell person urist dwarf kin",
+        tags: "soul memory like hate dwell person kin",
         w: "<p>The tanks already remember. The street did not. A walk-in has a like, a hate, a short memory, a morning they dwell on. Mae hates the wet, or she likes the key. A person who saw a death hardens. They will not bag from a tank that is off. They will not stand in the puddle they already named. That is not a modifier. That is why they walked.</p><p><b>What to do about it:</b> read Life. The same name comes back with the last morning in their mouth. Keep the aisle dry for the ones who said so.</p>",
       });
     } catch (e) {}

@@ -1,5 +1,5 @@
 /* pinch.js — theft and justice.
-   Dwarf Fortress does not delete a missing sock. Someone took it.
+   Someone took it.
    A kid on a wet aisle. A lunch when you are in the tank. A named
    one gone, no sale, no bag. The family hears. They come to make it
    right, or they never bag here again. No second HUD. Odds, speech,
@@ -411,8 +411,8 @@
         id: "k_pinch",
         sec: "The shop floor",
         t: "Someone took it",
-        tags: "theft steal pinch justice aisle kid bag missing dwarf",
-        w: "<p>Dwarf Fortress does not delete a missing sock. Someone took it. A kid on a wet aisle. A lunch when you are in the tank. A named one gone, no sale, no bag. It is in their window. The family hears. They come to make it right — a pair of that kind, paid — or they never bag here again. Three days and the story goes cold, and the choir keeps it.</p><p><b>What to do about it:</b> stay on the aisle when the boards are wet. Keep a pair of what walked. Life names who took it. The gold line does not cheer you.</p>",
+        tags: "theft steal pinch justice aisle kid bag missing",
+        w: "<p>Someone took it. A kid on a wet aisle. A lunch when you are in the tank. A named one gone, no sale, no bag. It is in their window. The family hears. They come to make it right — a pair of that kind, paid — or they never bag here again. Three days and the story goes cold, and the choir keeps it.</p><p><b>What to do about it:</b> stay on the aisle when the boards are wet. Keep a pair of what walked. Life names who took it. The gold line does not cheer you.</p>",
       });
     } catch (e) {}
   }

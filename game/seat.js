@@ -1,5 +1,5 @@
 /* seat.js — a governor walks in, and the tank has a mayor.
-   Civilization governors and the World Congress. Fin's inland sends
+   Fin's inland sends
    an edict: a kind, a last-of-a-pair they will not hear of. The tank
    already had minds. One named fish is the one the others follow.
    Collectors ask for that one. The others hold still when it does.
@@ -286,8 +286,8 @@
         id: "k_seat",
         sec: "The chronicle",
         t: "A governor, and a mayor in the water",
-        tags: "governor congress edict mayor tank leader civilization hall",
-        w: "<p>Civilization governors and the World Congress. Fin's inland sends an edict: a kind, a last-of-a-pair they will not hear of. The tank already had minds. One named fish is the one the others follow. Collectors ask for that one. The others hold still when it does.</p><p><b>What to do about it:</b> do not bag the mayor if you can help it. Fill the edict pair. Life will name both walks.</p>",
+        tags: "governor edict mayor tank leader hall",
+        w: "<p>Fin's inland sends an edict: a kind, a last-of-a-pair they will not hear of. The tank already had minds. One named fish is the one the others follow. Collectors ask for that one. The others hold still when it does.</p><p><b>What to do about it:</b> do not bag the mayor if you can help it. Fill the edict pair. Life will name both walks.</p>",
       });
     } catch (e) {}
   }

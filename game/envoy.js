@@ -1,5 +1,5 @@
 /* envoy.js — a city-state is a hamlet that only bags here.
-   Civilization envoys and suzerainty. Fin's small hold sends one person.
+   Fin's small hold sends one person.
    Fill the pair and they stop going to Haymarket. Miss three mornings
    and they do. No second HUD. Odds, speech, the till. */
 (function () {
@@ -264,8 +264,8 @@
         id: "k_envoy",
         sec: "The quarter",
         t: "A hamlet that only bags here",
-        tags: "envoy city-state suzerain haymarket hamlet civilization",
-        w: "<p>Civilization city-states send envoys. Fin's small hold sends one person. Fill the pair and they stop going to Haymarket. Miss three mornings and they do. Suzerainty is who still walks this block.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line will name the walk, or the loss.</p>",
+        tags: "envoy haymarket hamlet",
+        w: "<p>A small hold sends one person. Fill the pair and they stop going to Haymarket. Miss three mornings and they do. Who still bags here is who they still walk for.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line will name the walk, or the loss.</p>",
       });
     } catch (e) {}
   }

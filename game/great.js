@@ -1,8 +1,8 @@
 /* great.js — a great person is not a pool. They walk in once.
-   Civilization great merchants, prophets, admirals, engineers, artists,
-   scientists. Fin's has one of them on the aisle: they pay double, they
-   found a belief, they want a pair for a flagship, they sweeten the
-   filter, they cut a morning, they name the water. No second HUD. */
+   A merchant, a prophet, an admiral, an engineer, an artist, a scientist.
+   Fin's has one of them on the aisle: they pay double, they found a
+   belief, they want a pair for a flagship, they sweeten the filter,
+   they cut a morning, they name the water. No second HUD. */
 (function () {
   "use strict";
 
@@ -265,8 +265,8 @@
         id: "k_great",
         sec: "The chronicle",
         t: "A great person walks in once",
-        tags: "great merchant prophet admiral engineer artist scientist civilization",
-        w: "<p>Civilization great people are a pool. Fin's has one of them on the aisle. A merchant pays double. A prophet founds a belief. An admiral wants a pair for a flagship. An engineer sweeten the filter. An artist cuts a morning. A scientist names the water. They walk in once.</p><p><b>What to do about it:</b> be on the aisle. Life will name the walk. The gold line will too.</p>",
+        tags: "great merchant prophet admiral engineer artist scientist",
+        w: "<p>A great person walks in once. A merchant pays double. A prophet founds a belief. An admiral wants a pair for a flagship. An engineer sweeten the filter. An artist cuts a morning. A scientist names the water.</p><p><b>What to do about it:</b> be on the aisle. Life will name the walk. The gold line will too.</p>",
       });
     } catch (e) {}
   }

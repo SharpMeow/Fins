@@ -1,4 +1,4 @@
-/* saga.js — Dwarf Fortress-depth on systems Fin's already simulates.
+/* saga.js — the book that is still writing.
    Names every fish, writes the chronicle, surfaces thoughts, seeds the
    harbor's history. Simulation, pedigrees, grudges and U() stay in fins.js. */
 (function () {

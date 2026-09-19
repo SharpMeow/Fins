@@ -1,5 +1,5 @@
 /* pact.js — an alliance is a caravan, a denunciation is an empty kind.
-   Civilization diplomacy is a screen of modifiers. Fin's two civs
+   Fin's two civs
    sign a pact and a person walks in off that road. They denounce and
    that mouth stops bagging here. Trade is a pair that keeps moving.
    No second HUD. Odds, speech, the till. */
@@ -228,8 +228,8 @@
         id: "k_pact",
         sec: "The quarter",
         t: "A pact is a caravan",
-        tags: "alliance diplomacy trade denounce caravan civilization pact",
-        w: "<p>Civilization diplomacy is a screen of modifiers. Fin's two civs sign a pact and a person walks in off that road. They denounce and that mouth stops bagging here. Trade is a pair that keeps moving. A war inland is a denunciation you can hear.</p><p><b>What to do about it:</b> keep the hall. Fill the pair the caravan named. The gold line will say if the road soured.</p>",
+        tags: "alliance diplomacy trade denounce caravan pact",
+        w: "<p>Fin's two civs sign a pact and a person walks in off that road. They denounce and that mouth stops bagging here. Trade is a pair that keeps moving. A war inland is a denunciation you can hear.</p><p><b>What to do about it:</b> keep the hall. Fill the pair the caravan named. The gold line will say if the road soured.</p>",
       });
     } catch (e) {}
   }

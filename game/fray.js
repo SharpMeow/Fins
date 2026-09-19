@@ -1,5 +1,5 @@
 /* fray.js — stress, and a break on the aisle.
-   Crusader Kings: stress, coping, a mental break. Fin's people already
+   Fin's people already
    had a row. This is one person. They confess. They weep and bag the
    wrong fish. They isolate. They smash and the boards go wet. A
    comfort fish is what they ask for. No second HUD. Odds, speech,
@@ -255,8 +255,8 @@
         id: "k_fray",
         sec: "The shop floor",
         t: "Someone broke on the aisle",
-        tags: "stress mental break confess weep isolate smash crusader coping",
-        w: "<p>Crusader Kings: stress, coping, a mental break. Fin's people already had a row. This is one person. They confess. They weep and bag the wrong fish. They isolate. They smash and the boards go wet. A comfort fish is what they ask for.</p><p><b>What to do about it:</b> a person who is fraying is still a customer. Keep a small one. Floss if they smash. Life names the break.</p>",
+        tags: "stress mental break confess weep isolate smash coping",
+        w: "<p>Fin's people already had a row. This is one person. They confess. They weep and bag the wrong fish. They isolate. They smash and the boards go wet. A comfort fish is what they ask for.</p><p><b>What to do about it:</b> a person who is fraying is still a customer. Keep a small one. Floss if they smash. Life names the break.</p>",
       });
     } catch (e) {}
   }

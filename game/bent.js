@@ -1,5 +1,5 @@
 /* bent.js — a trait is why they walked.
-   Crusader Kings gives a person paranoid, kind, greedy, zealous.
+
    Fin's inner lives were a like and a hate. Now the like has a bent:
    they leave if the aisle is crowded, they bag the wet boards, they
    want a named line, they tell you who took it. No second HUD. Odds,
@@ -347,8 +347,8 @@
         id: "k_bent",
         sec: "You and your people",
         t: "A trait is why they walked",
-        tags: "trait personality paranoid kind greedy zealous crusader bent speech",
-        w: "<p>Crusader Kings gives a person paranoid, kind, greedy, zealous. Fin's inner lives were a like and a hate. Now the like has a bent: they leave if the aisle is crowded, they bag the wet boards, they want a named line, they tell you who took it. That is not a character sheet. That is why this person walked.</p><p><b>What to do about it:</b> listen. A greedy collector still wants a named one. A kind neighbor will stand in the puddle. Life writes the bent when they walk.</p>",
+        tags: "trait personality paranoid kind greedy zealous bent speech",
+        w: "<p>Fin's inner lives were a like and a hate. Now the like has a bent: they leave if the aisle is crowded, they bag the wet boards, they want a named line, they tell you who took it. That is not a character sheet. That is why this person walked.</p><p><b>What to do about it:</b> listen. A greedy collector still wants a named one. A kind neighbor will stand in the puddle. Life writes the bent when they walk.</p>",
       });
     } catch (e) {}
   }

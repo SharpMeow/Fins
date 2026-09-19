@@ -1,6 +1,5 @@
 /* weave.js — the edges between systems.
-   Dwarf Fortress is not fifty features. It is this caused that.
-   Pedigree, rumor, the atlas year, the till, the dead, the window. */
+   This caused that. Pedigree, rumor, the atlas year, the till, the dead, the window. */
 (function () {
   "use strict";
 
@@ -373,8 +372,8 @@
           id: "k_because",
           sec: "The chronicle",
           t: "Because",
-          tags: "because cause weave rumor pedigree bloodline atlas depth dwarf fortress",
-          w: "<p>Dwarf Fortress is not fifty menus. It is: this dwarf hates that dwarf because they saw a death, so they started a fight, so a tantrum broke a workshop. The shop now keeps the same kind of sentence.</p><p>A collector asks if that tetra is of Idel because the pedigree says so. Someone walks because there is no pair. The street says the water is off because the filter packed. A name read aloud in the back room becomes a rumor with heat, and the heat changes who comes in the door. <b>What to do about it:</b> Life, Because. Chronicle, Cause. The gold line will sometimes carry the loudest rumor.</p>",
+          tags: "because cause weave rumor pedigree bloodline atlas depth",
+          w: "<p>This person hates that person because they saw a death, so they started a fight, so a bag went wrong. The shop keeps that kind of sentence.</p><p>A collector asks if that tetra is of Idel because the pedigree says so. Someone walks because there is no pair. The street says the water is off because the filter packed. A name read aloud in the back room becomes a rumor with heat, and the heat changes who comes in the door. <b>What to do about it:</b> Life, Because. Chronicle, Cause. The gold line will sometimes carry the loudest rumor.</p>",
         },
         {
           id: "k_blood",

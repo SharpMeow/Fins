@@ -1,5 +1,5 @@
 /* gyve.js — they held me under the keel.
-   Crusader Kings: prisoners, ransom, a person who cannot speak.
+
    Fin's war already put a keel on the glass. Someone walks in with
    a mark. They were promised a fish. Bag a pair and they let a name
    walk. Miss it and that name does not come back. A guard may speak
@@ -265,8 +265,8 @@
         id: "k_gyve",
         sec: "The quarter",
         t: "They held me under the keel",
-        tags: "prisoner ransom hostage keel war crusader pair walk free",
-        w: "<p>Crusader Kings: prisoners, ransom, a person who cannot speak. Fin's war already put a keel on the glass. Someone walks in with a mark. They were promised a fish. Bag a pair and they let a name walk. Miss it and that name does not come back. A guard may speak for them.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names who is held. Life writes whether they walked.</p>",
+        tags: "prisoner ransom hostage keel war pair walk free",
+        w: "<p>Fin's war already put a keel on the glass. Someone walks in with a mark. They were promised a fish. Bag a pair and they let a name walk. Miss it and that name does not come back. A guard may speak for them.</p><p><b>What to do about it:</b> keep two of what they asked for. The gold line names who is held. Life writes whether they walked.</p>",
       });
     } catch (e) {}
   }

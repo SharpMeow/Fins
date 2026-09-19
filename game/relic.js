@@ -1,8 +1,8 @@
 /* relic.js — the artifact sits in the window.
-   A strange mood leaves an object. DF keeps it in a stockpile. Fin's
-   puts it in the glass. People come to see it. The gold line names it.
-   The previous keeper left one. Sell the fish that made it — the object
-   stays. No second HUD. Odds, speech, the choir, a glint in the pane. */
+   A strange mood leaves an object. Fin's puts it in the glass. People
+   come to see it. The gold line names it. The previous keeper left one.
+   Sell the fish that made it — the object stays. No second HUD. Odds,
+   speech, the choir, a glint in the pane. */
 (function () {
   "use strict";
 
@@ -342,8 +342,8 @@
         id: "k_relic",
         sec: "The chronicle",
         t: "The artifact is in the window",
-        tags: "artifact relic mood window brass engraving collector dwarf",
-        w: "<p>A strange mood leaves an object. Other games put it in a stockpile. Fin's puts it in the glass. The previous keeper left a key. A named fish leaves a Wake, a Filigree, a Salt-Mark. Collectors come to see it, not to buy a SKU. The choir sweetens while it sits. The gold line names it.</p><p><b>What to do about it:</b> leave the mood. Watch the window. A collector who came for the object will take the line that made it. Do not bag the fish in the middle of the work.</p>",
+        tags: "artifact relic mood window brass engraving collector",
+        w: "<p>A strange mood leaves an object. Fin's puts it in the glass. The previous keeper left a key. A named fish leaves a Wake, a Filigree, a Salt-Mark. Collectors come to see it, not to buy a SKU. The choir sweetens while it sits. The gold line names it.</p><p><b>What to do about it:</b> leave the mood. Watch the window. A collector who came for the object will take the line that made it. Do not bag the fish in the middle of the work.</p>",
       });
     } catch (e) {}
   }

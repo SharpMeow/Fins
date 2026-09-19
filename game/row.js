@@ -1,7 +1,5 @@
 /* row.js — a fight on the aisle.
-   Dwarf Fortress taverns do not queue. Two dwarves, a grudge, a mug,
-   a workshop in pieces. Fin's aisle is the tavern. A thief and a cousin.
-   A wet board and two people who already named a morning. They shove.
+   Two people, a grudge, a wet board. A thief and a cousin. They shove.
    The puddle spreads. Everyone else walks. A tank takes the hit.
    No second HUD. Odds, speech, the till, boards that remember. */
 (function () {
@@ -327,8 +325,8 @@
         id: "k_row",
         sec: "The shop floor",
         t: "A row on the aisle",
-        tags: "brawl fight aisle grudge tavern shove wet dwarf row",
-        w: "<p>Dwarf Fortress taverns do not queue. Two dwarves, a grudge, a mug. Fin's aisle is the tavern. A thief and a cousin. A wet board and two people who already named a morning. They shove. The puddle spreads. Everyone else walks. A named one hits the glass and holds still.</p><p><b>What to do about it:</b> keep the boards dry. Stay on the aisle when a theft is open. Life names who shoved. The gold line does not cheer you.</p>",
+        tags: "brawl fight aisle grudge tavern shove wet row",
+        w: "<p>Fin's aisle is the tavern. A thief and a cousin. A wet board and two people who already named a morning. They shove. The puddle spreads. Everyone else walks. A named one hits the glass and holds still.</p><p><b>What to do about it:</b> keep the boards dry. Stay on the aisle when a theft is open. Life names who shoved. The gold line does not cheer you.</p>",
       });
     } catch (e) {}
   }
