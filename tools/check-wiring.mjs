@@ -1,77 +1,58 @@
-/* The layers are plain <script> tags. Nothing builds them, nothing resolves
-   them, and nothing notices when the list and the folder disagree.
+/* The layers live in src/layers/ and are bundled in the order src/pre.mjs and src/post.mjs import
+   them. Nothing resolves that list against the folder, so this does:
 
-   Three ways that goes wrong, all of which have to be caught before the page
-   is opened rather than after:
+     1. Every file in src/layers/ is imported by exactly one entry, exactly once. A layer nobody
+        imports is a file nobody runs; one imported twice runs twice.
+     2. Every import in an entry points at a file that is there.
+     3. index.html loads only files that exist in game/, and every script in game/ is loaded.
+     4. Each script tag's ?v= is the hash of the file it loads, so a returning player's cached copy
+        is replaced the moment the file changes. tools/build.mjs writes these; this catches a file
+        replaced (fins.js, say) without a rebuild.
 
-     1. index.html asks for a file that is not there. The tag 404s, the layer
-        never runs, and the game carries on without it.
-     2. A layer exists and no tag loads it. It is a file nobody runs. The
-        module order in index.html is the only list of what is in the build.
-     3. A layer changed and its ?v= did not. Returning players hold the cached
-        copy and the fix does not reach them. Only checked against a base ref,
-        so it runs on a pull request and stays quiet elsewhere. */
-import { readFileSync, readdirSync } from "node:fs";
-import { execFileSync } from "node:child_process";
+   Whether the committed bundles match src/ is tools/build.mjs --check. */
+import { createHash } from "node:crypto";
+import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 
 const GAME = "game";
-const INDEX = join(GAME, "index.html");
-const base = process.argv[2] || "";
+const LAYERS = "src/layers";
+const ENTRIES = ["src/pre.mjs", "src/post.mjs"];
 const problems = [];
 
-const html = readFileSync(INDEX, "utf8");
+const imported = new Map();
+for (const entry of ENTRIES) {
+  const text = readFileSync(entry, "utf8");
+  for (const m of text.matchAll(/^import\s+"\.\/layers\/([^"]+)";/gm)) {
+    const file = m[1];
+    if (!existsSync(join(LAYERS, file))) problems.push(`${entry} imports layers/${file}, which is not in ${LAYERS}/`);
+    if (imported.has(file)) problems.push(`layers/${file} is imported twice (${imported.get(file)} and ${entry})`);
+    else imported.set(file, entry);
+  }
+  const other = text.split("\n").filter((l) => /^\s*import\b/.test(l) && !/^import\s+"\.\/layers\/[^"]+";$/.test(l));
+  for (const l of other) problems.push(`${entry} has an import this check does not understand: ${l.trim()}`);
+}
+for (const file of readdirSync(LAYERS).filter((f) => f.endsWith(".js"))) {
+  if (!imported.has(file)) problems.push(`${LAYERS}/${file} exists but no entry imports it`);
+}
+
+const html = readFileSync(join(GAME, "index.html"), "utf8");
 const tags = [...html.matchAll(/<script\s+src="([^"]+)"\s*>\s*<\/script>/g)]
   .map((m) => m[1])
   .filter((src) => !/^https?:/.test(src));
-
-const wired = new Map();
+const loaded = new Set();
 for (const src of tags) {
   const [file, query = ""] = src.split("?");
-  wired.set(file, query);
-}
-
-const onDisk = readdirSync(GAME).filter((f) => f.endsWith(".js"));
-
-for (const file of wired.keys()) {
-  if (!onDisk.includes(file)) problems.push(`index.html loads ${file}, which is not in ${GAME}/`);
-}
-for (const file of onDisk) {
-  if (!wired.has(file)) problems.push(`${GAME}/${file} exists but no <script> tag loads it`);
-}
-
-if (base) {
-  let changed = [];
-  try {
-    changed = execFileSync("git", ["diff", "--name-only", `${base}...HEAD`], { encoding: "utf8" })
-      .split("\n")
-      .filter(Boolean);
-  } catch {
-    console.log(`  (no diff against ${base}; skipping the cache-bust check)`);
+  loaded.add(file);
+  const path = join(GAME, file);
+  if (!existsSync(path)) {
+    problems.push(`index.html loads ${file}, which is not in ${GAME}/`);
+    continue;
   }
-  if (changed.length) {
-    const indexChanged = changed.includes(INDEX);
-    const oldHtml = indexChanged
-      ? execFileSync("git", ["show", `${base}:${INDEX}`], { encoding: "utf8" })
-      : html;
-    const oldQuery = (file) => {
-      const m = oldHtml.match(new RegExp(`<script\\s+src="${file.replace(".", "\\.")}\\?([^"]*)"`));
-      return m ? m[1] : null;
-    };
-    for (const path of changed) {
-      if (!path.startsWith(`${GAME}/`) || !path.endsWith(".js")) continue;
-      const file = path.slice(GAME.length + 1);
-      if (!wired.has(file)) continue;
-      const now = wired.get(file);
-      const before = oldQuery(file);
-      if (before !== null && before === now) {
-        problems.push(
-          `${path} changed but its cache-bust in index.html is still ?${now}. ` +
-            `Anyone holding the old copy keeps it.`
-        );
-      }
-    }
-  }
+  const want = "v=" + createHash("sha256").update(readFileSync(path, "utf8")).digest("hex").slice(0, 10);
+  if (query !== want) problems.push(`index.html loads ${file}?${query}, but the file is ?${want} now. Run npm run build.`);
+}
+for (const file of readdirSync(GAME).filter((f) => f.endsWith(".js"))) {
+  if (!loaded.has(file)) problems.push(`${GAME}/${file} exists but no <script> tag loads it`);
 }
 
 if (problems.length) {
@@ -79,4 +60,4 @@ if (problems.length) {
   for (const p of problems) console.error(`  ${p}`);
   process.exit(1);
 }
-console.log(`Wiring: ${wired.size} layers loaded, ${onDisk.length} on disk, all accounted for.`);
+console.log(`Wiring: ${imported.size} layers imported once each, ${tags.length} scripts loaded, every ?v= current.`);

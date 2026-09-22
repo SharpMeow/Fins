@@ -1,11 +1,12 @@
-/* Parse every file that ships. The layers are loaded as plain <script> tags,
-   so a stray bracket in one of them is not a build error, it is a black page
-   with one line in a console nobody has open. */
+/* Parse every source file and every file that ships. esbuild would also stop
+   on a stray bracket in src/, but fins.js, the desktop wrapper and the tools are
+   not built, and there a stray bracket is a black page with one line in a
+   console nobody has open. */
 import { readdirSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { join } from "node:path";
 
-const dirs = ["game", "desktop", "tools"];
+const dirs = ["game", "src", "src/layers", "desktop", "tools"];
 const files = [];
 for (const dir of dirs) {
   let entries = [];
