@@ -1453,8 +1453,51 @@
         ctx.fill();
         ctx.restore();
       }
+      var town = { buf: null, args: null, w: 0, h: 0, hi: null, inHi: false, hooked: null };
+      function hookTownScreen() {
+        var tank = document.getElementById("tank");
+        var ctx = tank && tank.getContext && tank.getContext("2d");
+        if (!ctx || town.hooked === ctx) return;
+        town.hooked = ctx;
+        var drawImage = ctx.drawImage;
+        ctx.drawImage = function(img, dx, dy, dw, dh) {
+          if (img === town.buf && town.args && arguments.length === 5 && !town.inHi && dw > 0 && dh > 0) {
+            try {
+              var scale = Math.max(1, Math.min(4, Math.abs(this.getTransform().a)));
+              var pw = Math.round(dw * scale), ph = Math.round(dh * scale);
+              if (!town.hi) town.hi = document.createElement("canvas");
+              if (town.hi.width !== pw || town.hi.height !== ph) {
+                town.hi.width = pw;
+                town.hi.height = ph;
+              }
+              var g = town.hi.getContext("2d");
+              g.setTransform(pw / town.w, 0, 0, ph / town.h, 0, 0);
+              town.inHi = true;
+              try {
+                window.paintTownMap.apply(null, [g, town.w, town.h].concat(town.args));
+              } finally {
+                town.inHi = false;
+              }
+              return drawImage.call(this, town.hi, dx, dy, dw, dh);
+            } catch (e) {
+              town.inHi = false;
+            }
+          }
+          return drawImage.apply(this, arguments);
+        };
+      }
       window.paintTownMap = function(ctx, w, h, H, shop, places, selected, colors, jobs) {
         if (!ctx || !w || !h) return;
+        if (!town.inHi && ctx.canvas && !ctx.canvas.isConnected) {
+          town.buf = ctx.canvas;
+          town.w = w;
+          town.h = h;
+          town.args = Array.prototype.slice.call(arguments, 3);
+          try {
+            hookTownScreen();
+          } catch (e) {
+          }
+        }
         window.__townPlaces = places;
         window.__townSegs = streetSegs(places);
         var sx = shop && shop.x != null ? shop.x : 528;
