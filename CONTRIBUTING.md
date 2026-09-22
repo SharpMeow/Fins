@@ -34,3 +34,5 @@ Open an issue with what happened, what you expected, and your browser or the des
 ## License
 
 By contributing you agree that your contribution is licensed under the project's [PolyForm Small Business License 1.0.0](LICENSE).
+
+Open work, with what was measured and where to start, is in [docs/next-steps.md](docs/next-steps.md).
