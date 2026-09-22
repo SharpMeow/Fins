@@ -8,60 +8,17 @@ and every fish was drawn as a dark square. The opaque original is in git history
 (git show e7cf2ac:game/art/fish-atlas.png > fish-atlas-opaque.png) and this script regenerates
 game/art/fish-atlas.png from it.
 
-Per 256 px cell:
-  1. Background colour: the median of a band along the cell's edges (the fish never touch it).
-  2. Distance of every pixel from that colour, in a space that weights brightness and chroma.
-  3. Seeds are pixels far from the background; the fish is everything connected to a seed that is
-     still clearly off the background (hysteresis), closed over small gaps, with enclosed holes
-     filled (dark stripes and eyes inside the fish stay fish), keeping the largest piece.
-  4. The edge is feathered by a small blur, and edge pixels are un-mixed from the background so
-     no navy fringe is left on a light tank.
+Each 256 px cell is keyed on its own by key_cell() in tools/spritekey.py.
 """
+import os
 import sys
 import numpy as np
 from PIL import Image
-from scipy import ndimage as ndi
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from spritekey import key_cell  # noqa: E402
 
 CELL, CELLS = 256, 3
-
-
-def key_cell(rgb):
-    band = np.concatenate([rgb[:10].reshape(-1, 3), rgb[-10:].reshape(-1, 3), rgb[:, :10].reshape(-1, 3), rgb[:, -10:].reshape(-1, 3)])
-    bg = np.median(band, axis=0)
-    diff = rgb - bg
-    lum = diff @ np.array([0.299, 0.587, 0.114])
-    chroma = np.linalg.norm(diff - lum[..., None], axis=-1)
-    d = np.sqrt((lum * 1.4) ** 2 + chroma ** 2)
-    band_d = np.concatenate([d[:10].ravel(), d[-10:].ravel(), d[:, :10].ravel(), d[:, -10:].ravel()])
-    # The 90th percentile, not the maximum: a neighbouring fish that reaches into the band must not
-    # raise the bar for this one.
-    noise = np.percentile(band_d, 90)
-    seeds = d > max(0.22, noise * 3.5)
-    lo = max(0.075, noise * 1.5)
-    grow = d > lo
-    lab, n = ndi.label(grow)
-    keep = np.zeros(n + 1, bool)
-    keep[np.unique(lab[seeds])] = True
-    keep[0] = False
-    mask = keep[lab]
-    mask = ndi.binary_closing(mask, structure=np.ones((5, 5)), iterations=1)
-    mask = ndi.binary_fill_holes(mask)
-    lab, n = ndi.label(mask)
-    if n > 1:
-        sizes = ndi.sum(mask, lab, range(1, n + 1))
-        mask = lab == (1 + int(np.argmax(sizes)))
-    mask = ndi.binary_opening(mask, structure=np.ones((3, 3)))
-    # The painting's edges are ragged dark strokes that sit inside the mask at full strength and
-    # read as a navy outline on a light tank. On the outer 4 px only, opacity follows how far each
-    # pixel is from the background colour; inside that rim (dark stripes, eyes) the fish is solid.
-    rim = mask & ~ndi.binary_erosion(mask, iterations=4)
-    soft = np.clip((d - lo) / (lo * 2.5), 0, 1)
-    alpha = np.where(rim, soft, mask.astype(float))
-    alpha = ndi.gaussian_filter(alpha, 0.6)
-    alpha = np.where(mask | (alpha > 0.5), alpha, 0)
-    a = alpha[..., None]
-    fg = np.where(a > 0.02, (rgb - (1 - a) * bg) / np.maximum(a, 0.02), rgb)
-    return np.clip(fg, 0, 1), alpha, bg
 
 
 def main():
