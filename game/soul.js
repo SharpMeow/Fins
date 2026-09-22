@@ -124,12 +124,15 @@
     if (so.short.length && so.short[so.short.length - 1].s === text) return;
     so.short.push({ k: kind || "", s: String(text), y: year(), at: now() });
     if (so.short.length > 8) so.short.shift();
+    // 0 is a real value here (fully hardened), so only a missing one defaults to 0.5.
+    var tender = so.tender == null ? 0.5 : so.tender;
+    var brave = so.brave == null ? 0.5 : so.brave;
     if (kind === "death" || kind === "pinch" || kind === "ill") {
-      so.tender = Math.max(0, (so.tender || 0.5) - 0.06);
-      so.brave = Math.min(1, (so.brave || 0.5) + 0.04);
+      so.tender = Math.max(0, tender - 0.06);
+      so.brave = Math.min(1, brave + 0.04);
       so.dwell = text;
     } else if (kind === "gift" || kind === "plate" || kind === "bag") {
-      so.tender = Math.min(1, (so.tender || 0.5) + 0.04);
+      so.tender = Math.min(1, tender + 0.04);
       if (!so.dwell) so.dwell = text;
     }
   }
