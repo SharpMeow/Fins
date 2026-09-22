@@ -670,8 +670,10 @@
   })();
 
   var bloomReady = false;
-  function sampleBloom() {
+  function sampleBloom(t) {
     if (reduced || !bloomA) return;
+    // Reading back a tank frame that will not be painted is wasted work under a frame rate cap.
+    if (window.finsPace && t != null && !finsPace.shouldPaint(t)) return;
     var tank = document.getElementById("tank");
     if (!tank || !tank.width) return;
     bloomTick++;
@@ -1264,7 +1266,11 @@
     fishDrawn = 0;
     try { nudgeFish(dt, t); } catch (e) {}
     try { tickDrone(); } catch (e) {}
-    try { drawOverlay(now); } catch (e) {}
+    /* The overlay paints on the frames the tank paints on when a frame rate cap is set
+       (pace.js). The steps above still run every frame, on elapsed time. */
+    try {
+      if (!window.finsPace || finsPace.shouldPaint(now)) drawOverlay(now);
+    } catch (e) {}
   }
   requestAnimationFrame(frame);
 

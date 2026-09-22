@@ -153,11 +153,19 @@
     return false;
   }
 
+  /* The engine's own clock (jt in fins.js, not exported): a day is 1200 ticks of t, or the
+     computer's clock when the player picked real time. This used to read t % 2400, a day twice
+     as long, so the light here drifted out of step with the sky fins.js draws and went dark at
+     midday every other day. */
   function hour() {
     try {
       if (typeof jt === "function") return jt() * 24;
       var g = gs();
-      if (g && isFinite(g.t)) return (((g.t % 2400) + 2400) % 2400) / 100;
+      if (g && g.clock === "real") {
+        var d = new Date();
+        return d.getHours() + d.getMinutes() / 60;
+      }
+      if (g && isFinite(g.t)) return ((((g.t / 1200) % 1) + 1) % 1) * 24;
     } catch (e) {}
     return 12;
   }

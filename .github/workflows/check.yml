@@ -1,7 +1,7 @@
-# Nothing builds this game. The layers in game/ are loaded as plain <script>
-# tags, so whatever is in them is what runs, and a stray bracket is a black
-# page rather than a build error. This runs on every pull request and every
-# push to main so that a broken layer is caught here and not in the shop.
+# The layers in src/ are bundled into game/ by tools/build.mjs, and the bundles
+# are committed so game/ can be served or packaged as it is. This runs on every
+# pull request and every push to main so that a broken layer, or a bundle that
+# no longer matches its source, is caught here and not in the shop.
 name: check
 
 on:
@@ -17,8 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # The cache-bust check compares the branch against its base.
-          fetch-depth: 0
+          fetch-depth: 1
 
       - uses: actions/setup-node@v4
         with:
@@ -29,14 +28,17 @@ jobs:
       # on its own.
       - name: Tools
         run: |
-          npm install --no-save --no-audit --no-fund eslint@10.1.0 playwright@1.56.1
+          npm install --no-save --no-audit --no-fund eslint@10.1.0 playwright@1.56.1 esbuild@0.28.2
           npx playwright install --with-deps chromium
 
       - name: Syntax
         run: npm run check:syntax
 
+      - name: Build is current
+        run: npm run check:build
+
       - name: Wiring
-        run: node tools/check-wiring.mjs "${{ github.event.pull_request.base.sha }}"
+        run: npm run check:wiring
 
       - name: Lint
         run: npm run check:lint

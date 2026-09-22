@@ -24,7 +24,9 @@ You open in Year 1000. The tanks are already running. People come in off the str
 
 Most idle games are a number that goes up while you are in another tab. Fin's is a room you can fail in. The water has a temperature. The baker on the next block remembers the last fish bag. A named fish will not sell if it is holding too still. A thousand years of people already lived on this street before you hung the sign, and they did not stop when the clock hit present day.
 
-Source is private. [PolyForm Small Business 1.0.0](LICENSE).
+**[Play in your browser](https://sharpmeow.github.io/Fins/)** · [Download for Mac, Windows or Linux](https://github.com/SharpMeow/Fins/releases) · [Contribute](CONTRIBUTING.md)
+
+The source is public under [PolyForm Small Business 1.0.0](LICENSE): free to use, change and share if you are an individual, or if your company has fewer than 100 people and less than 1,000,000 USD of revenue in its prior tax year. The license has the details.
 
 ---
 
@@ -338,7 +340,7 @@ Boston is one port. Four more engines keep the rest of the continent. The choir 
 
 ## Three ways to play
 
-**In a tab.** Serve `game/` and open `index.html`. Same shop.
+**In a tab.** Play at [sharpmeow.github.io/Fins](https://sharpmeow.github.io/Fins/), which the **pages** workflow publishes from `main`. Or serve `game/` yourself and open `index.html`. Same shop.
 
 **As a window.** Chromium without the browser chrome. No tab sleeping. F11 is fullscreen. Mac, Windows, Linux — one source, three packages.
 
@@ -349,7 +351,7 @@ npm install
 npm start
 ```
 
-**As a download.** GitHub Actions builds the installers. Run the **desktop** workflow, or push a tag `v1.0.0`.
+**As a download.** Each version is on the [Releases](https://github.com/SharpMeow/Fins/releases) page. GitHub Actions builds the installers when a version tag such as `v1.0.0` is pushed, and attaches them to that release.
 
 | Machine | What you get |
 |---|---|
@@ -369,7 +371,7 @@ Fin's is a game you serve from a folder, not a package you install into somethin
 
 **Use it when** the work is this shop: the water, the street, the daybook, the run, the choir. When a change has to show up in play — odds, speech, a wet floor, a voice dropping — not in a tab that nobody opens.
 
-**Leave it when** you want a generic tycoon kit or a Store listing. The repo is private. The license is not a free-for-all.
+**Leave it when** you want a generic tycoon kit or a Store listing. The repo is public, but the license is not a free-for-all.
 
 If you are an agent:
 
@@ -384,10 +386,11 @@ If you are an agent:
 
 ### What has to be true before you push
 
-Nothing builds this game. `game/` is loaded as plain `<script>` tags in the order `index.html` lists them, so whatever is in a layer is what runs. A stray bracket is not a build error, it is a black page and one line in a console nobody has open.
+The layers live in `src/layers/`, one strict IIFE per file. `tools/build.mjs` bundles them with esbuild into the two scripts `game/` loads around `fins.js`: `game/layers-pre.js` before it and `game/layers-post.js` after. The bundles are committed, so `game/` can still be served or packaged exactly as it is. `fins.js` is itself built elsewhere and is not built here.
 
 ```bash
-npm run check:install   # once: eslint, and a headless chromium
+npm run check:install   # once: eslint, esbuild, and a headless chromium
+npm run build           # after any change in src/, or after replacing fins.js
 npm run check
 ```
 
@@ -395,16 +398,19 @@ That is the same thing GitHub Actions runs on every pull request and every push 
 
 | | What it catches |
 |---|---|
-| `check:syntax` | a file that does not parse, anywhere in `game/`, `desktop/` or `tools/` |
-| `check:wiring` | a layer nothing loads, a tag pointing at a file that is not there, and a layer that changed without its `?v=` moving |
+| `check:syntax` | a file that does not parse, anywhere in `game/`, `src/`, `desktop/` or `tools/` |
+| `check:build` | a committed bundle, or a `?v=` in `index.html`, that is not what the source builds to |
+| `check:wiring` | a layer no entry imports, one imported twice, a script tag pointing at a file that is not there, and a `?v=` that is not the hash of its file |
 | `check:lint` | the mistakes that are wrong rather than untidy. One rule per bug that has actually happened in here |
 | `check:boot` | the shop failing to open. It serves `game/`, starts a run in a real browser, walks past the opening cards, and fails on anything the page threw on the way |
 
-Three things worth knowing about that list.
+Four things worth knowing about that list.
 
-The `?v=` on each script tag is the only cache-busting there is. Change a layer, leave its number alone, and everyone still holding the old copy keeps it. That is why it is a check and not a convention.
+The load order is `src/pre.mjs` then `fins.js` then `src/post.mjs`, each entry importing its layers in the order they run. Those two files are the only record of what is in the build, so a layer that is not imported there is a file nobody runs, and the wiring check treats it as an error.
 
-The module order in `index.html` is the only record of what is in the build. A layer that is not in that list is a file nobody runs, so the wiring check treats it as an error rather than a spare part.
+Each layer is wrapped in its own `try` in the bundle. A layer that throws while it starts logs `Layer <name> failed to start` and takes down only itself, as it did when every layer was its own script tag. The boot check fails on that line.
+
+The `?v=` on each script tag is a hash of the file, written by the build. There is no number to remember to move any more; replace `fins.js` or change a layer without running the build and `check:build` stops.
 
 The lint is not a style sheet. Every rule in `eslint.config.mjs` is there because that class of mistake has shipped here, and each one carries the reason. `no-mixed-operators` is the clearest case: `overlay.width !== (w * dpr) | 0` reads as `(overlay.width !== w * dpr) | 0`, because `!==` binds tighter than `|`, and two different overlays were tearing down and rebuilding their canvas on every frame because of it.
 

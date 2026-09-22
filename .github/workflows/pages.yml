@@ -1,0 +1,47 @@
+# Publishes game/ to GitHub Pages so anyone can play in a browser. Runs on every push to main,
+# after confirming the committed layer bundles match src/. Pages has to be turned on once in
+# the repository settings: Settings, Pages, Source "GitHub Actions".
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build is current
+        run: |
+          npm install --no-save --no-audit --no-fund esbuild@0.28.2
+          npm run check:build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: game
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

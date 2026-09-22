@@ -10,7 +10,6 @@
   var lastGoldAt = 0;
   var lastSales = -1;
   var tillReady = false;
-  var lastRustD = -1;
   var didBrowse = false;
   var didChoir = false;
   var didStock = false;
@@ -90,10 +89,12 @@
 
   function rustDay() {
     var d = shopDay();
-    if (d === lastRustD) return;
-    lastRustD = d;
     if (d < 1) return;
     var st = state();
+    // Kept in the saved state, not a module variable, so a reload does not rust the hands a
+    // second time on the same day.
+    if (st.rustDay === d) return;
+    st.rustDay = d;
     var rusted = [];
     if (d - (st.lastBag || 0) >= 1) {
       st.bag = clamp01(st.bag - 0.07);

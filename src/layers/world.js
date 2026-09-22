@@ -12,7 +12,7 @@
   var shopBg = loadImg("art/shop-interior.jpg?v=5");
   var backBg = loadImg("art/back-room.jpg?v=2");
   var cityMap = loadImg("art/city-map.jpg?v=2");
-  var fishAtlas = loadImg("art/fish-atlas.png?v=3");
+  var fishAtlas = loadImg("art/fish-atlas.png?v=4");
   window.shopBg = shopBg;
   window.backBg = backBg;
   window.cityMap = cityMap;
@@ -348,8 +348,13 @@
     var bob = Math.sin(phase) * size * 0.045;
     var bank = Math.max(-0.22, Math.min(0.22, (f.vy || 0) / 420)) * dir;
     var aspect = crop ? crop.sw / Math.max(1, crop.sh) : 1.55;
-    var h = size * 1.18;
-    var w = h * Math.max(1.15, Math.min(2.1, aspect));
+    /* The atlas has a transparent background now (tools/key-fish-atlas.py), so the crop is the
+       fish itself and is sized by length: a fish of radius `size`, the radius the game moves and
+       clicks it by, is about 2.2 radii long with its fins, and as tall as its painting says.
+       The old crop was the whole painted cell, drawn 1.18 radii tall and clamped to 1.15 to 2.1
+       wide, and the fish filled a third to a half of that dark square. */
+    var w = size * 2.2;
+    var h = w / Math.max(0.6, Math.min(3.2, aspect));
     if (gulp > 0) {
       var gulpN = Math.sin(Math.min(1, gulp / 0.22) * Math.PI);
       w *= 1 + gulpN * 0.06;
@@ -480,6 +485,20 @@
     reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   } catch (e) {}
 
+  // How far to move things on this draw, in 60 Hz frames, from the caller's clock in seconds.
+  // Everything below used to step a fixed amount per draw, so it ran at whatever rate the screen
+  // refreshed: 2.4x fast on a 144 Hz panel, and nearly still when the browser draws slowly
+  // (measured 2.1 draws a second in headless Chromium). Capped so a long stall is one small step,
+  // not a jump. A second draw at the same time moves nothing.
+  var stepAt = Object.create(null);
+  function frameStep(key, t) {
+    var last = stepAt[key];
+    stepAt[key] = t;
+    if (last == null) return 1;
+    if (!(t > last)) return 0;
+    return Math.min(3, (t - last) * 60);
+  }
+
   function seedPool(pool, n, make) {
     while (pool.length < n) pool.push(make(pool.length));
     if (pool.length > n) pool.length = n;
@@ -597,7 +616,8 @@
     }
 
     var slant = ((wx.dir || 240) > 180 ? 1 : -1) * (0.12 + wind * 0.012 + gust * 0.02);
-    var dt = reduced ? 0.45 : 1;
+    var fs = frameStep("window", t);
+    var dt = (reduced ? 0.45 : 1) * fs;
 
     if (!snowing && rainAmt > 0.03) {
       var nRain = reduced ? 10 : Math.floor(16 + rainAmt * 40 + wind * 0.4);
@@ -646,7 +666,7 @@
       for (var s = 0; s < snow.length; s++) {
         var fl = snow[s];
         fl.y += fl.v * dt * (sleeting ? 1.6 : 1);
-        fl.x += Math.sin(t * 0.9 + fl.p) * 0.003 * dt + slant * 0.004;
+        fl.x += Math.sin(t * 0.9 + fl.p) * 0.003 * dt + slant * 0.004 * fs;
         if (fl.y > 1.08) {
           fl.y = -0.05;
           fl.x = Math.random();
@@ -669,7 +689,7 @@
       for (var g = 0; g < gustBits.length; g++) {
         var bit = gustBits[g];
         bit.x += bit.v * dt * (wind / 18) * (slant >= 0 ? 1 : -1);
-        bit.y += Math.sin(t * 2 + bit.p) * 0.002;
+        bit.y += Math.sin(t * 2 + bit.p) * 0.002 * fs;
         if (bit.x > 1.2) bit.x = -0.1;
         if (bit.x < -0.2) bit.x = 1.1;
         var bx = px + bit.x * pw;
@@ -688,7 +708,7 @@
         ctx.fillStyle = "rgba(210,230,255," + (flashT * 1.6).toFixed(3) + ")";
         ctx.fillRect(px, py, pw, ph);
         ctx.globalCompositeOperation = "source-over";
-        if (flashT > 0.12 && window.feel && feel.play && Math.random() < 0.18) {
+        if (flashT > 0.12 && window.feel && feel.play && Math.random() < 0.18 * fs) {
           try {
             feel.play("thud");
           } catch (e) {}
@@ -713,7 +733,7 @@
       ctx.lineWidth = 0.8;
       for (var b = 0; b < beads.length; b++) {
         var be = beads[b];
-        be.hold -= 0.016;
+        be.hold -= 0.016 * fs;
         if (be.hold < 0) be.y += be.v * dt;
         if (be.y > 0.96) {
           be.y = Math.random() * 0.2;
@@ -741,6 +761,7 @@
   }
 
   function drawShopRoomFx(ctx, x, y, w, h, t, wx) {
+    var rs = frameStep("room", t);
     var rainAmt = Math.max(0, wx.rain || 0);
     var fogAmt = Math.max(0, wx.fog || 0);
     var cloud = wx.cloud == null ? 0.3 : wx.cloud;
@@ -804,8 +825,8 @@
     ctx.fillStyle = "rgba(255,236,200,.55)";
     for (var m = 0; m < dust.length; m++) {
       var u = dust[m];
-      u.y -= u.v * (reduced ? 0.4 : 1);
-      u.x += Math.sin(t * 0.4 + u.p) * 0.00035;
+      u.y -= u.v * (reduced ? 0.4 : 1) * rs;
+      u.x += Math.sin(t * 0.4 + u.p) * 0.00035 * rs;
       if (u.y < -0.02) {
         u.y = 1.02;
         u.x = 0.12 + Math.random() * 0.76;
@@ -837,7 +858,7 @@
     });
     for (var s = 0; s < steam.length; s++) {
       var st = steam[s];
-      st.life += st.v;
+      st.life += st.v * rs;
       if (st.life > 1) {
         st.life = 0;
         st.x = 0.19 + Math.random() * 0.05;
@@ -912,6 +933,7 @@
     window.__shopTanks = tanks || [];
     if (!ctx || !tanks || !tanks.length) return;
     t = t || 0;
+    var ts = frameStep("tanks", t);
     wx = wx || {};
     var need = tanks.length * (reduced ? 5 : 9);
     seedPool(bubbles, need, function (i) {
@@ -980,7 +1002,7 @@
       for (var b = 0; b < bubbles.length; b++) {
         if (b % tanks.length !== i) continue;
         var bu = bubbles[b];
-        bu.v -= bu.sp;
+        bu.v -= bu.sp * ts;
         if (bu.v < 0) {
           bu.v = 1;
           bu.u = 0.08 + Math.random() * 0.84;
@@ -1260,8 +1282,62 @@
     ctx.restore();
   }
 
+  /* The Map scene. fins.js paints it into a buffer sized in CSS pixels, only when a key that moves
+     six times a second changes, and stretches that buffer onto the screen canvas. On a 2x screen
+     that doubles the photo's own blow-up, and the people on the map moved at 6 frames a second.
+     So the last arguments and the buffer are remembered here, and when fins.js draws that buffer
+     onto the screen, a buffer at the screen canvas's own scale is painted with the same arguments
+     and drawn in its place, on every frame the scene is drawn. If anything here fails, fins.js's
+     own buffer is drawn exactly as before. */
+  var town = { buf: null, args: null, w: 0, h: 0, hi: null, inHi: false, hooked: null };
+
+  function hookTownScreen() {
+    var tank = document.getElementById("tank");
+    // By the time the map is first painted, fins.js has created this context with its own options.
+    var ctx = tank && tank.getContext && tank.getContext("2d");
+    if (!ctx || town.hooked === ctx) return;
+    town.hooked = ctx;
+    var drawImage = ctx.drawImage;
+    ctx.drawImage = function (img, dx, dy, dw, dh) {
+      if (img === town.buf && town.args && arguments.length === 5 && !town.inHi && dw > 0 && dh > 0) {
+        try {
+          var scale = Math.max(1, Math.min(4, Math.abs(this.getTransform().a)));
+          var pw = Math.round(dw * scale), ph = Math.round(dh * scale);
+          if (!town.hi) town.hi = document.createElement("canvas");
+          if (town.hi.width !== pw || town.hi.height !== ph) {
+            town.hi.width = pw;
+            town.hi.height = ph;
+          }
+          var g = town.hi.getContext("2d");
+          g.setTransform(pw / town.w, 0, 0, ph / town.h, 0, 0);
+          town.inHi = true;
+          try {
+            window.paintTownMap.apply(null, [g, town.w, town.h].concat(town.args));
+          } finally {
+            town.inHi = false;
+          }
+          return drawImage.call(this, town.hi, dx, dy, dw, dh);
+        } catch (e) {
+          town.inHi = false;
+        }
+      }
+      return drawImage.apply(this, arguments);
+    };
+  }
+
   window.paintTownMap = function (ctx, w, h, H, shop, places, selected, colors, jobs) {
     if (!ctx || !w || !h) return;
+    // Only the scene's detached buffer is repainted at screen scale; the panel map (#swmap) is a
+    // canvas in the page and is left as fins.js sizes it.
+    if (!town.inHi && ctx.canvas && !ctx.canvas.isConnected) {
+      town.buf = ctx.canvas;
+      town.w = w;
+      town.h = h;
+      town.args = Array.prototype.slice.call(arguments, 3);
+      try {
+        hookTownScreen();
+      } catch (e) {}
+    }
     window.__townPlaces = places;
     window.__townSegs = streetSegs(places);
     var sx = shop && shop.x != null ? shop.x : 528;
@@ -1287,7 +1363,7 @@
       ctx.save();
       shaken = true;
       ctx.translate((Math.random() - 0.5) * sh * 16, (Math.random() - 0.5) * sh * 12);
-      window.__gunShake *= 0.86;
+      window.__gunShake *= Math.pow(0.86, frameStep("shake", now / 1000));
     }
     ctx.fillStyle = "#07141e";
     ctx.fillRect(0, 0, w, h);
@@ -1333,7 +1409,7 @@
       var shopV0 = toVSafe(sx, sy, w, h);
       ctx.arc(shopV0[0], shopV0[1], ring, 0, 7);
       ctx.stroke();
-      window.__gunFlash *= 0.84;
+      window.__gunFlash *= Math.pow(0.84, frameStep("flash", now / 1000));
     }
     if (window.__gunSiren) {
       var pulse = 0.5 + 0.5 * Math.sin(now / 180);
