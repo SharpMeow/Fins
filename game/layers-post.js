@@ -1,5 +1,56 @@
 /* Built by tools/build.mjs from src/post.mjs. Do not edit: change src/ and run npm run build. */
 (() => {
+  // src/layers/pace.js
+  try {
+    (function() {
+      "use strict";
+      var lastT = null;
+      var answer = true;
+      var prevT = null;
+      var sinceP = 0;
+      var monitorDt = 1 / 60;
+      function cap() {
+        try {
+          var g = typeof gameState === "function" ? gameState() : typeof gameState === "object" ? gameState : null;
+          var c = g ? +g.fpsCap : 0;
+          return c > 0 ? c : 0;
+        } catch (e) {
+          return 0;
+        }
+      }
+      function shouldPaint(t) {
+        if (t === lastT) return answer;
+        lastT = t;
+        var dt = prevT == null ? 0 : (t - prevT) / 1e3;
+        prevT = t;
+        if (dt > 0 && dt < 0.25) monitorDt += (dt - monitorDt) * 0.05;
+        var c = cap();
+        if (!c) {
+          sinceP = 0;
+          answer = true;
+          return answer;
+        }
+        sinceP += dt > 0 && dt < 0.25 ? dt : 0;
+        if (sinceP < 1 / c - monitorDt / 2) {
+          answer = false;
+          return answer;
+        }
+        sinceP = 0;
+        answer = true;
+        return answer;
+      }
+      window.finsPace = {
+        shouldPaint,
+        cap,
+        monitorHz: function() {
+          return Math.round(1 / monitorDt);
+        }
+      };
+    })();
+  } catch (e) {
+    console.error("Layer pace.js failed to start:", e);
+  }
+
   // src/layers/nn.js
   try {
     (function() {
@@ -1859,8 +1910,10 @@
           if (pellets[i].t >= pellets[i].dur) pellets.splice(i, 1);
         }
         if (busy()) {
-          draw();
-          painted = true;
+          if (!window.finsPace || finsPace.shouldPaint(t)) {
+            draw();
+            painted = true;
+          }
         } else if (painted) {
           syncOverlay();
           if (octx) octx.clearRect(0, 0, innerWidth, innerHeight);
@@ -2920,8 +2973,9 @@
         };
       })();
       var bloomReady = false;
-      function sampleBloom() {
+      function sampleBloom(t) {
         if (reduced || !bloomA) return;
+        if (window.finsPace && t != null && !finsPace.shouldPaint(t)) return;
         var tank = document.getElementById("tank");
         if (!tank || !tank.width) return;
         bloomTick++;
@@ -3507,7 +3561,7 @@
         } catch (e) {
         }
         try {
-          drawOverlay(now);
+          if (!window.finsPace || finsPace.shouldPaint(now)) drawOverlay(now);
         } catch (e) {
         }
       }

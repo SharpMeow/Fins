@@ -842,8 +842,11 @@
        second. Draw while there is something to draw, wipe once when there is
        not, then leave the canvas alone. */
     if (busy()) {
-      draw();
-      painted = true;
+      /* With a frame rate cap set, paint on the frames the tank paints on (pace.js). */
+      if (!window.finsPace || finsPace.shouldPaint(t)) {
+        draw();
+        painted = true;
+      }
     } else if (painted) {
       syncOverlay();
       if (octx) octx.clearRect(0, 0, innerWidth, innerHeight);
