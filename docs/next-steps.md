@@ -100,4 +100,11 @@ check in the running game before they are fixed.
 
 - JustLetMeRead PR #3 (release ZIP workflow) and PageArm PR #23 (release ZIP workflow): drafts,
   ready for review. Neither workflow runs until a `v*` tag is pushed.
-- music-field-manual (Docker): work was still in progress when this was written.
+- music-field-manual PR #3 (Dockerfile, compose.yaml, a CI job that builds and starts the
+  image): draft. The image was never built here because the sandbox had no Docker daemon, so the
+  PR's CI run is the first real build; check it before merging. One line changed in
+  `vite.config.ts` so the preset can be switched to a standalone Node server.
+- **Secret in music-field-manual:** `src/lib/auth/preview.ts` line 21 holds a hardcoded OAuth
+  client secret (`PREVIEW_CLIENT_SECRET`). The file calls it a low-privilege preview client.
+  If the repo is public, rotate it and move it to an environment variable. The value was not
+  copied anywhere.
