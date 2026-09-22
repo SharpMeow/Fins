@@ -248,7 +248,7 @@
       var shopBg = loadImg("art/shop-interior.jpg?v=5");
       var backBg = loadImg("art/back-room.jpg?v=2");
       var cityMap = loadImg("art/city-map.jpg?v=2");
-      var fishAtlas = loadImg("art/fish-atlas.png?v=3");
+      var fishAtlas = loadImg("art/fish-atlas.png?v=4");
       window.shopBg = shopBg;
       window.backBg = backBg;
       window.cityMap = cityMap;
@@ -612,8 +612,8 @@
         var bob = Math.sin(phase) * size * 0.045;
         var bank = Math.max(-0.22, Math.min(0.22, (f.vy || 0) / 420)) * dir;
         var aspect = crop ? crop.sw / Math.max(1, crop.sh) : 1.55;
-        var h = size * 1.18;
-        var w = h * Math.max(1.15, Math.min(2.1, aspect));
+        var w = size * 2.2;
+        var h = w / Math.max(0.6, Math.min(3.2, aspect));
         if (gulp > 0) {
           var gulpN = Math.sin(Math.min(1, gulp / 0.22) * Math.PI);
           w *= 1 + gulpN * 0.06;
