@@ -47,6 +47,13 @@
     return typeof performance !== "undefined" ? performance.now() / 1000 : Date.now() / 1000;
   }
 
+  // True if a stamp from now() is under secs old. now() restarts near 0 on every page load,
+  // and some of these stamps are saved, so an age below zero is from an earlier load: old.
+  function within(at, secs) {
+    var age = now() - at;
+    return age >= 0 && age < secs;
+  }
+
   function year() {
     try {
       if (window.saga && typeof saga.year === "function") return saga.year();
@@ -293,7 +300,7 @@
       try {
         if (window.desk && desk.coming) {
           var c = desk.coming();
-          if (c && c.arrived && now() - c.arrived < 8) m.need.quiet = clamp01(m.need.quiet - 0.02);
+          if (c && c.arrived && within(c.arrived, 8)) m.need.quiet = clamp01(m.need.quiet - 0.02);
         }
       } catch (eC) {}
       m.need.school = clamp01(m.need.school);
@@ -321,7 +328,10 @@
       var m = f && mindOf(f);
       if (m && m.mood) {
         busy = true;
-        if (t > m.mood.until) finishMood(f, m);
+        // A mood runs 18 to 32 s. until is saved and now() restarts near 0 on each page load,
+        // so one ending further off than that is from an earlier load; without this it held the
+        // fish unsellable for as long as the previous session had run.
+        if (t > m.mood.until || m.mood.until - t > 60) finishMood(f, m);
       }
     }
     if (busy) return;
@@ -437,13 +447,21 @@
   function drainSaga(f) {
     if (!f || !f._mem || !f._mem.length) return;
     var m = mindOf(f);
+    // _saw and the memory stamps come from now(), which restarts near 0 on each page load, and
+    // both are saved. A mark ahead of the clock is from an earlier load; so are records stamped
+    // ahead of it. Without this, no new memory reached the mind until the new session outlived
+    // the old one.
+    var t = now();
     var last = m._saw || 0;
+    if (last > t) last = 0;
+    var seen = last;
     for (var i = 0; i < f._mem.length; i++) {
       var rec = f._mem[i];
-      if (!rec || rec.at <= last) continue;
+      if (!rec || rec.at <= last || rec.at > t) continue;
       fileMem(f, rec.k, rec.s);
+      if (rec.at > seen) seen = rec.at;
     }
-    m._saw = f._mem[f._mem.length - 1].at || last;
+    m._saw = seen;
   }
 
   function wrapSaga() {

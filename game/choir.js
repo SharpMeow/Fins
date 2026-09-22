@@ -23,6 +23,7 @@
   var VOICE_N = 6;
   var wiredPtr = false;
   var lastLost = "";
+  var lostAt = -1e9;
   var lastSour = "";
   var didFish = false;
   var didBrowse = false;
@@ -542,8 +543,9 @@
       var n = lastNamed - w.named;
       lastNamed = w.named;
       var msg = n === 1 ? "The water lost a voice." : n + " voices left the water.";
-      if (msg !== lastLost) {
+      if (msg !== lastLost || now() - lostAt > 8) {
         lastLost = msg;
+        lostAt = now();
         because(msg);
         try {
           if (typeof k === "function") k(msg, "bad");
@@ -571,7 +573,7 @@
     if (w.fever > 0.42 && w.feverName) return w.feverName;
     if (w.boycott) return "The hall put the word out. The aisle is empty.";
     if (w.raised && w.watching) return "That one watched me. It shouldn't be here.";
-    if (lastLost && now() - lastTick < 8) return lastLost;
+    if (lastLost && now() - lostAt < 8) return lastLost;
     if (w.watching && w.named && sceneName() === "tank") return "They're watching the hand.";
     return "";
   }
@@ -636,7 +638,7 @@
           lastWhisper = wh;
           try {
             var el = document.getElementById("hookWhisper");
-            if (el && (w.beast > 0.12 || w.raised || lastLost)) {
+            if (el && (w.beast > 0.12 || w.raised || now() - lostAt < 8)) {
               el.textContent = wh;
               el.classList.add("on", "pop");
             }

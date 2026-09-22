@@ -498,7 +498,12 @@
   }
 
   function esc(s) {
-    return String(s || "").replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+    // The entities are split in two, as in saga.js, because this function once had them decoded
+    // back to the bare characters and mapped & < > to themselves, escaping nothing.
+    var map = { "&": "&" + "amp;", "<": "&" + "lt;", ">": "&" + "gt;", '"': "&" + "quot;" };
+    return String(s || "").replace(/[&<>"]/g, function (c) {
+      return map[c];
+    });
   }
 
   var BIOME_RGB = {
@@ -873,15 +878,27 @@
   }
 
 
+  // The painted terrain is cached here, not on the world. The world is saved, and a canvas
+  // saves as {}, so a cache kept on it came back after a reload as an empty object that passed
+  // the check and left the Atlas map blank.
+  var mapCv = null;
+  var mapKey = "";
+  var mapFor = null;
+
   function mapCanvas(w) {
+    if (w._mapCv || w._mapKey) {
+      delete w._mapCv;
+      delete w._mapKey;
+    }
     var key = "v5:" + String(w.seed) + ":" + (w.rivers && w.rivers.length) + ":" + (w.sites && w.sites.length);
-    if (w._mapKey === key && w._mapCv) return w._mapCv;
+    if (mapCv && mapFor === w && mapKey === key) return mapCv;
     var cv = document.createElement("canvas");
     cv.width = 960;
     cv.height = 640;
     paintTerrain(cv, w);
-    w._mapCv = cv;
-    w._mapKey = key;
+    mapCv = cv;
+    mapKey = key;
+    mapFor = w;
     return cv;
   }
 
@@ -1054,6 +1071,8 @@
         enhance();
       });
     }
+    // Delegated on the wrap, which outlives every innerHTML rebuild, so it is bound once. It used
+    // to be re-armed on each rebuild, which doubled the listeners on every row click.
     if (!wrap.__realmRows) {
       wrap.__realmRows = 1;
       wrap.addEventListener("click", function (e) {
@@ -1086,7 +1105,6 @@
     if (wrap.getAttribute("data-h") !== key) {
       wrap.innerHTML = html;
       wrap.setAttribute("data-h", key);
-      wrap.__realmRows = 0;
     }
     bindMap(wrap);
     try {

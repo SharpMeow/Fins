@@ -27,6 +27,13 @@
     return typeof performance !== "undefined" ? performance.now() / 1000 : Date.now() / 1000;
   }
 
+  // True if a stamp from now() is under secs old. now() restarts near 0 on every page load,
+  // and some of these stamps are saved, so an age below zero is from an earlier load: old.
+  function within(at, secs) {
+    var age = now() - at;
+    return age >= 0 && age < secs;
+  }
+
   function gs() {
     try {
       if (typeof gameState === "function") return gameState();
@@ -219,7 +226,7 @@
   function whoBought(sp) {
     try {
       var c = window.desk && desk.coming ? desk.coming() : null;
-      if (c && c.arrived && now() - c.arrived < 28) {
+      if (c && c.arrived && within(c.arrived, 28)) {
         return {
           who: c.name || bakerName(),
           whoKind: c.neighbor ? "neighbor" : "lunch",
@@ -259,12 +266,33 @@
     };
   }
 
+  // The atlas names a kind in one word (tetra, gold, angel, clown, cichlid) and a sale names it
+  // the shop's way (neon tetra, goldfish, angelfish, convict cichlid), so compare the word at
+  // the start of any word in the sold name rather than the whole string.
+  function kindIs(sold, want) {
+    sold = String(sold || "").toLowerCase();
+    want = String(want || "").toLowerCase();
+    if (!sold || !want) return false;
+    if (sold === want) return true;
+    var words = sold.split(/\s+/);
+    for (var i = 0; i < words.length; i++) if (words[i].indexOf(want) === 0) return true;
+    return false;
+  }
+
   function bumpWild(kind, dlt) {
     if (!kind) return;
     try {
       if (window.wild && wild.of) {
         var w = wild.of();
         if (w && w.pop) {
+          if (w.pop[kind] == null) {
+            for (var k in w.pop) {
+              if (kindIs(kind, k)) {
+                kind = k;
+                break;
+              }
+            }
+          }
           var cur = w.pop[kind];
           if (cur == null) cur = 0.45;
           w.pop[kind] = clamp01(cur + dlt);
@@ -410,7 +438,7 @@
     var st = state();
     var L = st.letter;
     if (!L.open || L.filled) return;
-    if (L.want && sp && String(sp).toLowerCase() === String(L.want).toLowerCase()) {
+    if (kindIs(sp, L.want)) {
       L.filled = true;
       L.open = false;
       var line = "The town was answered. A pair of " + L.want + " is on the water.";

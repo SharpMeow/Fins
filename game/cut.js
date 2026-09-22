@@ -12,7 +12,7 @@
   var lastUi = 0;
   var lastGold = "";
   var lastGoldAt = 0;
-  var lastBecause = 0;
+  var seenBecause = {};
   var overlay = null;
   var octx = null;
   var didBrowse = false;
@@ -128,16 +128,29 @@
     }
   }
 
+  // What landed at the end of a capped list since the last look. The list drops its oldest
+  // entry once it is full, so its length stops moving and cannot say what is new; the last
+  // record seen can. A different list object means a load or a new game, and the first look
+  // at it only notes where it ends, so a reload does not replay what the save already holds.
+  function since(mark, list) {
+    var last = list.length ? list[list.length - 1] : null;
+    if (mark.list !== list) {
+      mark.list = list;
+      mark.last = last;
+      return [];
+    }
+    if (last === mark.last) return [];
+    var at = mark.last ? list.lastIndexOf(mark.last) : -1;
+    mark.last = last;
+    return list.slice(at + 1);
+  }
+
   function watchBecause() {
     try {
       if (!window.weave || !weave.of) return;
-      var bec = weave.of().because || [];
-      if (bec.length <= lastBecause) {
-        if (!lastBecause) lastBecause = bec.length;
-        return;
-      }
-      var rec = bec[bec.length - 1];
-      lastBecause = bec.length;
+      var fresh = since(seenBecause, weave.of().because || []);
+      if (!fresh.length) return;
+      var rec = fresh[fresh.length - 1];
       if (rec && rec.s && !/^The glass cut it/.test(rec.s)) addCut(rec.s, false);
     } catch (e) {}
   }

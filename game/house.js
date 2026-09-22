@@ -206,6 +206,10 @@
     var hs = state();
     if (!hs.asked || hs.filled) return;
     if (shopDay() - (hs.day || 0) < 2) return;
+    // Once per shop day. This runs on a 1.5 s tick, and ungated it took the house to the
+    // prestige floor in seconds and rewrote the gold line every tick after that.
+    if (hs.missDay === shopDay()) return;
+    hs.missDay = shopDay();
     bump(hs.which, -0.16);
     var h = ofSurn(hs.which);
     if (h && (h.prestige || 0) < 0.22) {

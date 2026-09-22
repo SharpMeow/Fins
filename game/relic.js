@@ -10,7 +10,7 @@
   var lastUi = 0;
   var lastGold = "";
   var lastGoldAt = 0;
-  var lastArts = 0;
+  var seenArts = {};
   var overlay = null;
   var octx = null;
   var didBrowse = false;
@@ -133,14 +133,27 @@
     egg("relickey", st.window.n + " in the glass.");
   }
 
-  function watchArts() {
-    var list = arts();
-    if (list.length <= lastArts) {
-      if (!lastArts) lastArts = list.length;
-      return;
+  // What landed at the end of a capped list since the last look. The list drops its oldest
+  // entry once it is full, so its length stops moving and cannot say what is new; the last
+  // record seen can. A different list object means a load or a new game, and the first look
+  // at it only notes where it ends, so a reload does not replay what the save already holds.
+  function since(mark, list) {
+    var last = list.length ? list[list.length - 1] : null;
+    if (mark.list !== list) {
+      mark.list = list;
+      mark.last = last;
+      return [];
     }
-    var art = list[list.length - 1];
-    lastArts = list.length;
+    if (last === mark.last) return [];
+    var at = mark.last ? list.lastIndexOf(mark.last) : -1;
+    mark.last = last;
+    return list.slice(at + 1);
+  }
+
+  function watchArts() {
+    var fresh = since(seenArts, arts());
+    if (!fresh.length) return;
+    var art = fresh[fresh.length - 1];
     if (!art || !art.n) return;
     var st = state();
     if (st.window && st.window.n && st.window.n !== art.n) {

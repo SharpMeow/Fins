@@ -871,7 +871,7 @@
           escapeHtml(dd.n) +
           " · " +
           escapeHtml(dd.sp || "") +
-          (dd.y ? " · " + dd.y : "") +
+          (dd.y ? " · " + escapeHtml(dd.y) : "") +
           '</div><div class="d saga-thought">' +
           escapeHtml((dd.how ? dd.how + ". " : "") + (dd.last || "")) +
           (dd.saw && dd.saw[0] ? " " + escapeHtml(dd.saw[0]) + " saw it." : "") +
