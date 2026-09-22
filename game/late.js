@@ -28,6 +28,13 @@
     return typeof performance !== "undefined" ? performance.now() / 1000 : Date.now() / 1000;
   }
 
+  // True if a stamp from now() is under secs old. now() restarts near 0 on every page load,
+  // and some of these stamps are saved, so an age below zero is from an earlier load: old.
+  function within(at, secs) {
+    var age = now() - at;
+    return age >= 0 && age < secs;
+  }
+
   function gs() {
     try {
       if (typeof gameState === "function") return gameState();
@@ -502,7 +509,7 @@
 
   function whisper() {
     var st = state();
-    if (st.missed && st.missed.length && now() - (st.missedAt || 0) < 22) return st.missed[0];
+    if (st.missed && st.missed.length && within(st.missedAt || 0, 22)) return st.missed[0];
     if (lastGold && now() - lastGoldAt < 12) return lastGold;
     if (st.soldKept) {
       return "Where's the one " + st.keeper.n.split(" ")[0] + " kept?";

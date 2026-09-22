@@ -187,7 +187,10 @@
     if (s.aisleC < 12) note("The room is taking the street's cold.");
     if (s.aisleC > 24) note("Heat is pooling by the glass.");
 
-    if (wetMax > 0.22 && now() - (s._dripAt || 0) > 1.7) {
+    // _dripAt is saved and now() restarts near 0 on each page load, so a stamp ahead of the
+    // clock is from an earlier load. Without the second test it silenced the drip after a reload.
+    var dripAge = now() - (s._dripAt || 0);
+    if (wetMax > 0.22 && (dripAge > 1.7 || dripAge < 0)) {
       s._dripAt = now();
       try {
         if (window.feel && feel.play) feel.play("drip");

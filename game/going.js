@@ -27,6 +27,13 @@
     return typeof performance !== "undefined" ? performance.now() / 1000 : Date.now() / 1000;
   }
 
+  // True if a stamp from now() is under secs old. now() restarts near 0 on every page load,
+  // and some of these stamps are saved, so an age below zero is from an earlier load: old.
+  function within(at, secs) {
+    var age = now() - at;
+    return age >= 0 && age < secs;
+  }
+
   function gs() {
     try {
       if (typeof gameState === "function") return gameState();
@@ -219,7 +226,7 @@
   function whoBought(sp) {
     try {
       var c = window.desk && desk.coming ? desk.coming() : null;
-      if (c && c.arrived && now() - c.arrived < 28) {
+      if (c && c.arrived && within(c.arrived, 28)) {
         return {
           who: c.name || bakerName(),
           whoKind: c.neighbor ? "neighbor" : "lunch",
