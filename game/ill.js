@@ -11,7 +11,6 @@
   var lastUi = 0;
   var lastGold = "";
   var lastGoldAt = 0;
-  var lastDay = -1;
   var didBrowse = false;
   var didChoir = false;
   var didStock = false;
@@ -286,8 +285,13 @@
 
   function spreadDay() {
     var d = shopDay();
-    if (d === lastDay) return;
-    lastDay = d;
+    // Kept in the saved state, not a module variable, so a reload does not roll the day's
+    // spread again. Day 0 is skipped: the old per-page marker was always spent on the title
+    // screen, so a new game has never rolled a spread on its first day.
+    if (d < 1) return;
+    var st = state();
+    if (st.spreadDay === d) return;
+    st.spreadDay = d;
     var k = syn();
     if (!k) return;
     var hs = homes();
