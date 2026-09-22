@@ -9,7 +9,7 @@
   var lastUi = 0;
   var lastGold = "";
   var lastGoldAt = 0;
-  var lastDeadN = 0;
+  var seenDead = {};
   var overlay = null;
   var octx = null;
   var didBrowse = false;
@@ -141,19 +141,31 @@
     }
   }
 
+  // What landed at the end of a capped list since the last look. The list drops its oldest
+  // entry once it is full, so its length stops moving and cannot say what is new; the last
+  // record seen can. A different list object means a load or a new game, and the first look
+  // at it only notes where it ends, so a reload does not replay what the save already holds.
+  function since(mark, list) {
+    var last = list.length ? list[list.length - 1] : null;
+    if (mark.list !== list) {
+      mark.list = list;
+      mark.last = last;
+      return [];
+    }
+    if (last === mark.last) return [];
+    var at = mark.last ? list.lastIndexOf(mark.last) : -1;
+    mark.last = last;
+    return list.slice(at + 1);
+  }
+
   function watchDead() {
     var b = book();
-    var dead = (b && b.dead) || [];
-    if (dead.length <= lastDeadN) {
-      if (!lastDeadN) lastDeadN = dead.length;
-      return;
-    }
-    for (var i = lastDeadN; i < dead.length; i++) {
-      var d = dead[i];
+    var fresh = since(seenDead, (b && b.dead) || []);
+    for (var i = 0; i < fresh.length; i++) {
+      var d = fresh[i];
       if (!d || !d.n) continue;
       want(d.n, d.how || "died", d.street ? "the block" : "the shop", d.y, false);
     }
-    lastDeadN = dead.length;
   }
 
   function plateOne() {

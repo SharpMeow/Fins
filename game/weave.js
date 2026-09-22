@@ -6,9 +6,10 @@
   var lastTick = 0;
   var lastUi = 0;
   var lastSales = -1;
-  var lastDead = 0;
-  var lastArts = 0;
+  var seenDead = {};
+  var seenArts = {};
   var lastRaised = 0;
+  var raisedBook = null;
   var lastMissKey = "";
   var wired = false;
   var didBrowse = false;
@@ -224,6 +225,23 @@
     wired = true;
   }
 
+  // What landed at the end of a capped list since the last look. The list drops its oldest
+  // entry once it is full, so its length stops moving and cannot say what is new; the last
+  // record seen can. A different list object means a load or a new game, and the first look
+  // at it only notes where it ends, so a reload does not replay what the save already holds.
+  function since(mark, list) {
+    var last = list.length ? list[list.length - 1] : null;
+    if (mark.list !== list) {
+      mark.list = list;
+      mark.last = last;
+      return [];
+    }
+    if (last === mark.last) return [];
+    var at = mark.last ? list.lastIndexOf(mark.last) : -1;
+    mark.last = last;
+    return list.slice(at + 1);
+  }
+
   function watchWorld() {
     var w = state();
     var line = atlasLine();
@@ -239,20 +257,18 @@
       }
     }
     var b = book();
-    var deadN = (b.dead && b.dead.length) || 0;
-    if (deadN > lastDead) {
-      var d = b.dead[b.dead.length - 1];
-      lastDead = deadN;
+    var newDead = since(seenDead, b.dead || []);
+    if (newDead.length) {
+      var d = newDead[newDead.length - 1];
       if (d && d.n) {
         rumor("death", d.n + " is gone", 1.1);
         because(d.n + " died" + (d.how ? " (" + d.how + ")" : "") + ", and the tankmates will dwell on it.");
         bumpWord(-0.08);
       }
-    } else lastDead = deadN;
-    var arts = (b.arts && b.arts.length) || 0;
-    if (arts > lastArts) {
-      var art = b.arts[b.arts.length - 1];
-      lastArts = arts;
+    }
+    var newArts = since(seenArts, b.arts || []);
+    if (newArts.length) {
+      var art = newArts[newArts.length - 1];
       if (art && art.n) {
         rumor("art", art.n + " is in the shop", 1.3);
         because(art.n + " was made, so collectors started asking what was in the window.");
@@ -260,8 +276,13 @@
         nextLine = "Something new in the window.";
         nextUntil = now() + 20;
       }
-    } else lastArts = arts;
+    }
     var raised = (b.occ && b.occ.raised) || 0;
+    // A book not seen before is a load or a new game: its count is history, not news.
+    if (b !== raisedBook) {
+      raisedBook = b;
+      lastRaised = raised;
+    }
     if (raised > lastRaised) {
       lastRaised = raised;
       rumor("risen", "something came back from the pages", 2.2);
