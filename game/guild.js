@@ -4,7 +4,6 @@
   "use strict";
 
   var lastTick = 0;
-  var lastDues = -1;
   var lastToast = "";
   var didBrowse = false;
 
@@ -112,9 +111,13 @@
   function collectDues() {
     var st = state();
     var d = shopDay();
-    if (d === lastDues) return;
-    lastDues = d;
-    if (d % 7 !== 0) return;
+    // Kept in the saved state, not a module variable, so a reload on a dues day does not charge
+    // the dues a second time.
+    if (st.duesDay === d) return;
+    st.duesDay = d;
+    // Day 0 is skipped: the old per-page marker was always spent on the title screen, so a new
+    // game has never paid dues on its first day, and the opening stays that way.
+    if (d % 7 !== 0 || d === 0) return;
     var g = gs();
     if (!g) return;
     if ((g.coins || 0) >= st.dues) {
