@@ -175,6 +175,10 @@
     var hs = state();
     if (!hs.seen || hs.found) return;
     if (shopDay() - (hs.day || 0) < 2) return;
+    // Once per shop day. This runs on a 1.6 s tick, and ungated it took loyalty from 0.5 to
+    // the floor in about three seconds.
+    if (hs.missDay === shopDay()) return;
+    hs.missDay = shopDay();
     hs.loyal = Math.max(0.08, (hs.loyal || 0.5) - 0.22);
     if (hs.loyal < 0.22 && hs.last && /Haymarket/.test(hs.last)) return;
     if (hs.loyal < 0.22) {
