@@ -56,6 +56,28 @@
     return answer;
   }
 
+  function seedWiki() {
+    try {
+      var wiki = typeof WIKI === "function" ? WIKI() : window.WIKI;
+      if (!wiki || !wiki.push) return false;
+      for (var i = 0; i < wiki.length; i++) if (wiki[i] && wiki[i].id === "k_pace") return true;
+      wiki.push({
+        id: "k_pace",
+        sec: "Settings",
+        t: "Frame rate",
+        tags: "frame rate fps refresh hz vsync uncapped cap battery smooth settings monitor",
+        w: "<p>Settings, Frame rate. <b>Auto</b> is the default: the shop paints every time your monitor refreshes, at 60, 144 or 240 Hz alike, with no cap. A number caps it, which saves power on a laptop. A cap only changes how often the picture is painted: the fish swim, the rain falls and the money comes in at exactly the same speed at any frame rate.</p>",
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  (function seedSoon(tries) {
+    if (!seedWiki() && tries > 0) setTimeout(seedSoon, 500, tries - 1);
+  })(40);
+
   window.finsPace = {
     shouldPaint: shouldPaint,
     cap: cap,
