@@ -498,7 +498,12 @@
   }
 
   function esc(s) {
-    return String(s || "").replace(/&/g, "&").replace(/</g, "<").replace(/>/g, ">");
+    // The entities are split in two, as in saga.js, because this function once had them decoded
+    // back to the bare characters and mapped & < > to themselves, escaping nothing.
+    var map = { "&": "&" + "amp;", "<": "&" + "lt;", ">": "&" + "gt;", '"': "&" + "quot;" };
+    return String(s || "").replace(/[&<>"]/g, function (c) {
+      return map[c];
+    });
   }
 
   var BIOME_RGB = {
