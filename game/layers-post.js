@@ -15121,7 +15121,11 @@
         try {
           if (typeof jt === "function") return jt() * 24;
           var g = gs();
-          if (g && isFinite(g.t)) return (g.t % 2400 + 2400) % 2400 / 100;
+          if (g && g.clock === "real") {
+            var d = /* @__PURE__ */ new Date();
+            return d.getHours() + d.getMinutes() / 60;
+          }
+          if (g && isFinite(g.t)) return (g.t / 1200 % 1 + 1) % 1 * 24;
         } catch (e) {
         }
         return 12;
@@ -17737,7 +17741,11 @@
         try {
           if (typeof jt === "function") return jt() * 24;
           var g = gs();
-          if (g && isFinite(g.t)) return (g.t % 2400 + 2400) % 2400 / 100;
+          if (g && g.clock === "real") {
+            var d = /* @__PURE__ */ new Date();
+            return d.getHours() + d.getMinutes() / 60;
+          }
+          if (g && isFinite(g.t)) return (g.t / 1200 % 1 + 1) % 1 * 24;
         } catch (e) {
         }
         return 12;
