@@ -480,6 +480,20 @@
     reduced = !!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
   } catch (e) {}
 
+  // How far to move things on this draw, in 60 Hz frames, from the caller's clock in seconds.
+  // Everything below used to step a fixed amount per draw, so it ran at whatever rate the screen
+  // refreshed: 2.4x fast on a 144 Hz panel, and nearly still when the browser draws slowly
+  // (measured 2.1 draws a second in headless Chromium). Capped so a long stall is one small step,
+  // not a jump. A second draw at the same time moves nothing.
+  var stepAt = Object.create(null);
+  function frameStep(key, t) {
+    var last = stepAt[key];
+    stepAt[key] = t;
+    if (last == null) return 1;
+    if (!(t > last)) return 0;
+    return Math.min(3, (t - last) * 60);
+  }
+
   function seedPool(pool, n, make) {
     while (pool.length < n) pool.push(make(pool.length));
     if (pool.length > n) pool.length = n;
@@ -597,7 +611,8 @@
     }
 
     var slant = ((wx.dir || 240) > 180 ? 1 : -1) * (0.12 + wind * 0.012 + gust * 0.02);
-    var dt = reduced ? 0.45 : 1;
+    var fs = frameStep("window", t);
+    var dt = (reduced ? 0.45 : 1) * fs;
 
     if (!snowing && rainAmt > 0.03) {
       var nRain = reduced ? 10 : Math.floor(16 + rainAmt * 40 + wind * 0.4);
@@ -646,7 +661,7 @@
       for (var s = 0; s < snow.length; s++) {
         var fl = snow[s];
         fl.y += fl.v * dt * (sleeting ? 1.6 : 1);
-        fl.x += Math.sin(t * 0.9 + fl.p) * 0.003 * dt + slant * 0.004;
+        fl.x += Math.sin(t * 0.9 + fl.p) * 0.003 * dt + slant * 0.004 * fs;
         if (fl.y > 1.08) {
           fl.y = -0.05;
           fl.x = Math.random();
@@ -669,7 +684,7 @@
       for (var g = 0; g < gustBits.length; g++) {
         var bit = gustBits[g];
         bit.x += bit.v * dt * (wind / 18) * (slant >= 0 ? 1 : -1);
-        bit.y += Math.sin(t * 2 + bit.p) * 0.002;
+        bit.y += Math.sin(t * 2 + bit.p) * 0.002 * fs;
         if (bit.x > 1.2) bit.x = -0.1;
         if (bit.x < -0.2) bit.x = 1.1;
         var bx = px + bit.x * pw;
@@ -688,7 +703,7 @@
         ctx.fillStyle = "rgba(210,230,255," + (flashT * 1.6).toFixed(3) + ")";
         ctx.fillRect(px, py, pw, ph);
         ctx.globalCompositeOperation = "source-over";
-        if (flashT > 0.12 && window.feel && feel.play && Math.random() < 0.18) {
+        if (flashT > 0.12 && window.feel && feel.play && Math.random() < 0.18 * fs) {
           try {
             feel.play("thud");
           } catch (e) {}
@@ -713,7 +728,7 @@
       ctx.lineWidth = 0.8;
       for (var b = 0; b < beads.length; b++) {
         var be = beads[b];
-        be.hold -= 0.016;
+        be.hold -= 0.016 * fs;
         if (be.hold < 0) be.y += be.v * dt;
         if (be.y > 0.96) {
           be.y = Math.random() * 0.2;
@@ -741,6 +756,7 @@
   }
 
   function drawShopRoomFx(ctx, x, y, w, h, t, wx) {
+    var rs = frameStep("room", t);
     var rainAmt = Math.max(0, wx.rain || 0);
     var fogAmt = Math.max(0, wx.fog || 0);
     var cloud = wx.cloud == null ? 0.3 : wx.cloud;
@@ -804,8 +820,8 @@
     ctx.fillStyle = "rgba(255,236,200,.55)";
     for (var m = 0; m < dust.length; m++) {
       var u = dust[m];
-      u.y -= u.v * (reduced ? 0.4 : 1);
-      u.x += Math.sin(t * 0.4 + u.p) * 0.00035;
+      u.y -= u.v * (reduced ? 0.4 : 1) * rs;
+      u.x += Math.sin(t * 0.4 + u.p) * 0.00035 * rs;
       if (u.y < -0.02) {
         u.y = 1.02;
         u.x = 0.12 + Math.random() * 0.76;
@@ -837,7 +853,7 @@
     });
     for (var s = 0; s < steam.length; s++) {
       var st = steam[s];
-      st.life += st.v;
+      st.life += st.v * rs;
       if (st.life > 1) {
         st.life = 0;
         st.x = 0.19 + Math.random() * 0.05;
@@ -912,6 +928,7 @@
     window.__shopTanks = tanks || [];
     if (!ctx || !tanks || !tanks.length) return;
     t = t || 0;
+    var ts = frameStep("tanks", t);
     wx = wx || {};
     var need = tanks.length * (reduced ? 5 : 9);
     seedPool(bubbles, need, function (i) {
@@ -980,7 +997,7 @@
       for (var b = 0; b < bubbles.length; b++) {
         if (b % tanks.length !== i) continue;
         var bu = bubbles[b];
-        bu.v -= bu.sp;
+        bu.v -= bu.sp * ts;
         if (bu.v < 0) {
           bu.v = 1;
           bu.u = 0.08 + Math.random() * 0.84;
@@ -1287,7 +1304,7 @@
       ctx.save();
       shaken = true;
       ctx.translate((Math.random() - 0.5) * sh * 16, (Math.random() - 0.5) * sh * 12);
-      window.__gunShake *= 0.86;
+      window.__gunShake *= Math.pow(0.86, frameStep("shake", now / 1000));
     }
     ctx.fillStyle = "#07141e";
     ctx.fillRect(0, 0, w, h);
@@ -1333,7 +1350,7 @@
       var shopV0 = toVSafe(sx, sy, w, h);
       ctx.arc(shopV0[0], shopV0[1], ring, 0, 7);
       ctx.stroke();
-      window.__gunFlash *= 0.84;
+      window.__gunFlash *= Math.pow(0.84, frameStep("flash", now / 1000));
     }
     if (window.__gunSiren) {
       var pulse = 0.5 + 0.5 * Math.sin(now / 180);
