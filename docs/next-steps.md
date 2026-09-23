@@ -60,7 +60,21 @@ check in the running game before they are fixed.
    shared canvas that repaints only when something changes; turn night, rain, mood and siege
    into one colour grade; render the bloom at lower resolution as additive light
    (`mix-blend-mode: screen`); allocate feelfx only while an effect plays. Estimated 21 MiB.
-7. **Done in this pass:** the room and window light now follow the engine clock (commit
+7. **Click targets still assume the old photo.** The shop's click areas in fins.js (the window
+   on the left, and the "door onto Salem" at x 0.82 and beyond) were placed for the v4 photo. In
+   the v5 painting, the door on the right is the back-room door. The areas are defined in fins.js
+   (private source), so move them there, or cover them from a layer once the tank cards are
+   refitted.
+8. **Three more full-screen overlays are never freed.** sillVeil (street scene), wonderVeil and
+   siegeVeil (shop) are created when first needed, are the same full-screen size as the others
+   (about 19.8 MiB each at 2x), and stay allocated after their effect ends. They add to the
+   198 MiB in item 6 (about 257 MiB with all three). Fold them into the shared canvas from item 6,
+   or release them when their effect ends.
+9. **The italic story lines are faint.** The one-line story sentences (cutVeil, drawn by
+   `src/layers/cut.js`) sit under the techfx bloom overlay, which blurs and greys them. Draw them
+   above techfx, for example on the shared canvas from item 6 placed above it. They also fall back
+   to a serif font when Google Fonts does not load; give them a sans-serif fallback stack.
+10. **Done in this pass:** the room and window light now follow the engine clock (commit
    "Put the shop room and window light on the engine's clock").
 
 ## Graphics
@@ -98,12 +112,10 @@ check in the running game before they are fixed.
 
 ## Other repositories
 
-- JustLetMeRead PR #3 (release ZIP workflow) and PageArm PR #23 (release ZIP workflow): drafts,
-  ready for review. Neither workflow runs until a `v*` tag is pushed.
-- music-field-manual PR #3 (Dockerfile, compose.yaml, a CI job that builds and starts the
-  image): draft. The image was never built here because the sandbox had no Docker daemon, so the
-  PR's CI run is the first real build; check it before merging. One line changed in
-  `vite.config.ts` so the preset can be switched to a standalone Node server.
+- JustLetMeRead PR #3 and PageArm PR #23 (release ZIP workflows) are merged. Neither workflow
+  runs until a `v*` tag is pushed.
+- music-field-manual PR #3 (Dockerfile, compose.yaml, a CI job that builds and starts the image)
+  is merged. Its CI job built and started the image on GitHub.
 - **Secret in music-field-manual:** `src/lib/auth/preview.ts` line 21 holds a hardcoded OAuth
   client secret (`PREVIEW_CLIENT_SECRET`). The file calls it a low-privilege preview client.
   If the repo is public, rotate it and move it to an environment variable. The value was not
