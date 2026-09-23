@@ -35,8 +35,10 @@ function createWindow() {
 
   win.once("ready-to-show", () => win.show());
   win.loadFile(gameFile());
+  // Only web links leave the app. openExternal hands the URL to the OS, which will also run
+  // file:, smb: and custom-protocol handlers, so anything else is dropped.
   win.webContents.setWindowOpenHandler(({ url }) => {
-    shell.openExternal(url);
+    if (/^https?:\/\//i.test(url)) shell.openExternal(url);
     return { action: "deny" };
   });
 

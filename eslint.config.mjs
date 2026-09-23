@@ -1,15 +1,17 @@
 /* What the checks are allowed to fail you for.
    Not a style sheet. Every rule here is one that catches code that is wrong
-   rather than code that is untidy, because the layer files are loaded as plain
-   <script> tags with no build step: whatever is in them is what runs. */
+   rather than code that is untidy. The bundler only joins the layers; it does
+   not check them, so whatever is in src/layers/ is what runs. */
 export default [
   {
-    ignores: ["game/fins.js", "node_modules/**", "dist/**"],
+    ignores: ["game/fins.js", "game/layers-*.js", "node_modules/**", "dist/**"],
   },
   {
-    files: ["game/*.js"],
+    files: ["src/layers/*.js"],
     languageOptions: {
       ecmaVersion: 2021,
+      /* Each layer is one strict IIFE. They are bundled as modules, but written as scripts, and
+         parsing them as scripts is what keeps a stray top-level declaration a lint question. */
       sourceType: "script",
       globals: { window: "readonly", document: "readonly", globalThis: "readonly" },
     },
@@ -96,7 +98,7 @@ export default [
     },
   },
   {
-    files: ["tools/*.mjs", "eslint.config.mjs"],
+    files: ["tools/*.mjs", "src/*.mjs", "eslint.config.mjs"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<!-- Without this a phone lays the page out 980 px wide and the narrow-screen rules below never apply. -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fin's</title>
 <!-- An inline icon: without one every load asked the server for favicon.ico and logged a 404. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%2307111c'/%3E%3Cpath d='M3.5 12c3-3.6 6-5.4 9-5.4 2.2 0 4.2.9 5.8 2.4L21 6.6l-.8 5.4.8 5.4-2.7-2.4c-1.6 1.5-3.6 2.4-5.8 2.4-3 0-6-1.8-9-5.4Z' fill='%23f4c453'/%3E%3Ccircle cx='15.6' cy='11.2' r='1' fill='%2307111c'/%3E%3C/svg%3E">
@@ -1056,7 +1058,8 @@ body.cb .toast.good,body.cb .toast.gold{border-left-color:#0072b2}body.cb .toast
 #speedpill{display:none;margin-left:8px;background:rgba(244,196,83,.16);color:var(--gold);border:1px solid rgba(244,196,83,.5);border-radius:999px;padding:2px 9px;font:800 11px var(--body);cursor:pointer}
 body.work #palette .pal-card{background:#fff;color:#1f2328}body.work #palIn{color:#1f2328}
 #dtitle{text-transform:capitalize}
-.realm-map{font:11px/1.15 ui-monospace,Menlo,Consolas,monospace;background:#07111c;color:#c9d6c2;padding:10px;overflow:auto;max-height:280px;letter-spacing:0;white-space:pre;border-radius:6px;margin:8px 0}
+.realm-map-wrap{margin:8px 0;border-radius:8px;overflow:hidden;background:#f3ead4;border:1px solid rgba(90,70,40,.18)}
+.realm-map{display:block;width:100%;height:auto;background:#f3ead4;border-radius:8px;image-rendering:auto}
 #hookWhisper{color:var(--gold);font:700 12px/1.2 Nunito,sans-serif;letter-spacing:.02em;max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;opacity:0;transition:opacity .25s ease;flex:0 1 22ch;min-width:0}
 #hookWhisper.on{opacity:.92}
 #hookWhisper.pop{animation:hookPop .45s ease}
@@ -1071,6 +1074,13 @@ body.work #palette .pal-card{background:#fff;color:#1f2328}body.work #palIn{colo
 .know-desk{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
 .know-card{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.03)}
 .know-card .n{color:var(--gold)}
+.know-toc{cursor:pointer}
+.know-toc:hover .n,.know-art[data-know-art]:hover .n{color:var(--gold)}
+.know-open .d{line-height:1.55}
+.know-lanes{display:flex;flex-wrap:wrap;gap:6px}
+.realm-map{cursor:pointer}
+.realm-dossier{margin:8px 0 12px;padding:8px 10px;border:1px solid rgba(90,70,40,.18);border-radius:8px;background:rgba(243,234,212,.04)}
+[data-realm-site]{cursor:pointer}
 </style>
 
 <div id="welcome"><div class="card"><h1>Welcome back</h1><p id="wtext"></p><button class="buy go" id="wok">Open the shop</button></div></div>
@@ -1098,81 +1108,10 @@ body.work #palette .pal-card{background:#fff;color:#1f2328}body.work #palIn{colo
   <button class="tt-back" id="ttBack">Back to the title</button>
 </div>
 
-<script src="sound.js?v=1"></script>
-<script src="glass.js?v=2"></script>
-<script src="world.js?v=41"></script>
-<script src="folk.js?v=22"></script>
-<script src="fins.js?v=47"></script>
-<script src="nn.js?v=2"></script>
-<script src="feel.js?v=10"></script>
-<script src="tech.js?v=10"></script>
-<script src="life.js?v=25"></script>
-<script src="saga.js?v=16"></script>
-<script src="mind.js?v=4"></script>
-<script src="occult.js?v=8"></script>
-<script src="stock.js?v=10"></script>
-<script src="know.js?v=4"></script>
-<script src="weave.js?v=6"></script>
-<script src="live.js?v=3"></script>
-<script src="desk.js?v=24"></script>
-<script src="hook.js?v=21"></script>
-<script src="flow.js?v=3"></script>
-<script src="site.js?v=5"></script>
-<script src="realm.js?v=2"></script>
-<script src="geo.js?v=1"></script>
-<script src="wild.js?v=1"></script>
-<script src="road.js?v=2"></script>
-<script src="tongue.js?v=2"></script>
-<script src="beast.js?v=2"></script>
-<script src="faith.js?v=1"></script>
-<script src="rumor.js?v=2"></script>
-<script src="guild.js?v=3"></script>
-<script src="fever.js?v=1"></script>
-<script src="craft.js?v=1"></script>
-<script src="room.js?v=2"></script>
-<script src="choir.js?v=3"></script>
-<script src="going.js?v=5"></script>
-<script src="late.js?v=3"></script>
-<script src="pane.js?v=4"></script>
-<script src="sill.js?v=3"></script>
-<script src="kin.js?v=4"></script>
-<script src="relic.js?v=3"></script>
-<script src="ill.js?v=3"></script>
-<script src="mark.js?v=3"></script>
-<script src="pinch.js?v=3"></script>
-<script src="soul.js?v=3"></script>
-<script src="hand.js?v=3"></script>
-<script src="cut.js?v=7"></script>
-<script src="wane.js?v=3"></script>
-<script src="spiral.js?v=3"></script>
-<script src="blood.js?v=3"></script>
-<script src="stray.js?v=3"></script>
-<script src="row.js?v=3"></script>
-<script src="mask.js?v=3"></script>
-<script src="age.js?v=3"></script>
-<script src="hold.js?v=3"></script>
-<script src="lord.js?v=3"></script>
-<script src="great.js?v=3"></script>
-<script src="wonder.js?v=3"></script>
-<script src="envoy.js?v=3"></script>
-<script src="vow.js?v=3"></script>
-<script src="siege.js?v=3"></script>
-<script src="pact.js?v=3"></script>
-<script src="lux.js?v=3"></script>
-<script src="spy.js?v=3"></script>
-<script src="seat.js?v=3"></script>
-<script src="house.js?v=3"></script>
-<script src="wed.js?v=3"></script>
-<script src="heir.js?v=3"></script>
-<script src="bent.js?v=3"></script>
-<script src="plot.js?v=3"></script>
-<script src="hush.js?v=3"></script>
-<script src="bond.js?v=3"></script>
-<script src="claim.js?v=3"></script>
-<script src="fray.js?v=3"></script>
-<script src="feast.js?v=3"></script>
-<script src="ward.js?v=3"></script>
-<script src="gyve.js?v=3"></script>
-<script src="fief.js?v=3"></script>
+<!-- The layers are bundled from src/ by tools/build.mjs, which also stamps each ?v= with a hash of
+     the file. Do not edit these by hand: run npm run build. -->
+<script src="layers-pre.js?v=b1961c69e2"></script>
+<script src="fins.js?v=471022f5eb"></script>
+<script src="layers-post.js?v=a8b6931d33"></script>
 </body>
 </html>
