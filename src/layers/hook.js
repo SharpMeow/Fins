@@ -588,7 +588,19 @@
     if (h.combo > h.best) {
       h.best = h.combo;
       if (h.best >= 3) {
-        say(h.best + " fish bags. A run.", "gold");
+        var day = 0;
+        try {
+          var g = gs();
+          if (g && isFinite(g.t)) day = Math.floor((((g.t % 1e9) + 1e9) % 1e9) / 2400);
+        } catch (eDay) {}
+        var letterOpen = false;
+        try {
+          var L = window.going && going.letter && going.letter();
+          letterOpen = !!(L && L.open && !L.filled);
+        } catch (eL) {}
+        /* Juice can beat the letter for a moment on a later day. It does not
+           keep the first morning. The letter, the pair, the packed filter do. */
+        if (day > 0 && !letterOpen) say(h.best + " fish bags. A run.", "gold");
         markEgg("bagrun", h.best + " fish bags without a miss.");
       }
     }

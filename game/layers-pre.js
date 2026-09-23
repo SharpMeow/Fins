@@ -255,7 +255,7 @@
       var TANK_KEYS = ["planted", "goldfish", "reef", "betta", "cichlid", "shrimp", "discus", "quarantine"];
       var tankPlates = {};
       for (var ti = 0; ti < TANK_KEYS.length; ti++) {
-        tankPlates[TANK_KEYS[ti]] = loadImg("art/tanks/" + TANK_KEYS[ti] + ".jpg?v=2");
+        tankPlates[TANK_KEYS[ti]] = loadImg("art/tanks/" + TANK_KEYS[ti] + ".jpg?v=3");
       }
       var tankLooks = {
         ocean: loadImg("art/looks/ocean.jpg?v=1"),
@@ -486,7 +486,8 @@
       };
       var plateCrops = {};
       function plateCrop(key, w, h) {
-        var img = tankPlates[key];
+        var img = tankPlates[key] || tankPlates.planted;
+        if (!img || !img.complete || !img.naturalWidth) img = tankPlates.planted;
         if (!img || !img.complete || !img.naturalWidth) return null;
         var dpr = window.__finsGlass && window.__finsGlass.dpr || window.devicePixelRatio || 1;
         var need = Math.min(1024, Math.ceil(w * dpr / 128) * 128);
